@@ -9,20 +9,11 @@
    or numbering the semantic values that we manipulate. *)
 
 (* Grammer specification*)
-  %token <int> INT
-  %token PLUS MINUS TIMES DIV
-  %token LPAREN RPAREN
-  %token EOL
-
-  %token LET IN 
-  %token MATCH WITH BAR 
-  %token IF THEN ELSE
-  %token <bool> TRUE FALSE
-  %token OR AND DBLEQUAL NOTEQUAL 
-  %token EQUAL LTHAN GTHAN LEQUAL GEQUAL 
-  %token COLON ARROW SHARP
-  %token FUNC_DECLAR FUNC
-
+   %token <int> INT
+   %token PLUS MINUS TIMES DIV
+   %token LPAREN RPAREN
+   %token EOL
+   
 
   (*====Wys Token Start====*)
   %token ASSEC ASPAR
@@ -84,7 +75,7 @@ let expr_assec :=
     ~ = expr_const; ~= expr_var; <EASSEC>
   )
 let expr_box :=  
-  | BOX ; IDENT ; <> // box prin value
+  | BOX ; IDENT ; <>// box prin value
   | located (
     ~ = expr_var; <EBOX>
   ) 
@@ -99,17 +90,6 @@ let expr_var := IDENT
    let expr ==
      additive_expr
    
-
-   let expr_let := 
-    | LET ; expr_assign ; <>
-    | located (
-
-    )
-   let expr_assign := 
-   | IDENT ; EQUAL ; expr
-    let expr_letin := 
-    | LET ; expr_assign ; in ; expr
-
    (* An additive expression is
    
       either a multiplicative expression,

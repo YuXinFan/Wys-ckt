@@ -22,10 +22,3 @@ and raw_expr =
 | EAPAR of expr * expr
 | ECONST of id
 | EFUNC of id
-| EBOX
-| UNBOX 
-| MKWIRE
-| PROJWIRE
-| CONCATWIRE
-| MKSH
-| COMBSH
