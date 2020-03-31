@@ -9,30 +9,88 @@
    or numbering the semantic values that we manipulate. *)
 
 (* Grammer specification*)
-  %token <int> INT
-  %token PLUS MINUS TIMES DIV
-  %token LPAREN RPAREN
-  %token EOL
+%token <bytes> BYTEARRAY
+%token <string> STRING
+%token <string> IDENT
+%token <string> NAME
+%token <string> TVAR
+%token <string> TILDE
 
-  %token LET IN 
-  %token MATCH WITH BAR 
-  %token IF THEN ELSE
-  %token <bool> TRUE FALSE
-  %token OR AND DBLEQUAL NOTEQUAL 
-  %token EQUAL LTHAN GTHAN LEQUAL GEQUAL 
-  %token COLON ARROW SHARP
-  %token FUNC_DECLAR FUNC
+%token <string * bool> INT8
+%token <string * bool> INT16
+%token <string * bool> INT32
+%token <string * bool> INT64
+%token <string * bool> INT
+%token <string> RANGE
+
+%token <string> UINT8
+%token <string> UINT16
+%token <string> UINT32
+%token <string> UINT64
+%token <float> IEEE64
+%token <string> REAL
+%token <char> CHAR
+%token <bool> LET
+(* symbol *)
+%token ADD SUB DIV MUL MOD 
+%token GT LT GE LE EQ NE 
+%token DOT COMMA
+%token COLON COLON_COLON SEMICOLON SEMICOLON_SEMICOLON 
+%token LPAREN_RPAREN LPAREN RPAREN
+(* keyword *)
+%token IF ELSE THEN 
+%token MATCH WITH 
+%token IN REC 
+%token TRUE FALSE
+%token TYPE VAL OF
+%token FUNCTION FUN 
+%token OPEN MODULE END
+%token LARROW RARROW LPAREN RPAREN LPAREN_RPAREN 
+%token REQUIRES ENSURES
+(* fstar raw *)
+%token IRREDUCIBLE UNFOLDABLE INLINE OPAQUE ABSTRACT UNFOLD INLINE_FOR_EXTRACTION
+%token NOEXTRACT
+%token NOEQUALITY UNOPTEQUALITY PRAGMALIGHT PRAGMA_SET_OPTIONS PRAGMA_RESET_OPTIONS PRAGMA_PUSH_OPTIONS PRAGMA_POP_OPTIONS PRAGMA_RESTART_SOLVER
+%token TYP_APP_LESS TYP_APP_GREATER SUBTYPE SUBKIND BY
+%token AND ASSERT SYNTH BEGIN 
+%token EXCEPTION  DEFAULT
+%token FRIENDTRY  CALC CLASS INSTANCE EFFECT 
+%token INCLUDE
+%token WHEN HASH AMP  LONG_LEFT_ARROW 
+%token IFF IMPLIES CONJUNCTION DISJUNCTION
+%token QMARK_DOT
+%token QMARK
+%token  EQUALS PERCENT_LBRACK LBRACK_AT DOT_LBRACK DOT_LENS_PAREN_LEFT DOT_LPAREN DOT_LBRACK_BAR LBRACK LBRACK_BAR LBRACE BANG_LBRACE
+%token BAR_RBRACK UNDERSCORE LENS_PAREN_LEFT LENS_PAREN_RIGHT
+%token BAR RBRACK RBRACE DOLLAR
+%token PRIVATE REIFIABLE REFLECTABLE REIFY RANGE_OF SET_RANGE_OF LBRACE_COLON_PATTERN PIPE_RIGHT
+%token NEW_EFFECT SUB_EFFECT LAYERED_EFFECT POLYMONADIC_BIND SPLICE SQUIGGLY_RARROW TOTAL
+%token MINUS COLON_EQUALS QUOTE BACKTICK_AT BACKTICK_HASH
+%token BACKTICK UNIV_HASH
+%token BACKTICK_PERC
+
+%token EOF
+
+%nonassoc THEN
+%nonassoc ELSE
+%nonassoc COLON_EQUALS
+
+%right COLON_COLON
+%right AMP
+%left     BACKTICK
+%left     BACKTICK_AT BACKTICK_HASH
+%left     PIPE_RIGHT
 
 
-  (*====Wys Token Start====*)
-  %token ASSEC ASPAR
-  %token MKWIRE PROJWIRE CONCATWIRE 
-  %token BOX UNBOX
-  %token SEAL "seal"
-  %token REVEAL "reveal"
-  %token FFI "ffi"
-  %token IDENT
-  (*====Wys Token End====*)
+
+(*====Wys Token Start====*)
+%token ASSEC ASPAR
+%token MKWIRE PROJWIRE CONCATWIRE 
+%token BOX UNBOX
+%token SEAL "seal"
+%token REVEAL "reveal"
+%token FFI "ffi"
+(*====Wys Token End====*)
 
    %start <Syntax.expr> main
   (* Header  %{...}% *)
@@ -40,16 +98,52 @@
    
    %%
    
-   (* -------------------------------------------------------------------------- *)
-   
-   (* We wish to parse an expression followed with an end-of-line. *)
-   
-   let main :=
+     let main :=
      ~ = expr; EOL; <>
+   
+   let binop == 
+   | ADD;    {Syntax.Add}
+   | SUB;    {Syntax.Sub}
+   | DIV;    {Syntax.Div}
+   | MUL;    {Syntax.Mul}
+   | MOD;    {Syntax.Mod}
+   | LE;     {Syntax.Le}
+   | GE;     {Syntax.Ge}
+   | LT;     {Syntax.Lt}
+   | GT;     {Syntax.Gt}
+   | EQ;     {Syntax.Eq}
+   | NE;     {Syntax.Ne}
+
+  let func_args = 
+  | (* none *) {[]}  
+  | arg = IDENT; args = func_args {arg::args}
+
+   let letbinding :=
+  let expr := 
+  | UNIT;       { Syntax.Unit}
+  | TRUE:       {Syntax.True}
+  | False;      {Syntax.False}
+  | i = INT;      {Syntax.Int(i)}
+  | id = IDENT;   {Syntax.Id(id)}
+  (* expr binop expr *)
+  | left = expr; op = binop; right = expr
+    { Syntax.Op (op, left, right) }
+  (* ( <expression> ) *)
+  | LPARENS; e = expr ;RPARENS
+    { e }
+  | IF; predicat = expr; THEN ; then_expr = expr;
+    ELSE;  else_expr = expr; 
+    { Syntax.If (predicat, if_expr, else_expr) }
+  | LET; id = ID; EQUALS; dec = expr; IN; body = expr;
+    { Syntax.Let (id, dec, body) }
+  | left = expr; SEMICOLON; right = expr
+    { Syntax.Seq (left, right) }
+
+
    
    (* An Wys block is a as_sec*)
 
-   let expr :=
+   let expr_wys :=
     | expr_aspar    
     | expr_assec    
     | expr_box      
@@ -130,11 +224,7 @@ let expr_var := IDENT
          ~ = additive_expr; ~ = additive_op; ~ = multiplicative_expr; <EBinOp>
        )
    
-   (* These are the additive operators and their meaning. *)
-   
-   let additive_op ==
-     | PLUS;  { OpPlus }
-     | MINUS; { OpMinus }
+
    
    (* A multiplicative expression is either an atomic expression or the
       application of a multiplicative operator to two subexpressions. *)
@@ -144,12 +234,7 @@ let expr_var := IDENT
      | located(
          ~ = multiplicative_expr; ~ = multiplicative_op; ~ = atomic_expr; <EBinOp>
        )
-   
-   (* These are the multiplicative operators and their meaning. *)
-   
-   let multiplicative_op ==
-     | TIMES; { OpTimes }
-     | DIV;   { OpDiv }
+
    
    (* An atomic expression is one of:
       an expression between parentheses,
@@ -166,12 +251,6 @@ let expr_var := IDENT
        | ~ = INT; <ELiteral>
        | ~ = unary_op; ~ = atomic_expr; <EUnOp>
        )
-   
-   (* These are the unary operators and their meaning. *)
-   
-   let unary_op ==
-     | MINUS; { OpNeg }
-   
    (* -------------------------------------------------------------------------- *)
    
    (* [located(x)] recognizes the same input fragment as [x] and wraps its
