@@ -1,3 +1,5 @@
+
+
 type id = string 
 
 let string_of_id (ident : id) : string = ident 
@@ -9,15 +11,17 @@ type expr =
   raw_expr located
 
 and raw_expr =
-| Unit 
+| Unit of unit
 | False 
 | True
 | Int of int
 | Id of string 
 | Op of (op * expr * expr)
 | Apply of (id * expr list)
-| If of (expr * expr * expr)
-| Let of (id * expr * expr)
+| Ifelse of (expr * expr *expr)
+| If of (expr * expr)
+| Letin of (id * expr * expr)
+| Let of (id * expr)
 | Seq of (expr * expr)
 | Fun of (id * id list * expr)
 | Lambda of ( id list * expr)
@@ -52,7 +56,7 @@ let string_of_op (op_: op) = match op_ with
 
 
 let rec string_of_expr e = match e.value with
-| Unit -> "()"
+| Unit () -> "()"
 | False -> "false"
 | True -> "true"
 | Int i -> string_of_int i 
@@ -64,14 +68,20 @@ let rec string_of_expr e = match e.value with
 | Apply (id, args) -> Printf.sprintf "(%s %s)"
   (string_of_id id) 
   (List.map string_of_expr args |> String.concat " ")
-| If (cond, then_, else_) -> Printf.sprintf "if (%s) then {%s} else {%s}"
+| If (cond, then_) -> Printf.sprintf "if (%s) then (%s)"
+  (string_of_expr cond)
+  (string_of_expr then_)
+| Ifelse (cond, then_, else_) -> Printf.sprintf "if (%s) then {%s} else {%s}"
   (string_of_expr cond)
   (string_of_expr then_)
   (string_of_expr else_)
-| Let (id, e, body) -> Printf.sprintf "Let %s = %s in %s"
+| Letin (id, e, body) -> Printf.sprintf "Let %s = %s in %s"
   (string_of_id id )
   (string_of_expr e)
   (string_of_expr body) 
+| Let (id , e) -> Printf.sprintf "Let %s = %s "
+  (string_of_id id)
+  (string_of_expr e)
 | Seq (e1, e2) -> Printf.sprintf "%s ; %s"
   (string_of_expr e1) 
   (string_of_expr e2)

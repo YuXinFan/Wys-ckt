@@ -20,7 +20,7 @@
 %token <string * bool> INT16
 %token <string * bool> INT32
 %token <string * bool> INT64
-%token <string * bool> INT
+%token <int> INT
 %token <string> RANGE
 
 %token <string> UINT8
@@ -30,22 +30,22 @@
 %token <float> IEEE64
 %token <string> REAL
 %token <char> CHAR
-%token <bool> LET
+
 (* symbol *)
 %token ADD SUB DIV MUL MOD 
 %token GT LT GE LE EQ NE 
 %token DOT COMMA
 %token COLON COLON_COLON SEMICOLON SEMICOLON_SEMICOLON 
-%token LPAREN_RPAREN LPAREN RPAREN
+%token LARROW RARROW LPAREN_RPAREN LPAREN RPAREN
 (* keyword *)
+%token MODULE OPEN BIG_START_NAME  END 
 %token IF ELSE THEN 
 %token MATCH WITH 
-%token IN REC 
-%token TRUE FALSE
+%token LET IN REC 
+%token <bool> TRUE FALSE
 %token TYPE VAL OF
 %token FUNCTION FUN 
-%token OPEN MODULE END
-%token LARROW RARROW LPAREN RPAREN LPAREN_RPAREN 
+
 %token REQUIRES ENSURES
 (* fstar raw *)
 %token IRREDUCIBLE UNFOLDABLE INLINE OPAQUE ABSTRACT UNFOLD INLINE_FOR_EXTRACTION
@@ -98,15 +98,33 @@
    
    %%
    
-     let main :=
-     ~ = expr; EOL; <>
+   main :
+   | program EOF { program }
+
+   program :
+   | MODULE BIG_START_NAME list(OPEN BIG_START_NAME) program_decl [END]
+    {program_decl}
+
+   program_decl:
+   | decl_letbinding
+   | decl_typedefine
+   | decl_expr
+
+   decl_expr:
+   |
+
+   (* let main :=
+   | MODULE 
+     ~ = expr; EOF; <>
    
-   let binop == 
+   let arith_op == 
    | ADD;    {Syntax.Add}
    | SUB;    {Syntax.Sub}
    | DIV;    {Syntax.Div}
    | MUL;    {Syntax.Mul}
    | MOD;    {Syntax.Mod}
+
+   let comp_op ==
    | LE;     {Syntax.Le}
    | GE;     {Syntax.Ge}
    | LT;     {Syntax.Lt}
@@ -114,35 +132,107 @@
    | EQ;     {Syntax.Eq}
    | NE;     {Syntax.Ne}
 
-  let func_args = 
-  | (* none *) {[]}  
-  | arg = IDENT; args = func_args {arg::args}
+   let bool_op == 
+   | AND ; {}
 
-   let letbinding :=
+  func_args:
+   | (* none *) {[]}  
+   | arg = IDENT; args = func_args; {arg::args}
+
   let expr := 
-  | UNIT;       { Syntax.Unit}
-  | TRUE:       {Syntax.True}
-  | False;      {Syntax.False}
-  | i = INT;      {Syntax.Int(i)}
-  | id = IDENT;   {Syntax.Id(id)}
-  (* expr binop expr *)
-  | left = expr; op = binop; right = expr
-    { Syntax.Op (op, left, right) }
   (* ( <expression> ) *)
-  | LPARENS; e = expr ;RPARENS
-    { e }
-  | IF; predicat = expr; THEN ; then_expr = expr;
-    ELSE;  else_expr = expr; 
-    { Syntax.If (predicat, if_expr, else_expr) }
-  | LET; id = ID; EQUALS; dec = expr; IN; body = expr;
-    { Syntax.Let (id, dec, body) }
-  | left = expr; SEMICOLON; right = expr
-    { Syntax.Seq (left, right) }
+  | delimited(LPAREN, expr, RPAREN)
+  | expr_unit
+  | expr_bool
+  | expr_int
+  | expr_bin
+  | expr_if
+  | expr_letin 
+  | expr_let
+  | expr_seq
 
+  let expr_unit :=
+  | located (
+    unit = LPAREN_RPAREN;  {Syntax.Unit(unit)}
+  ) 
 
-   
-   (* An Wys block is a as_sec*)
+  let expr_bool :=
+  | bool_true
+  | bool_false
 
+  let bool_true :=
+  | located (
+    TRUE ;
+    {Syntax.True}
+  )
+
+  let bool_false :=
+  | located (
+    FALSE;
+    {Syntax.False}
+  )
+  let expr_int :=
+  | located (
+    var = INT;
+    {Syntax.Int(var)}
+  )
+  
+  let expr_var :=
+  | located (
+    id = IDENT; 
+    {Syntax.Id(id)}
+  )
+  (* expr binop expr *)
+  let expr_bin :=
+  | bin_arith
+  | bin_comp
+
+  let bin_arith :=
+  | located (
+      left = expr; op_ = arith_op; right = expr;
+        { Syntax.Op (op_, left, right) }
+  )
+
+  let bin_comp :=
+  | located (
+      left = expr; op_ = comp_op; right = expr;
+        { Syntax.Op (op_, left, right) }
+  )
+  let expr_if :=
+  | if_then_no_else 
+  | if_then_else
+
+  let if_then_no_else :=
+  | located (
+    IF ; cond = expr ; THEN ; e1 = expr ; 
+    { Syntax.If (cond, e1)}
+  )
+  
+  let if_then_else :=
+  | located (
+      IF ; cond = expr ; THEN ; e1 = expr ; ELSE ; e2 = expr ;
+    { Syntax.Ifelse (cond , e1, e2)}
+  )
+
+  
+
+  let expr_seq := 
+  | located (
+    left = expr; SEMICOLON; right = expr; {Syntax.Seq(left, right)}
+  )
+
+  let expr_letin :=
+  | located(
+      LET; ident = IDENT; EQ ; expr1 = expr ; IN ; expr2 = expr ; 
+        { Syntax.Letin (ident, expr1, expr2)}
+  )
+  let expr_let :=
+  | located (
+    LET; ident = IDENT; EQ ; expr1 = expr ; 
+    { Syntax.Let (ident, expr1)}
+  )  *)
+   (* An Wys block is a as_sec or as_par*)
+(* 
    let expr_wys :=
     | expr_aspar    
     | expr_assec    
@@ -151,7 +241,7 @@
     | expr_mkwire   
     | expr_projwire  
     | expr_concatwire 
-    | E_concatwire
+    | E_concatwire *)
     (* TODO 
   | E_mksh      : e:exp -> exp
   | E_combsh    : e:exp -> exp
@@ -167,6 +257,8 @@
   | E_cond      : e:exp -> e1:exp -> e2:exp -> exp
   *)
 
+
+(** 
 let expr_aspar := 
   | ASPAR; IDENT ; IDENT; <>  (*as_par prins func*)
   | located (
@@ -193,16 +285,6 @@ let expr_var := IDENT
    let expr ==
      additive_expr
    
-
-   let expr_let := 
-    | LET ; expr_assign ; <>
-    | located (
-
-    )
-   let expr_assign := 
-   | IDENT ; EQUAL ; expr
-    let expr_letin := 
-    | LET ; expr_assign ; in ; expr
 
    (* An additive expression is
    
@@ -256,6 +338,7 @@ let expr_var := IDENT
    (* [located(x)] recognizes the same input fragment as [x] and wraps its
       semantic value of type ['a] as a value of type ['a located]. *)
    
-   let located(x) ==
+ 
+   **)
+     let located(x) ==
      ~ = x; { { loc = $loc; value = x } }
-   

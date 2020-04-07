@@ -4,27 +4,28 @@ let string_of_option z = match z with
 | Some c -> c
 | None -> ""
 
-let rec showAST (e : expr ) =
-  match e.value with 
-  | ELiteral i -> Printf.printf " %d " i
-  | EBinOp (e1, binop, e2) ->  
-    let op_name = match binop with 
-      | OpPlus -> "+"
-      | OpMinus -> "-"
-      | OpDiv -> "/"
-      | OpTimes -> "*" in Printf.printf "(" ; showAST e1 ;   Printf.printf " %s " op_name ; showAST e2; Printf.printf ")"
-  | EUnOp (OpNeg, e) -> Printf.printf " - "; showAST e  
+let rec string_of_decls  (ds: decl list) = match ds with 
+| [] -> Printf.sprintf "()"
+| [d] -> (
+  match d with 
+  | Open m -> Printf.sprintf "Open %s" m 
+  | Val (m, _) -> Printf.sprintf "Val %s" m
+)
+| hd::tl ->  string_of_decls [hd] ^ string_of_decls tl
 
-let rec interpret (e : expr) =
-  string_of_expr e
+let string_of_program t = match t with 
+| Module (m, ds) -> Printf.printf "module %s %s" m (string_of_decls ds) 
+
+let interpret (e : prog) =
+  string_of_program e 
 
 let process (line : string) =
-  Printf.printf "Read File:\n %s" line;
+  Printf.printf "Read File:\n %s \nAST:\n" line;
   let linebuf = Lexing.from_string line in
   try
     (* Run the parser on this line of input. *)
     (* Printf.printf "%d\n%!" (interpret (Parser.main Lexer.token linebuf)) *)
-    showAST (Parser.main Lexer.token linebuf)
+    interpret (Parser.prog Lexer.token linebuf)
   with
   | Lexer.Error msg ->
       Printf.fprintf stderr "%s%!" msg
@@ -52,5 +53,8 @@ let rec read_file (buf : string) (channel)=
   if continue then
     read_file channel *)
 
-let () =
-  read_file "" (Lexing.from_channel stdin)
+let main () = 
+read_file "" (Lexing.from_channel stdin) ;;
+
+main ()
+  
