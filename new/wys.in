@@ -2,3 +2,6 @@ module Wys
 
 open Fstar
 
+let alice_s = singleton Alice
+let bob_s = singleton Bob
+let ab = union alice_s bob_s

@@ -123,7 +123,16 @@ decl:
 
 rawDecl:
   | OPEN uid=quident
-    {Open uid}
+    {DOpen uid}
+  | LET REC x=ident EQ e1=expr 
+    {DLet (true, x, e1)}
+  | LET x=ident EQ e1=expr 
+    {DLet (false, x, e1)}
+expr:
+  | x=ident 
+    {EVar x}
+  | e1=expr e2=expr 
+    {EApp (e1, e2)}  
 
 
 /******************************************************************************/
@@ -144,8 +153,8 @@ path(Id):
   | uid=uident DOT p=path(Id) { uid::p }
 
 ident:
-  | x=lident { x }
-  | x=uident  { x }
+  | x=lident { VVar x }
+  | x=uident  { VVar x }
 
 lident:
   | id=IDENT { mk_ident(id)}

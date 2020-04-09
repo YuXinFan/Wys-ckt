@@ -4,17 +4,108 @@ let string_of_option z = match z with
 | Some c -> c
 | None -> ""
 
+let rec string_of_binder (b : binders) = match b with 
+| BValueBinder (id, t) -> let str_type = string_of_type t in 
+    Printf.sprintf "(%s, %s)" id str_type 
+| BValue id -> Printf.sprintf "%s" id 
+
+and string_of_binders bs = let map = List.map string_of_binder bs in 
+  let result = String.concat ";;" map in 
+    result  
+
+and string_of_type (t : types ) = match t with 
+| TVar id -> Printf.sprintf "(%s)" id  
+| TConst id -> Printf.sprintf "(%s)" id 
+| TDependent (id, t1, t2) -> let str_t1 = string_of_type t1 in 
+    let str_t2 = string_of_type t2 in 
+      Printf.sprintf "(%s : %s -> %s)"  id str_t1 str_t2 
+| TDependentRefine (id, t1, fo, t2) -> let str_t1 = string_of_type t1 in 
+    let str_fo = string_of_formula fo in 
+      let str_t2 = string_of_type t2 in 
+        Printf.sprintf "(%s : %s {%s} -> %s)" id str_t1 str_fo str_t2 
+| TRefine (id, t, fo) ->  let str_t = string_of_type t in 
+    let str_fo = string_of_formula fo in 
+        Printf.sprintf "(%s : %s {%s})" id str_t str_fo  
+| TFun (b, t) -> let str_b = string_of_binder b in 
+    let str_t = string_of_type t in 
+      Printf.sprintf "(Fun %s -> %s)" str_b str_t 
+
+and string_of_formula  = fun _ -> ""
+
+and string_of_value (v : values) = match v with 
+| VFun (b, e) -> let str_b = string_of_binder b in 
+    let str_e = string_of_expr e in 
+      Printf.sprintf "Fun %s = %s" str_b str_e
+| VVar lid -> Printf.sprintf "(&Value %s)" lid 
+| VConst lid ->  Printf.sprintf "%s" lid 
+
+and string_of_branch (bran : branchs) = match bran with 
+| Bar (p, e) -> let str_p = string_of_pattern p in 
+    let str_e = string_of_expr e in 
+      Printf.sprintf "(|%s -> %s)" str_p str_e 
+
+and string_of_branchs (brans : branchs list) = 
+  let map = List.map string_of_branch brans in 
+    let result = String.concat "\n" map in 
+      "{\n"^result^"}"  
+
+and string_of_pattern (p : patterns) = match p with 
+| PAny -> Printf.sprintf "_" 
+| PBinder b -> let str_b = string_of_binder b in 
+    Printf.sprintf "%s" str_b 
+
+and string_of_tdef (t:tdefs) = match t with 
+| TTdef td -> let str_td = string_of_tdecl td in 
+    Printf.sprintf "%s" str_td 
+| TTabbr (td, t) -> let str_td = string_of_tdecl td in 
+    let str_t = string_of_type t in 
+      Printf.sprintf "(%s = %s)" str_td str_t 
+
+and string_of_tdecl (td:tdecls) = match td with 
+| TType t -> let str_t = string_of_type t in 
+    Printf.sprintf "(%s)" str_t    
+| TTypebinder  (t, tbs) -> let str_t = string_of_type t in 
+    let str_tbs = string_of_binders tbs in 
+      Printf.sprintf "(type %s %s)" str_t str_tbs 
+ 
+and string_of_expr (e : exprs) = match e with 
+| EVar v -> let str_v = string_of_value v in 
+    Printf.sprintf " %s " str_v 
+| EApp (e1, e2) -> let str_e1 = string_of_expr e1 in 
+    let str_e2 = string_of_expr e2 in 
+      Printf.sprintf " (&App %s %s) " str_e1 str_e2 
+| ELet (v, e1, e2) -> let str_v = string_of_value v in 
+    let str_e1 = string_of_expr e1 in 
+      let str_e2 = string_of_expr e2 in 
+        Printf.sprintf "(let %s = %s in %s)" str_v str_e1 str_e2 
+| EMatch (e, bran) -> let str_e = string_of_expr e in 
+    let str_bran = string_of_branchs bran in 
+      Printf.sprintf "(match %s with %s)" str_e str_bran 
+| EAssert f -> let str_f = string_of_formula f in 
+    Printf.sprintf "(Assert %s)" str_f 
+| EProj (e, id) -> let str_e = string_of_expr e in 
+    Printf.sprintf "(%s.%s)" str_e id 
+| EAssign (e1, e2) -> let str_e1 = string_of_expr e1 in 
+    let str_e2 = string_of_expr e2 in 
+      Printf.sprintf " (%s := %s) " str_e1 str_e2 
+
+and string_of_decl d = match d with 
+| DOpen m -> Printf.sprintf "(Open %s)" m 
+| DVal (m, _) -> Printf.sprintf "(Val %s)" m
+| DLet (b, v, e) -> let str_v = (string_of_value v) in 
+    let str_e = (string_of_expr e) in 
+      let str_rec = if b = true then "rec " else "" in 
+        Printf.sprintf "(Let %s%s = %s)" str_rec str_v str_e 
+| DType t -> let str_t = string_of_tdef t in 
+    Printf.sprintf "(%s)" str_t 
+
 let rec string_of_decls  (ds: decl list) = match ds with 
 | [] -> Printf.sprintf "()"
-| [d] -> (
-  match d with 
-  | Open m -> Printf.sprintf "Open %s" m 
-  | Val (m, _) -> Printf.sprintf "Val %s" m
-)
-| hd::tl ->  string_of_decls [hd] ^ string_of_decls tl
+| [d] -> string_of_decl d 
+| hd::tl ->  string_of_decls [hd] ^"\n"^ string_of_decls tl
 
 let string_of_program t = match t with 
-| Module (m, ds) -> Printf.printf "module %s %s" m (string_of_decls ds) 
+| Module (m, ds) -> Printf.printf "{\n(module %s)\n{\n%s\n}\n}" m (string_of_decls ds) 
 
 let interpret (e : prog) =
   string_of_program e 

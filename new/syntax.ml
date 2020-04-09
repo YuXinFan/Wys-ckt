@@ -18,7 +18,7 @@ b ::=
   | 'a          //Unascribed binder 
 *)
 type binders = 
-| BValueBinder of lid * types 
+| BValueBinder of lid * types    
 | BValue of lid 
 
 
@@ -36,8 +36,8 @@ type binders =
 and types = 
 | TVar of lid 
 | TConst of lid 
-| TDependent of lid * types
-| TDependentRefine of lid * types * formulas 
+| TDependent of lid * types * types 
+| TDependentRefine of lid * types * formulas * types 
 | TRefine of lid * types * formulas 
 | TFun of binders * types 
 
