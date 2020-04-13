@@ -37,15 +37,15 @@
 
 (* symbol *)
 %token ADD SUB DIV MUL MOD 
-%token GT LT GE LE EQ NE 
+%token GT LT GE LE EQ NE BEQ 
 %token DOT COMMA
 %token COLON COLON_COLON SEMICOLON SEMICOLON_SEMICOLON 
 %token LARROW RARROW LPAREN_RPAREN LPAREN RPAREN ARROW
-
+%token ANY // _
 %token DBLEQUAL // == 
 %token NOTEQUAL // !=
 (* keyword *)
-%token MODULE OPEN BIG_START_NAME  END 
+%token MODULE OPEN END 
 %token IF ELSE THEN 
 %token MATCH WITH 
 %token LET IN REC 
@@ -54,6 +54,9 @@
 %token OR AND 
 
 %token REQUIRES ENSURES
+
+(* Application function name *)
+%token SINGLETON UNION 
 (* fstar raw *)
 %token IRREDUCIBLE UNFOLDABLE INLINE OPAQUE ABSTRACT UNFOLD INLINE_FOR_EXTRACTION
 %token NOEXTRACT
@@ -97,21 +100,23 @@
 %token SEAL "seal"
 %token REVEAL "reveal"
 %token FFI "ffi"
+%token ALICE BOB
 (*====Wys Token End====*)
 
-%start prog 
+%start prog decl expr
 %type <Syntax.prog> prog 
-
-
+%type <Syntax.decl> decl 
+%type <Syntax.exprs> expr
 (* Header  %{...}% *)
 %{ open Syntax %}
 
 //%start <Syntax.term> term
 
 
+
   
 %%
-   
+   /* Program */
 prog:
   | MODULE name=STRING decls=list(decl) EOF 
     { Module (name, decls) }
@@ -119,26 +124,197 @@ prog:
 decl:
   |  decl=rawDecl 
     { mk_decl decl }
-
+  
+  /****** Top Level Decl ******/
 
 rawDecl:
   | OPEN uid=quident
     {DOpen uid}
-  | LET REC x=ident EQ e1=expr 
-    {DLet (true, x, e1)}
-  | LET x=ident EQ e1=expr 
-    {DLet (false, x, e1)}
+  | LET REC x=ident list(ident) EQ e1=expr 
+    {DLet (true,  x, e1)}
+  | LET x=ident list(ident) EQ e1=expr 
+    {DLet (false,  x, e1)}
+  | TYPE x=typeDecl 
+    {DType x} 
+  | VAL x=idstr COLON t=typ 
+    {DVal (x, t)}
+
+/****** Type ******/
+typeDecl: 
+  | x=typedecl typars tdef=typeDef  /* (tdecls * types) */
+    {  TTabbr (x, tdef) }
+  | x=typedecl
+    { TTdef x}  /* tdecls */
+
+typedecl:
+  | x=typNormal bs=nonempty_list(binder)
+    {TTypebinder (x, bs)}  /* (types * binders list) */
+    
+  | x=typNormal 
+    {TType x} /*types*/ 
+
+
+typars:
+  |   {}
+  | binder                {  }
+
+typeDef:
+  | { TConst "unkonw"}  
+  | EQ t=typ 
+    {t}
+
+typ: 
+  | t=typNormal 
+    {t}
+  | t=typFun 
+    {t}
+
+typFun:
+  | FUN bind=list(binder) ARROW ty=typNormal formula
+    {TFun (bind, ty)} /* ( binders * types ) */
+
+typNormal:
+  | x=idstr COLON t=typ LBRACE f=formula RBRACE
+    {TRefine (x, t, f)}
+  | x=idstr COLON t=typ ARROW t2=typ 
+    {TDependent (x, t, t2)}
+  | x=idstr COLON t=typ LBRACE f=formula RBRACE ARROW t2=typ 
+    {TDependentRefine (x, t, f, t2)}
+  | x=nonempty_list(idstr)
+    {TVar (List.hd x)}
+  | x=STRING LPAREN expr RPAREN pre_postcond pre_postcond 
+    {TVar x}
+
+
+pre_postcond:
+  | nondelimited_expr 
+    {Ignore}
+  | expr 
+    {Ignore}
+
+
+
+/****** formula ******/
+formula:
+  | {Ignore}
+  | LPAREN expr RPAREN 
+    {Ignore}
+  | expr 
+    {Ignore}
+
+/****** Binder ******/
+binder:
+  | x=singleBinder 
+    {x}
+
+
+singleBinder:
+  | LPAREN x=IDENT COLON t=typNormal RPAREN 
+    {BValuebinder (x,  t)}
+  | x=idstr 
+    {BValue x}
+  | ANY 
+    {BValue "_"}
+
+
+/****** Expr ******/
+decorateExpr:
+  | e=expr
+    {e}
+  | LPAREN e=expr RPAREN
+    {e}
+
+nondelimited_expr:
+  | x=delimited(LPAREN,expr,RPAREN)
+    {x}
+
 expr:
+  | LET x=ident EQ e1=expr IN e2=expr 
+    {ELet (x, e1, e2)}
+  | LET t=typ EQ e1=expr IN e2=expr 
+    { let tname = name_of_types t in 
+        let vt = VVar tname in 
+          ELet (vt, e1, e2)}
+  | name=listAppName args=list(arg)
+    {EApp (name, args)}
+  | app=appName args=list(decorateExpr)
+    {EApp (app, args)}
+  | app=appName LPAREN args=list(expr) RPAREN
+    {EApp (app, args)}
+  | x=binaryOperationExpr
+    {x}
+  | FUN x=binder ARROW e=expr 
+    {EFun (x, e)}
+  | ALICE 
+    {EVar (VVar "Alice")}
+  | BOB 
+    {EVar (VVar "Bob")}
   | x=ident 
-    {EVar x}
-  | e1=expr e2=expr 
-    {EApp (e1, e2)}  
+    {EVar x} 
+
+/****** Apply expr ******/
+listAppName:
+  | SINGLETON 
+    {CApp "singleton"}
+  | UNION 
+    {CApp "union"}
+    
+appName:
+  | ASSEC 
+    {CApp "as_sec"}
+  | PROJWIRE
+    {CApp "projwire"}
+  | MKWIRE 
+    {CApp "mkwire"}
+  | ASSEC 
+    {CApp "as_sec"}
+  | IDENT   
+    {CApp "app"}
+
+arg:
+  | ALICE 
+    {EVar (VVar "Alice")} 
+  | BOB 
+    {EVar (VVar "Alice")}
+  | id=ident 
+    {EVar id}
+
+/****** Binary opertaion expr ******/
+binaryOperationExpr:
+  | x=expr b=binop y=expr
+    {EBinop (x, b, y)}
+
+binop:
+  | ADD 
+    { ADD }
+  | SUB 
+    { SUB }
+  | MOD  
+    { MOD }
+  | DIV 
+    { DIV }
+  | MUL 
+    { MUL }
+
+  | GT 
+    {GT}
+  | BEQ  
+    {BEQ}
+  | EQ 
+    { EQ }
+
+
 
 
 /******************************************************************************/
 /*                      Identifiers, module paths                             */
 /******************************************************************************/
 
+idstr:
+  | x=IDENT 
+    {x}
+  | x=STRING 
+    {x}
 // qlident, quident, path use for module path
 
 
@@ -153,8 +329,8 @@ path(Id):
   | uid=uident DOT p=path(Id) { uid::p }
 
 ident:
-  | x=lident { VVar x }
-  | x=uident  { VVar x }
+  | x=lident { (VVar x) }
+  | x=uident  { (VVar x) }
 
 lident:
   | id=IDENT { mk_ident(id)}

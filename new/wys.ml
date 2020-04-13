@@ -4,9 +4,23 @@ let string_of_option z = match z with
 | Some c -> c
 | None -> ""
 
+let string_of_const c = match c with 
+| CApp id -> Printf.sprintf "%s" id 
+| CPrin id -> Printf.sprintf "%s" id 
+
+let string_of_op o = match o with 
+| ADD -> Printf.sprintf "+" 
+| SUB -> Printf.sprintf "-" 
+| DIV -> Printf.sprintf "/" 
+| MOD -> Printf.sprintf "mod" 
+| MUL -> Printf.sprintf "*" 
+| BEQ -> Printf.sprintf "==" 
+| GT -> Printf.sprintf ">" 
+| EQ -> Printf.sprintf "=" 
+
 let rec string_of_binder (b : binders) = match b with 
-| BValueBinder (id, t) -> let str_type = string_of_type t in 
-    Printf.sprintf "(%s, %s)" id str_type 
+| BValuebinder (id, t) -> let str_type = string_of_type t in 
+    Printf.sprintf "(&Binder %s: %s)" id str_type 
 | BValue id -> Printf.sprintf "%s" id 
 
 and string_of_binders bs = let map = List.map string_of_binder bs in 
@@ -14,8 +28,8 @@ and string_of_binders bs = let map = List.map string_of_binder bs in
     result  
 
 and string_of_type (t : types ) = match t with 
-| TVar id -> Printf.sprintf "(%s)" id  
-| TConst id -> Printf.sprintf "(%s)" id 
+| TVar id -> Printf.sprintf "(&TVar %s)" id  
+| TConst id -> Printf.sprintf "(&TConst %s)" id 
 | TDependent (id, t1, t2) -> let str_t1 = string_of_type t1 in 
     let str_t2 = string_of_type t2 in 
       Printf.sprintf "(%s : %s -> %s)"  id str_t1 str_t2 
@@ -26,7 +40,7 @@ and string_of_type (t : types ) = match t with
 | TRefine (id, t, fo) ->  let str_t = string_of_type t in 
     let str_fo = string_of_formula fo in 
         Printf.sprintf "(%s : %s {%s})" id str_t str_fo  
-| TFun (b, t) -> let str_b = string_of_binder b in 
+| TFun (b, t) -> let str_b = string_of_binders b in 
     let str_t = string_of_type t in 
       Printf.sprintf "(Fun %s -> %s)" str_b str_t 
 
@@ -56,23 +70,27 @@ and string_of_pattern (p : patterns) = match p with
 
 and string_of_tdef (t:tdefs) = match t with 
 | TTdef td -> let str_td = string_of_tdecl td in 
-    Printf.sprintf "%s" str_td 
+    Printf.sprintf "(&Tdef %s)" str_td 
 | TTabbr (td, t) -> let str_td = string_of_tdecl td in 
     let str_t = string_of_type t in 
-      Printf.sprintf "(%s = %s)" str_td str_t 
+      Printf.sprintf "(&Tdef %s = %s)" str_td str_t 
 
 and string_of_tdecl (td:tdecls) = match td with 
 | TType t -> let str_t = string_of_type t in 
-    Printf.sprintf "(%s)" str_t    
+    Printf.sprintf "(&Tdecl %s)" str_t    
 | TTypebinder  (t, tbs) -> let str_t = string_of_type t in 
     let str_tbs = string_of_binders tbs in 
-      Printf.sprintf "(type %s %s)" str_t str_tbs 
+      Printf.sprintf "(&Tdecl type %s %s)" str_t str_tbs 
+
+and string_of_exprs (es:exprs list) = let map = List.map string_of_expr es in 
+  let result = String.concat "*" map in 
+    result  
  
 and string_of_expr (e : exprs) = match e with 
 | EVar v -> let str_v = string_of_value v in 
     Printf.sprintf " %s " str_v 
-| EApp (e1, e2) -> let str_e1 = string_of_expr e1 in 
-    let str_e2 = string_of_expr e2 in 
+| EApp (const, e2) -> let str_e1 = string_of_const const in 
+    let str_e2 = string_of_exprs e2 in 
       Printf.sprintf " (&App %s %s) " str_e1 str_e2 
 | ELet (v, e1, e2) -> let str_v = string_of_value v in 
     let str_e1 = string_of_expr e1 in 
@@ -88,6 +106,13 @@ and string_of_expr (e : exprs) = match e with
 | EAssign (e1, e2) -> let str_e1 = string_of_expr e1 in 
     let str_e2 = string_of_expr e2 in 
       Printf.sprintf " (%s := %s) " str_e1 str_e2 
+| EBinop (e1, o, e2) -> let str_e1 = string_of_expr e1 in 
+    let str_e2 = string_of_expr e2 in 
+      let str_op = string_of_op o in 
+        Printf.sprintf " (%s %s %s) " str_e1 str_op str_e2 
+| EFun (bin, e) -> let str_b = string_of_binder bin in 
+    let str_e = string_of_expr e in 
+      Printf.sprintf " (&Fun %s -> %s ) " str_b str_e  
 
 and string_of_decl d = match d with 
 | DOpen m -> Printf.sprintf "(Open %s)" m 
@@ -97,7 +122,7 @@ and string_of_decl d = match d with
       let str_rec = if b = true then "rec " else "" in 
         Printf.sprintf "(Let %s%s = %s)" str_rec str_v str_e 
 | DType t -> let str_t = string_of_tdef t in 
-    Printf.sprintf "(%s)" str_t 
+    Printf.sprintf "(&DType %s)" str_t 
 
 let rec string_of_decls  (ds: decl list) = match ds with 
 | [] -> Printf.sprintf "()"

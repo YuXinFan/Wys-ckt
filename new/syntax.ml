@@ -7,8 +7,20 @@ type lident = ident
 
 type lid = lident
 
+type op = 
+| ADD 
+| SUB
+| BEQ
+| GT
 
+| MUL 
+| DIV 
+| MOD 
+| EQ 
 
+type const = 
+| CApp of lid 
+| CPrin of lid 
 (* Binders 
 b ::= 
   | (x:t)       // Value-binder 
@@ -18,7 +30,7 @@ b ::=
   | 'a          //Unascribed binder 
 *)
 type binders = 
-| BValueBinder of lid * types    
+| BValuebinder of lid * types    
 | BValue of lid 
 
 
@@ -26,7 +38,7 @@ type binders =
                 | Tc                    //Constant
                 | x:t[{phi}] -> t'      //Dependent function, optionally refined domain  
                 | x:t{phi}              //Refined type
-                | fun b => t            //Type function literal 
+                | fun b -> t            //Type function literal 
 
                 | x:t[{phi}] * t        //Dependent pair, optionally refined lhs
                 | t t'                  //Type/type application
@@ -39,7 +51,7 @@ and types =
 | TDependent of lid * types * types 
 | TDependentRefine of lid * types * formulas * types 
 | TRefine of lid * types * formulas 
-| TFun of binders * types 
+| TFun of binders list * types 
 
 (*formulas is used to do property verification *)
 and formulas = 
@@ -62,7 +74,9 @@ and values =
                 | match e with br1..brn //Pattern matching
                 | assert phi            //Checked assertion
                 | e.f                   //Projection
-                | e1 := e2              //Assignment
+                | e1 := e2              //Assignment of reference
+                | e1 binop e2           // binary operation 
+                | fun x -> e            // lambda function
 
                 | !e                    //Dereference
                 | ref e                 //Allocation
@@ -79,12 +93,14 @@ and values =
                 *)
 and exprs = 
 | EVar of values 
-| EApp of exprs * exprs 
+| EApp of const * (exprs list)
 | ELet of values * exprs * exprs 
 | EMatch of exprs * branchs list 
 | EAssert of formulas 
 | EProj of exprs * lid 
 | EAssign of exprs * exprs 
+| EBinop of exprs * op * exprs
+| EFun of binders * exprs
 
 (*
 branches    br ::= BAR pat -> e         //Pattern matching branch
@@ -159,6 +175,15 @@ let mk_ident (text) = text
 let mk_decl dec =  dec
 
 let lid_of_ids ids = String.concat "." ids
+
+
+let name_of_types (t:types) = match t with 
+| TVar id -> id 
+| TConst id -> id 
+| TDependent (id, _, _) -> id
+| TDependentRefine (id, _, _, _) -> id
+| TRefine (id, _, _) -> id 
+| TFun _ -> "Fun"
 (* type expr =
   raw_expr located
 

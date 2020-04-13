@@ -958,7 +958,7 @@ and typ_l_to_string l = fold_left (fun s t -> strcat s (strcat "; " (typ_to_stri
 
 val rungmw: prin -> prins -> env -> cktenv -> exp -> dvalue
 let rungmw p ps en cen e =
-  init_ctr ();
+  init_ctr (); // circuit counter = 1
 
   let freevs = fvs e in
   let m = assign_inps ps freevs en in

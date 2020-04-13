@@ -16,6 +16,7 @@ let newline = '\n' | '\r' | "\r\n"
 let integer = '-'?['0'-'9']['0'-'9']*
 let identifier = ['a'-'z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let bident = ['A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
+let sharpid = '#'['a'-'z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 
 
 
@@ -53,7 +54,7 @@ and token = parse
     
     | "||"       { OR }
     | "&&"       { AND }
-    | "=="       { DBLEQUAL }
+    | "=="       { BEQ }
     | "!="       { NOTEQUAL }
     | '='        { EQ}
     | '<'        { LT }
@@ -80,7 +81,7 @@ and token = parse
 
     | "module"  {MODULE}
     | "open"    {OPEN}
-    | bident    {STRING (lexeme lexbuf)}
+    | "type"    {TYPE}
 
 (* Wys identifier *)
     | "as_sec"  {ASSEC}
@@ -91,7 +92,14 @@ and token = parse
     | "unbox_s" | "unbox_p"     {UNBOX}
     | "concat_wire" {CONCATWIRE}
 
+    | "singleton" {SINGLETON}
+    | "union"  {UNION}
+    | "Alice" {ALICE}
+    | "Bob"   {BOB}
+    | "_"   {ANY}
     | identifier { IDENT (lexeme lexbuf) }
+    | bident    {STRING (lexeme lexbuf)}
+    | sharpid   { IDENT (lexeme lexbuf)}
     | eof        { EOF }
     | _          { raise (Error (Printf.sprintf "At offset %d: unexpected character.\n" (Lexing.lexeme_start lexbuf)))}
 
