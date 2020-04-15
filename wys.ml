@@ -141,7 +141,15 @@ let process (line : string) =
   try
     (* Run the parser on this line of input. *)
     (* Printf.printf "%d\n%!" (interpret (Parser.main Lexer.token linebuf)) *)
-    interpret (Parser.prog Lexer.token linebuf)
+    let ast = Parser.prog Lexer.token linebuf in
+    
+      let wys =  match find_wys_of_prog ast with 
+        | Some e -> e 
+        | None -> EVar (VVar "None") 
+        in
+        let str = string_of_expr wys in 
+          Printf.printf "%s" str
+
   with
   | Lexer.Error msg ->
       Printf.fprintf stderr "%s%!" msg
@@ -153,7 +161,7 @@ let process (optional_line : string option) =
   | None ->
       ()
   | Some line ->
-      process line
+      process line 
 
 let rec read_file (buf : string) (channel)=
   (* Attempt to read one line. *)

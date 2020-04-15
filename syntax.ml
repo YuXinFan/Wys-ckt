@@ -184,6 +184,27 @@ let name_of_types (t:types) = match t with
 | TDependentRefine (id, _, _, _) -> id
 | TRefine (id, _, _) -> id 
 | TFun _ -> "Fun"
+
+
+let name_of_const (c:const) = match c with 
+| CApp id -> id 
+| CPrin id -> id 
+
+let rec find_wys_of_expr (e:exprs) = match e with 
+| ELet (_, _, e2) -> find_wys_of_expr e2 
+| EApp (const, _) -> name_of_const const = "as_sec"
+| EFun (_, e) -> find_wys_of_expr e 
+| _ -> false 
+
+let find_wys_of_decl (d:decl) = match d with 
+| DLet (_, _, e) -> if find_wys_of_expr e then Some e else None
+| _ -> None
+
+let find_wys_of_prog (p:prog) = match p with 
+| Module (_, decls) -> let find_result = List.map find_wys_of_decl decls in 
+    let wys = List.find (fun a -> match a with Some _ -> true | None -> false) find_result in 
+      wys
+
 (* type expr =
   raw_expr located
 

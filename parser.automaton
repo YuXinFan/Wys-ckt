@@ -1,0 +1,3458 @@
+State 0:
+decl' -> . decl [ # ]
+-- On VAL shift to state 1
+-- On TYPE shift to state 120
+-- On OPEN shift to state 135
+-- On LET shift to state 144
+-- On rawDecl shift to state 158
+-- On decl shift to state 159
+
+State 1:
+rawDecl -> VAL . idstr COLON typ [ # ]
+-- On STRING shift to state 2
+-- On IDENT shift to state 3
+-- On idstr shift to state 4
+
+State 2:
+idstr -> STRING . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production idstr -> STRING 
+-- On VAL reduce production idstr -> STRING 
+-- On UNION reduce production idstr -> STRING 
+-- On TYPE reduce production idstr -> STRING 
+-- On STRING reduce production idstr -> STRING 
+-- On SINGLETON reduce production idstr -> STRING 
+-- On RPAREN reduce production idstr -> STRING 
+-- On PROJWIRE reduce production idstr -> STRING 
+-- On OPEN reduce production idstr -> STRING 
+-- On MKWIRE reduce production idstr -> STRING 
+-- On LPAREN reduce production idstr -> STRING 
+-- On LET reduce production idstr -> STRING 
+-- On LBRACE reduce production idstr -> STRING 
+-- On IDENT reduce production idstr -> STRING 
+-- On FUN reduce production idstr -> STRING 
+-- On EQ reduce production idstr -> STRING 
+-- On EOL reduce production idstr -> STRING 
+-- On EOF reduce production idstr -> STRING 
+-- On COLON reduce production idstr -> STRING 
+-- On BOB reduce production idstr -> STRING 
+-- On ASSEC reduce production idstr -> STRING 
+-- On ARROW reduce production idstr -> STRING 
+-- On ANY reduce production idstr -> STRING 
+-- On ALICE reduce production idstr -> STRING 
+-- On # reduce production idstr -> STRING 
+
+State 3:
+idstr -> IDENT . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production idstr -> IDENT 
+-- On VAL reduce production idstr -> IDENT 
+-- On UNION reduce production idstr -> IDENT 
+-- On TYPE reduce production idstr -> IDENT 
+-- On STRING reduce production idstr -> IDENT 
+-- On SINGLETON reduce production idstr -> IDENT 
+-- On RPAREN reduce production idstr -> IDENT 
+-- On PROJWIRE reduce production idstr -> IDENT 
+-- On OPEN reduce production idstr -> IDENT 
+-- On MKWIRE reduce production idstr -> IDENT 
+-- On LPAREN reduce production idstr -> IDENT 
+-- On LET reduce production idstr -> IDENT 
+-- On LBRACE reduce production idstr -> IDENT 
+-- On IDENT reduce production idstr -> IDENT 
+-- On FUN reduce production idstr -> IDENT 
+-- On EQ reduce production idstr -> IDENT 
+-- On EOL reduce production idstr -> IDENT 
+-- On EOF reduce production idstr -> IDENT 
+-- On COLON reduce production idstr -> IDENT 
+-- On BOB reduce production idstr -> IDENT 
+-- On ASSEC reduce production idstr -> IDENT 
+-- On ARROW reduce production idstr -> IDENT 
+-- On ANY reduce production idstr -> IDENT 
+-- On ALICE reduce production idstr -> IDENT 
+-- On # reduce production idstr -> IDENT 
+
+State 4:
+rawDecl -> VAL idstr . COLON typ [ # ]
+-- On COLON shift to state 5
+
+State 5:
+rawDecl -> VAL idstr COLON . typ [ # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 119
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 6:
+appName -> WIRE . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production appName -> WIRE 
+-- On UNION reduce production appName -> WIRE 
+-- On STRING reduce production appName -> WIRE 
+-- On SINGLETON reduce production appName -> WIRE 
+-- On PROJWIRE reduce production appName -> WIRE 
+-- On MKWIRE reduce production appName -> WIRE 
+-- On LPAREN reduce production appName -> WIRE 
+-- On LET reduce production appName -> WIRE 
+-- On IDENT reduce production appName -> WIRE 
+-- On FUN reduce production appName -> WIRE 
+-- On BOB reduce production appName -> WIRE 
+-- On ASSEC reduce production appName -> WIRE 
+-- On ALICE reduce production appName -> WIRE 
+
+State 7:
+idstr -> STRING . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> STRING . LPAREN typ RPAREN pre_postcond pre_postcond [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On LPAREN shift to state 8
+-- On WIRE reduce production idstr -> STRING 
+-- On VAL reduce production idstr -> STRING 
+-- On UNION reduce production idstr -> STRING 
+-- On TYPE reduce production idstr -> STRING 
+-- On STRING reduce production idstr -> STRING 
+-- On SINGLETON reduce production idstr -> STRING 
+-- On RPAREN reduce production idstr -> STRING 
+-- On PROJWIRE reduce production idstr -> STRING 
+-- On OPEN reduce production idstr -> STRING 
+-- On MKWIRE reduce production idstr -> STRING 
+-- On LPAREN reduce production idstr -> STRING 
+-- On LET reduce production idstr -> STRING 
+-- On LBRACE reduce production idstr -> STRING 
+-- On IDENT reduce production idstr -> STRING 
+-- On FUN reduce production idstr -> STRING 
+-- On EQ reduce production idstr -> STRING 
+-- On EOL reduce production idstr -> STRING 
+-- On EOF reduce production idstr -> STRING 
+-- On COLON reduce production idstr -> STRING 
+-- On BOB reduce production idstr -> STRING 
+-- On ASSEC reduce production idstr -> STRING 
+-- On ARROW reduce production idstr -> STRING 
+-- On ANY reduce production idstr -> STRING 
+-- On ALICE reduce production idstr -> STRING 
+-- On # reduce production idstr -> STRING 
+** Conflict on LPAREN
+
+State 8:
+typNormal -> STRING LPAREN . typ RPAREN pre_postcond pre_postcond [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 110
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 9:
+appName -> PROJWIRE . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production appName -> PROJWIRE 
+-- On UNION reduce production appName -> PROJWIRE 
+-- On STRING reduce production appName -> PROJWIRE 
+-- On SINGLETON reduce production appName -> PROJWIRE 
+-- On PROJWIRE reduce production appName -> PROJWIRE 
+-- On MKWIRE reduce production appName -> PROJWIRE 
+-- On LPAREN reduce production appName -> PROJWIRE 
+-- On LET reduce production appName -> PROJWIRE 
+-- On IDENT reduce production appName -> PROJWIRE 
+-- On FUN reduce production appName -> PROJWIRE 
+-- On BOB reduce production appName -> PROJWIRE 
+-- On ASSEC reduce production appName -> PROJWIRE 
+-- On ALICE reduce production appName -> PROJWIRE 
+
+State 10:
+appName -> MKWIRE . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production appName -> MKWIRE 
+-- On UNION reduce production appName -> MKWIRE 
+-- On STRING reduce production appName -> MKWIRE 
+-- On SINGLETON reduce production appName -> MKWIRE 
+-- On PROJWIRE reduce production appName -> MKWIRE 
+-- On MKWIRE reduce production appName -> MKWIRE 
+-- On LPAREN reduce production appName -> MKWIRE 
+-- On LET reduce production appName -> MKWIRE 
+-- On IDENT reduce production appName -> MKWIRE 
+-- On FUN reduce production appName -> MKWIRE 
+-- On BOB reduce production appName -> MKWIRE 
+-- On ASSEC reduce production appName -> MKWIRE 
+-- On ALICE reduce production appName -> MKWIRE 
+
+State 11:
+appName -> IDENT . [ STRING IDENT ]
+idstr -> IDENT . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production idstr -> IDENT 
+-- On VAL reduce production idstr -> IDENT 
+-- On UNION reduce production idstr -> IDENT 
+-- On TYPE reduce production idstr -> IDENT 
+-- On STRING reduce production appName -> IDENT 
+-- On STRING reduce production idstr -> IDENT 
+-- On SINGLETON reduce production idstr -> IDENT 
+-- On RPAREN reduce production idstr -> IDENT 
+-- On PROJWIRE reduce production idstr -> IDENT 
+-- On OPEN reduce production idstr -> IDENT 
+-- On MKWIRE reduce production idstr -> IDENT 
+-- On LPAREN reduce production idstr -> IDENT 
+-- On LET reduce production idstr -> IDENT 
+-- On LBRACE reduce production idstr -> IDENT 
+-- On IDENT reduce production appName -> IDENT 
+-- On IDENT reduce production idstr -> IDENT 
+-- On FUN reduce production idstr -> IDENT 
+-- On EQ reduce production idstr -> IDENT 
+-- On EOL reduce production idstr -> IDENT 
+-- On EOF reduce production idstr -> IDENT 
+-- On COLON reduce production idstr -> IDENT 
+-- On BOB reduce production idstr -> IDENT 
+-- On ASSEC reduce production idstr -> IDENT 
+-- On ARROW reduce production idstr -> IDENT 
+-- On ANY reduce production idstr -> IDENT 
+-- On ALICE reduce production idstr -> IDENT 
+-- On # reduce production idstr -> IDENT 
+** Conflict on STRING IDENT
+
+State 12:
+typFun -> FUN . list(binder) ARROW typNormal formula [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On singleBinder shift to state 42
+-- On list(binder) shift to state 104
+-- On idstr shift to state 43
+-- On binder shift to state 108
+-- On ARROW reduce production list(binder) -> 
+
+State 13:
+singleBinder -> LPAREN . IDENT COLON typNormal RPAREN [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On IDENT shift to state 14
+
+State 14:
+singleBinder -> LPAREN IDENT . COLON typNormal RPAREN [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On COLON shift to state 15
+
+State 15:
+singleBinder -> LPAREN IDENT COLON . typNormal RPAREN [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 17
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 16:
+appName -> ASSEC . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+appName -> ASSEC . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production appName -> ASSEC 
+-- On WIRE reduce production appName -> ASSEC 
+-- On UNION reduce production appName -> ASSEC 
+-- On UNION reduce production appName -> ASSEC 
+-- On STRING reduce production appName -> ASSEC 
+-- On STRING reduce production appName -> ASSEC 
+-- On SINGLETON reduce production appName -> ASSEC 
+-- On SINGLETON reduce production appName -> ASSEC 
+-- On PROJWIRE reduce production appName -> ASSEC 
+-- On PROJWIRE reduce production appName -> ASSEC 
+-- On MKWIRE reduce production appName -> ASSEC 
+-- On MKWIRE reduce production appName -> ASSEC 
+-- On LPAREN reduce production appName -> ASSEC 
+-- On LPAREN reduce production appName -> ASSEC 
+-- On LET reduce production appName -> ASSEC 
+-- On LET reduce production appName -> ASSEC 
+-- On IDENT reduce production appName -> ASSEC 
+-- On IDENT reduce production appName -> ASSEC 
+-- On FUN reduce production appName -> ASSEC 
+-- On FUN reduce production appName -> ASSEC 
+-- On BOB reduce production appName -> ASSEC 
+-- On BOB reduce production appName -> ASSEC 
+-- On ASSEC reduce production appName -> ASSEC 
+-- On ASSEC reduce production appName -> ASSEC 
+-- On ALICE reduce production appName -> ASSEC 
+-- On ALICE reduce production appName -> ASSEC 
+** Conflict on WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+
+State 17:
+singleBinder -> LPAREN IDENT COLON typNormal . RPAREN [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On RPAREN shift to state 18
+
+State 18:
+singleBinder -> LPAREN IDENT COLON typNormal RPAREN . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On VAL reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On TYPE reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On STRING reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On OPEN reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On LPAREN reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On LET reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On IDENT reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On EQ reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On EOL reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On EOF reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On ARROW reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On ANY reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+-- On # reduce production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+
+State 19:
+typNormal -> nonempty_list(idstr) . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typNormal -> nonempty_list(idstr) 
+-- On VAL reduce production typNormal -> nonempty_list(idstr) 
+-- On UNION reduce production typNormal -> nonempty_list(idstr) 
+-- On TYPE reduce production typNormal -> nonempty_list(idstr) 
+-- On STRING reduce production typNormal -> nonempty_list(idstr) 
+-- On SINGLETON reduce production typNormal -> nonempty_list(idstr) 
+-- On RPAREN reduce production typNormal -> nonempty_list(idstr) 
+-- On PROJWIRE reduce production typNormal -> nonempty_list(idstr) 
+-- On OPEN reduce production typNormal -> nonempty_list(idstr) 
+-- On MKWIRE reduce production typNormal -> nonempty_list(idstr) 
+-- On LPAREN reduce production typNormal -> nonempty_list(idstr) 
+-- On LET reduce production typNormal -> nonempty_list(idstr) 
+-- On LBRACE reduce production typNormal -> nonempty_list(idstr) 
+-- On IDENT reduce production typNormal -> nonempty_list(idstr) 
+-- On FUN reduce production typNormal -> nonempty_list(idstr) 
+-- On EQ reduce production typNormal -> nonempty_list(idstr) 
+-- On EOL reduce production typNormal -> nonempty_list(idstr) 
+-- On EOF reduce production typNormal -> nonempty_list(idstr) 
+-- On BOB reduce production typNormal -> nonempty_list(idstr) 
+-- On ASSEC reduce production typNormal -> nonempty_list(idstr) 
+-- On ARROW reduce production typNormal -> nonempty_list(idstr) 
+-- On ANY reduce production typNormal -> nonempty_list(idstr) 
+-- On ALICE reduce production typNormal -> nonempty_list(idstr) 
+-- On # reduce production typNormal -> nonempty_list(idstr) 
+
+State 20:
+nonempty_list(idstr) -> idstr . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+nonempty_list(idstr) -> idstr . nonempty_list(idstr) [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr . COLON typ LBRACE formula RBRACE [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr . COLON typ ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr . COLON typ LBRACE formula RBRACE ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On STRING shift to state 2
+-- On IDENT shift to state 3
+-- On COLON shift to state 21
+-- On nonempty_list(idstr) shift to state 93
+-- On idstr shift to state 92
+-- On WIRE reduce production nonempty_list(idstr) -> idstr 
+-- On VAL reduce production nonempty_list(idstr) -> idstr 
+-- On UNION reduce production nonempty_list(idstr) -> idstr 
+-- On TYPE reduce production nonempty_list(idstr) -> idstr 
+-- On STRING reduce production nonempty_list(idstr) -> idstr 
+-- On SINGLETON reduce production nonempty_list(idstr) -> idstr 
+-- On RPAREN reduce production nonempty_list(idstr) -> idstr 
+-- On PROJWIRE reduce production nonempty_list(idstr) -> idstr 
+-- On OPEN reduce production nonempty_list(idstr) -> idstr 
+-- On MKWIRE reduce production nonempty_list(idstr) -> idstr 
+-- On LPAREN reduce production nonempty_list(idstr) -> idstr 
+-- On LET reduce production nonempty_list(idstr) -> idstr 
+-- On LBRACE reduce production nonempty_list(idstr) -> idstr 
+-- On IDENT reduce production nonempty_list(idstr) -> idstr 
+-- On FUN reduce production nonempty_list(idstr) -> idstr 
+-- On EQ reduce production nonempty_list(idstr) -> idstr 
+-- On EOL reduce production nonempty_list(idstr) -> idstr 
+-- On EOF reduce production nonempty_list(idstr) -> idstr 
+-- On BOB reduce production nonempty_list(idstr) -> idstr 
+-- On ASSEC reduce production nonempty_list(idstr) -> idstr 
+-- On ARROW reduce production nonempty_list(idstr) -> idstr 
+-- On ANY reduce production nonempty_list(idstr) -> idstr 
+-- On ALICE reduce production nonempty_list(idstr) -> idstr 
+-- On # reduce production nonempty_list(idstr) -> idstr 
+** Conflict on STRING IDENT
+
+State 21:
+typNormal -> idstr COLON . typ LBRACE formula RBRACE [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON . typ ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON . typ LBRACE formula RBRACE ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 24
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 22:
+typ -> typNormal . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typ -> typNormal 
+-- On VAL reduce production typ -> typNormal 
+-- On UNION reduce production typ -> typNormal 
+-- On TYPE reduce production typ -> typNormal 
+-- On STRING reduce production typ -> typNormal 
+-- On SINGLETON reduce production typ -> typNormal 
+-- On RPAREN reduce production typ -> typNormal 
+-- On PROJWIRE reduce production typ -> typNormal 
+-- On OPEN reduce production typ -> typNormal 
+-- On MKWIRE reduce production typ -> typNormal 
+-- On LPAREN reduce production typ -> typNormal 
+-- On LET reduce production typ -> typNormal 
+-- On LBRACE reduce production typ -> typNormal 
+-- On IDENT reduce production typ -> typNormal 
+-- On FUN reduce production typ -> typNormal 
+-- On EQ reduce production typ -> typNormal 
+-- On EOL reduce production typ -> typNormal 
+-- On EOF reduce production typ -> typNormal 
+-- On BOB reduce production typ -> typNormal 
+-- On ASSEC reduce production typ -> typNormal 
+-- On ARROW reduce production typ -> typNormal 
+-- On ANY reduce production typ -> typNormal 
+-- On ALICE reduce production typ -> typNormal 
+-- On # reduce production typ -> typNormal 
+
+State 23:
+typ -> typFun . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typ -> typFun 
+-- On VAL reduce production typ -> typFun 
+-- On UNION reduce production typ -> typFun 
+-- On TYPE reduce production typ -> typFun 
+-- On STRING reduce production typ -> typFun 
+-- On SINGLETON reduce production typ -> typFun 
+-- On RPAREN reduce production typ -> typFun 
+-- On PROJWIRE reduce production typ -> typFun 
+-- On OPEN reduce production typ -> typFun 
+-- On MKWIRE reduce production typ -> typFun 
+-- On LPAREN reduce production typ -> typFun 
+-- On LET reduce production typ -> typFun 
+-- On LBRACE reduce production typ -> typFun 
+-- On IDENT reduce production typ -> typFun 
+-- On FUN reduce production typ -> typFun 
+-- On EQ reduce production typ -> typFun 
+-- On EOL reduce production typ -> typFun 
+-- On EOF reduce production typ -> typFun 
+-- On BOB reduce production typ -> typFun 
+-- On ASSEC reduce production typ -> typFun 
+-- On ARROW reduce production typ -> typFun 
+-- On ANY reduce production typ -> typFun 
+-- On ALICE reduce production typ -> typFun 
+-- On # reduce production typ -> typFun 
+
+State 24:
+typNormal -> idstr COLON typ . LBRACE formula RBRACE [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON typ . ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON typ . LBRACE formula RBRACE ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On LBRACE shift to state 25
+-- On ARROW shift to state 102
+
+State 25:
+typNormal -> idstr COLON typ LBRACE . formula RBRACE [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON typ LBRACE . formula RBRACE ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 29
+-- On LET shift to state 34
+-- On IDENT shift to state 94
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On formula shift to state 97
+-- On expr shift to state 101
+-- On appName shift to state 69
+-- On RBRACE reduce production formula -> 
+
+State 26:
+listAppName -> UNION . [ STRING IDENT BOB ALICE ]
+-- On STRING reduce production listAppName -> UNION 
+-- On IDENT reduce production listAppName -> UNION 
+-- On BOB reduce production listAppName -> UNION 
+-- On ALICE reduce production listAppName -> UNION 
+
+State 27:
+ident -> STRING . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production ident -> STRING 
+-- On VAL reduce production ident -> STRING 
+-- On UNION reduce production ident -> STRING 
+-- On TYPE reduce production ident -> STRING 
+-- On SUB reduce production ident -> STRING 
+-- On STRING reduce production ident -> STRING 
+-- On SINGLETON reduce production ident -> STRING 
+-- On RPAREN reduce production ident -> STRING 
+-- On RBRACE reduce production ident -> STRING 
+-- On PROJWIRE reduce production ident -> STRING 
+-- On OPEN reduce production ident -> STRING 
+-- On MUL reduce production ident -> STRING 
+-- On MOD reduce production ident -> STRING 
+-- On MKWIRE reduce production ident -> STRING 
+-- On LPAREN reduce production ident -> STRING 
+-- On LET reduce production ident -> STRING 
+-- On LBRACE reduce production ident -> STRING 
+-- On IN reduce production ident -> STRING 
+-- On IDENT reduce production ident -> STRING 
+-- On GT reduce production ident -> STRING 
+-- On FUN reduce production ident -> STRING 
+-- On EQ reduce production ident -> STRING 
+-- On EOL reduce production ident -> STRING 
+-- On EOF reduce production ident -> STRING 
+-- On DIV reduce production ident -> STRING 
+-- On BOB reduce production ident -> STRING 
+-- On BEQ reduce production ident -> STRING 
+-- On ASSEC reduce production ident -> STRING 
+-- On ARROW reduce production ident -> STRING 
+-- On ANY reduce production ident -> STRING 
+-- On ALICE reduce production ident -> STRING 
+-- On ADD reduce production ident -> STRING 
+-- On # reduce production ident -> STRING 
+
+State 28:
+listAppName -> SINGLETON . [ STRING IDENT BOB ALICE ]
+-- On STRING reduce production listAppName -> SINGLETON 
+-- On IDENT reduce production listAppName -> SINGLETON 
+-- On BOB reduce production listAppName -> SINGLETON 
+-- On ALICE reduce production listAppName -> SINGLETON 
+
+State 29:
+formula -> LPAREN . IDENT EQ IDENT RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On IDENT shift to state 30
+
+State 30:
+formula -> LPAREN IDENT . EQ IDENT RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On EQ shift to state 31
+
+State 31:
+formula -> LPAREN IDENT EQ . IDENT RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On IDENT shift to state 32
+
+State 32:
+formula -> LPAREN IDENT EQ IDENT . RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On RPAREN shift to state 33
+
+State 33:
+formula -> LPAREN IDENT EQ IDENT RPAREN . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On VAL reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On UNION reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On TYPE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On STRING reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On SINGLETON reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On RPAREN reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On RBRACE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On PROJWIRE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On OPEN reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On MKWIRE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On LPAREN reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On LET reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On LBRACE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On IDENT reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On FUN reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On EQ reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On EOL reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On EOF reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On BOB reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On ASSEC reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On ARROW reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On ANY reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On ALICE reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+-- On # reduce production formula -> LPAREN IDENT EQ IDENT RPAREN 
+
+State 34:
+expr -> LET . ident EQ expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> LET . typ EQ expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 35
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 36
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 37
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On ident shift to state 85
+-- On appName shift to state 90
+
+State 35:
+ident -> STRING . [ EQ ]
+idstr -> STRING . [ STRING IDENT EQ COLON ]
+typNormal -> STRING . LPAREN typ RPAREN pre_postcond pre_postcond [ EQ ]
+-- On LPAREN shift to state 8
+-- On STRING reduce production idstr -> STRING 
+-- On IDENT reduce production idstr -> STRING 
+-- On EQ reduce production ident -> STRING 
+-- On EQ reduce production idstr -> STRING 
+-- On COLON reduce production idstr -> STRING 
+** Conflict on EQ
+
+State 36:
+appName -> IDENT . [ STRING IDENT ]
+ident -> IDENT . [ EQ ]
+idstr -> IDENT . [ STRING IDENT EQ COLON ]
+-- On STRING reduce production appName -> IDENT 
+-- On STRING reduce production idstr -> IDENT 
+-- On IDENT reduce production appName -> IDENT 
+-- On IDENT reduce production idstr -> IDENT 
+-- On EQ reduce production ident -> IDENT 
+-- On EQ reduce production idstr -> IDENT 
+-- On COLON reduce production idstr -> IDENT 
+** Conflict on STRING IDENT EQ
+
+State 37:
+expr -> LET typ . EQ expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On EQ shift to state 38
+
+State 38:
+expr -> LET typ EQ . expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 82
+-- On appName shift to state 69
+
+State 39:
+appName -> IDENT . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+ident -> IDENT . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production appName -> IDENT 
+-- On WIRE reduce production ident -> IDENT 
+-- On VAL reduce production ident -> IDENT 
+-- On UNION reduce production appName -> IDENT 
+-- On UNION reduce production ident -> IDENT 
+-- On TYPE reduce production ident -> IDENT 
+-- On SUB reduce production ident -> IDENT 
+-- On STRING reduce production appName -> IDENT 
+-- On STRING reduce production ident -> IDENT 
+-- On SINGLETON reduce production appName -> IDENT 
+-- On SINGLETON reduce production ident -> IDENT 
+-- On RPAREN reduce production ident -> IDENT 
+-- On RBRACE reduce production ident -> IDENT 
+-- On PROJWIRE reduce production appName -> IDENT 
+-- On PROJWIRE reduce production ident -> IDENT 
+-- On OPEN reduce production ident -> IDENT 
+-- On MUL reduce production ident -> IDENT 
+-- On MOD reduce production ident -> IDENT 
+-- On MKWIRE reduce production appName -> IDENT 
+-- On MKWIRE reduce production ident -> IDENT 
+-- On LPAREN reduce production appName -> IDENT 
+-- On LPAREN reduce production ident -> IDENT 
+-- On LET reduce production appName -> IDENT 
+-- On LET reduce production ident -> IDENT 
+-- On LBRACE reduce production ident -> IDENT 
+-- On IN reduce production ident -> IDENT 
+-- On IDENT reduce production appName -> IDENT 
+-- On IDENT reduce production ident -> IDENT 
+-- On GT reduce production ident -> IDENT 
+-- On FUN reduce production appName -> IDENT 
+-- On FUN reduce production ident -> IDENT 
+-- On EQ reduce production ident -> IDENT 
+-- On EOL reduce production ident -> IDENT 
+-- On EOF reduce production ident -> IDENT 
+-- On DIV reduce production ident -> IDENT 
+-- On BOB reduce production appName -> IDENT 
+-- On BOB reduce production ident -> IDENT 
+-- On BEQ reduce production ident -> IDENT 
+-- On ASSEC reduce production appName -> IDENT 
+-- On ASSEC reduce production ident -> IDENT 
+-- On ARROW reduce production ident -> IDENT 
+-- On ANY reduce production ident -> IDENT 
+-- On ALICE reduce production appName -> IDENT 
+-- On ALICE reduce production ident -> IDENT 
+-- On ADD reduce production ident -> IDENT 
+-- On # reduce production ident -> IDENT 
+** Conflict on WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+
+State 40:
+expr -> FUN . binder ARROW expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On singleBinder shift to state 42
+-- On idstr shift to state 43
+-- On binder shift to state 44
+
+State 41:
+singleBinder -> ANY . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On VAL reduce production singleBinder -> ANY 
+-- On TYPE reduce production singleBinder -> ANY 
+-- On STRING reduce production singleBinder -> ANY 
+-- On OPEN reduce production singleBinder -> ANY 
+-- On LPAREN reduce production singleBinder -> ANY 
+-- On LET reduce production singleBinder -> ANY 
+-- On IDENT reduce production singleBinder -> ANY 
+-- On EQ reduce production singleBinder -> ANY 
+-- On EOL reduce production singleBinder -> ANY 
+-- On EOF reduce production singleBinder -> ANY 
+-- On ARROW reduce production singleBinder -> ANY 
+-- On ANY reduce production singleBinder -> ANY 
+-- On # reduce production singleBinder -> ANY 
+
+State 42:
+binder -> singleBinder . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On VAL reduce production binder -> singleBinder 
+-- On TYPE reduce production binder -> singleBinder 
+-- On STRING reduce production binder -> singleBinder 
+-- On OPEN reduce production binder -> singleBinder 
+-- On LPAREN reduce production binder -> singleBinder 
+-- On LET reduce production binder -> singleBinder 
+-- On IDENT reduce production binder -> singleBinder 
+-- On EQ reduce production binder -> singleBinder 
+-- On EOL reduce production binder -> singleBinder 
+-- On EOF reduce production binder -> singleBinder 
+-- On ARROW reduce production binder -> singleBinder 
+-- On ANY reduce production binder -> singleBinder 
+-- On # reduce production binder -> singleBinder 
+
+State 43:
+singleBinder -> idstr . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY # ]
+-- On VAL reduce production singleBinder -> idstr 
+-- On TYPE reduce production singleBinder -> idstr 
+-- On STRING reduce production singleBinder -> idstr 
+-- On OPEN reduce production singleBinder -> idstr 
+-- On LPAREN reduce production singleBinder -> idstr 
+-- On LET reduce production singleBinder -> idstr 
+-- On IDENT reduce production singleBinder -> idstr 
+-- On EQ reduce production singleBinder -> idstr 
+-- On EOL reduce production singleBinder -> idstr 
+-- On EOF reduce production singleBinder -> idstr 
+-- On ARROW reduce production singleBinder -> idstr 
+-- On ANY reduce production singleBinder -> idstr 
+-- On # reduce production singleBinder -> idstr 
+
+State 44:
+expr -> FUN binder . ARROW expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On ARROW shift to state 45
+
+State 45:
+expr -> FUN binder ARROW . expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 59
+-- On appName shift to state 69
+
+State 46:
+wysPrin -> BOB . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production wysPrin -> BOB 
+-- On VAL reduce production wysPrin -> BOB 
+-- On UNION reduce production wysPrin -> BOB 
+-- On TYPE reduce production wysPrin -> BOB 
+-- On SUB reduce production wysPrin -> BOB 
+-- On STRING reduce production wysPrin -> BOB 
+-- On SINGLETON reduce production wysPrin -> BOB 
+-- On RPAREN reduce production wysPrin -> BOB 
+-- On RBRACE reduce production wysPrin -> BOB 
+-- On PROJWIRE reduce production wysPrin -> BOB 
+-- On OPEN reduce production wysPrin -> BOB 
+-- On MUL reduce production wysPrin -> BOB 
+-- On MOD reduce production wysPrin -> BOB 
+-- On MKWIRE reduce production wysPrin -> BOB 
+-- On LPAREN reduce production wysPrin -> BOB 
+-- On LET reduce production wysPrin -> BOB 
+-- On LBRACE reduce production wysPrin -> BOB 
+-- On IN reduce production wysPrin -> BOB 
+-- On IDENT reduce production wysPrin -> BOB 
+-- On GT reduce production wysPrin -> BOB 
+-- On FUN reduce production wysPrin -> BOB 
+-- On EQ reduce production wysPrin -> BOB 
+-- On EOL reduce production wysPrin -> BOB 
+-- On EOF reduce production wysPrin -> BOB 
+-- On DIV reduce production wysPrin -> BOB 
+-- On BOB reduce production wysPrin -> BOB 
+-- On BEQ reduce production wysPrin -> BOB 
+-- On ASSEC reduce production wysPrin -> BOB 
+-- On ARROW reduce production wysPrin -> BOB 
+-- On ANY reduce production wysPrin -> BOB 
+-- On ALICE reduce production wysPrin -> BOB 
+-- On ADD reduce production wysPrin -> BOB 
+-- On # reduce production wysPrin -> BOB 
+
+State 47:
+wysPrin -> ALICE . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production wysPrin -> ALICE 
+-- On VAL reduce production wysPrin -> ALICE 
+-- On UNION reduce production wysPrin -> ALICE 
+-- On TYPE reduce production wysPrin -> ALICE 
+-- On SUB reduce production wysPrin -> ALICE 
+-- On STRING reduce production wysPrin -> ALICE 
+-- On SINGLETON reduce production wysPrin -> ALICE 
+-- On RPAREN reduce production wysPrin -> ALICE 
+-- On RBRACE reduce production wysPrin -> ALICE 
+-- On PROJWIRE reduce production wysPrin -> ALICE 
+-- On OPEN reduce production wysPrin -> ALICE 
+-- On MUL reduce production wysPrin -> ALICE 
+-- On MOD reduce production wysPrin -> ALICE 
+-- On MKWIRE reduce production wysPrin -> ALICE 
+-- On LPAREN reduce production wysPrin -> ALICE 
+-- On LET reduce production wysPrin -> ALICE 
+-- On LBRACE reduce production wysPrin -> ALICE 
+-- On IN reduce production wysPrin -> ALICE 
+-- On IDENT reduce production wysPrin -> ALICE 
+-- On GT reduce production wysPrin -> ALICE 
+-- On FUN reduce production wysPrin -> ALICE 
+-- On EQ reduce production wysPrin -> ALICE 
+-- On EOL reduce production wysPrin -> ALICE 
+-- On EOF reduce production wysPrin -> ALICE 
+-- On DIV reduce production wysPrin -> ALICE 
+-- On BOB reduce production wysPrin -> ALICE 
+-- On BEQ reduce production wysPrin -> ALICE 
+-- On ASSEC reduce production wysPrin -> ALICE 
+-- On ARROW reduce production wysPrin -> ALICE 
+-- On ANY reduce production wysPrin -> ALICE 
+-- On ALICE reduce production wysPrin -> ALICE 
+-- On ADD reduce production wysPrin -> ALICE 
+-- On # reduce production wysPrin -> ALICE 
+
+State 48:
+partExpr -> wysPrin . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production partExpr -> wysPrin 
+-- On VAL reduce production partExpr -> wysPrin 
+-- On UNION reduce production partExpr -> wysPrin 
+-- On TYPE reduce production partExpr -> wysPrin 
+-- On SUB reduce production partExpr -> wysPrin 
+-- On STRING reduce production partExpr -> wysPrin 
+-- On SINGLETON reduce production partExpr -> wysPrin 
+-- On RPAREN reduce production partExpr -> wysPrin 
+-- On RBRACE reduce production partExpr -> wysPrin 
+-- On PROJWIRE reduce production partExpr -> wysPrin 
+-- On OPEN reduce production partExpr -> wysPrin 
+-- On MUL reduce production partExpr -> wysPrin 
+-- On MOD reduce production partExpr -> wysPrin 
+-- On MKWIRE reduce production partExpr -> wysPrin 
+-- On LPAREN reduce production partExpr -> wysPrin 
+-- On LET reduce production partExpr -> wysPrin 
+-- On LBRACE reduce production partExpr -> wysPrin 
+-- On IN reduce production partExpr -> wysPrin 
+-- On IDENT reduce production partExpr -> wysPrin 
+-- On GT reduce production partExpr -> wysPrin 
+-- On FUN reduce production partExpr -> wysPrin 
+-- On EQ reduce production partExpr -> wysPrin 
+-- On EOL reduce production partExpr -> wysPrin 
+-- On EOF reduce production partExpr -> wysPrin 
+-- On DIV reduce production partExpr -> wysPrin 
+-- On BOB reduce production partExpr -> wysPrin 
+-- On BEQ reduce production partExpr -> wysPrin 
+-- On ASSEC reduce production partExpr -> wysPrin 
+-- On ARROW reduce production partExpr -> wysPrin 
+-- On ANY reduce production partExpr -> wysPrin 
+-- On ALICE reduce production partExpr -> wysPrin 
+-- On ADD reduce production partExpr -> wysPrin 
+-- On # reduce production partExpr -> wysPrin 
+
+State 49:
+expr -> partExpr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production expr -> partExpr 
+-- On VAL reduce production expr -> partExpr 
+-- On UNION reduce production expr -> partExpr 
+-- On TYPE reduce production expr -> partExpr 
+-- On SUB reduce production expr -> partExpr 
+-- On STRING reduce production expr -> partExpr 
+-- On SINGLETON reduce production expr -> partExpr 
+-- On RPAREN reduce production expr -> partExpr 
+-- On RBRACE reduce production expr -> partExpr 
+-- On PROJWIRE reduce production expr -> partExpr 
+-- On OPEN reduce production expr -> partExpr 
+-- On MUL reduce production expr -> partExpr 
+-- On MOD reduce production expr -> partExpr 
+-- On MKWIRE reduce production expr -> partExpr 
+-- On LPAREN reduce production expr -> partExpr 
+-- On LET reduce production expr -> partExpr 
+-- On LBRACE reduce production expr -> partExpr 
+-- On IN reduce production expr -> partExpr 
+-- On IDENT reduce production expr -> partExpr 
+-- On GT reduce production expr -> partExpr 
+-- On FUN reduce production expr -> partExpr 
+-- On EQ reduce production expr -> partExpr 
+-- On EOL reduce production expr -> partExpr 
+-- On EOF reduce production expr -> partExpr 
+-- On DIV reduce production expr -> partExpr 
+-- On BOB reduce production expr -> partExpr 
+-- On BEQ reduce production expr -> partExpr 
+-- On ASSEC reduce production expr -> partExpr 
+-- On ARROW reduce production expr -> partExpr 
+-- On ANY reduce production expr -> partExpr 
+-- On ALICE reduce production expr -> partExpr 
+-- On ADD reduce production expr -> partExpr 
+-- On # reduce production expr -> partExpr 
+
+State 50:
+expr -> listAppName . nonempty_list(arg) [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On BOB shift to state 52
+-- On ALICE shift to state 53
+-- On nonempty_list(arg) shift to state 54
+-- On ident shift to state 55
+-- On arg shift to state 56
+
+State 51:
+ident -> IDENT . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production ident -> IDENT 
+-- On VAL reduce production ident -> IDENT 
+-- On UNION reduce production ident -> IDENT 
+-- On TYPE reduce production ident -> IDENT 
+-- On SUB reduce production ident -> IDENT 
+-- On STRING reduce production ident -> IDENT 
+-- On SINGLETON reduce production ident -> IDENT 
+-- On RPAREN reduce production ident -> IDENT 
+-- On RBRACE reduce production ident -> IDENT 
+-- On PROJWIRE reduce production ident -> IDENT 
+-- On OPEN reduce production ident -> IDENT 
+-- On MUL reduce production ident -> IDENT 
+-- On MOD reduce production ident -> IDENT 
+-- On MKWIRE reduce production ident -> IDENT 
+-- On LPAREN reduce production ident -> IDENT 
+-- On LET reduce production ident -> IDENT 
+-- On LBRACE reduce production ident -> IDENT 
+-- On IN reduce production ident -> IDENT 
+-- On IDENT reduce production ident -> IDENT 
+-- On GT reduce production ident -> IDENT 
+-- On FUN reduce production ident -> IDENT 
+-- On EQ reduce production ident -> IDENT 
+-- On EOL reduce production ident -> IDENT 
+-- On EOF reduce production ident -> IDENT 
+-- On DIV reduce production ident -> IDENT 
+-- On BOB reduce production ident -> IDENT 
+-- On BEQ reduce production ident -> IDENT 
+-- On ASSEC reduce production ident -> IDENT 
+-- On ARROW reduce production ident -> IDENT 
+-- On ANY reduce production ident -> IDENT 
+-- On ALICE reduce production ident -> IDENT 
+-- On ADD reduce production ident -> IDENT 
+-- On # reduce production ident -> IDENT 
+
+State 52:
+arg -> BOB . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production arg -> BOB 
+-- On VAL reduce production arg -> BOB 
+-- On UNION reduce production arg -> BOB 
+-- On TYPE reduce production arg -> BOB 
+-- On SUB reduce production arg -> BOB 
+-- On STRING reduce production arg -> BOB 
+-- On SINGLETON reduce production arg -> BOB 
+-- On RPAREN reduce production arg -> BOB 
+-- On RBRACE reduce production arg -> BOB 
+-- On PROJWIRE reduce production arg -> BOB 
+-- On OPEN reduce production arg -> BOB 
+-- On MUL reduce production arg -> BOB 
+-- On MOD reduce production arg -> BOB 
+-- On MKWIRE reduce production arg -> BOB 
+-- On LPAREN reduce production arg -> BOB 
+-- On LET reduce production arg -> BOB 
+-- On LBRACE reduce production arg -> BOB 
+-- On IN reduce production arg -> BOB 
+-- On IDENT reduce production arg -> BOB 
+-- On GT reduce production arg -> BOB 
+-- On FUN reduce production arg -> BOB 
+-- On EQ reduce production arg -> BOB 
+-- On EOL reduce production arg -> BOB 
+-- On EOF reduce production arg -> BOB 
+-- On DIV reduce production arg -> BOB 
+-- On BOB reduce production arg -> BOB 
+-- On BEQ reduce production arg -> BOB 
+-- On ASSEC reduce production arg -> BOB 
+-- On ARROW reduce production arg -> BOB 
+-- On ANY reduce production arg -> BOB 
+-- On ALICE reduce production arg -> BOB 
+-- On ADD reduce production arg -> BOB 
+-- On # reduce production arg -> BOB 
+
+State 53:
+arg -> ALICE . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production arg -> ALICE 
+-- On VAL reduce production arg -> ALICE 
+-- On UNION reduce production arg -> ALICE 
+-- On TYPE reduce production arg -> ALICE 
+-- On SUB reduce production arg -> ALICE 
+-- On STRING reduce production arg -> ALICE 
+-- On SINGLETON reduce production arg -> ALICE 
+-- On RPAREN reduce production arg -> ALICE 
+-- On RBRACE reduce production arg -> ALICE 
+-- On PROJWIRE reduce production arg -> ALICE 
+-- On OPEN reduce production arg -> ALICE 
+-- On MUL reduce production arg -> ALICE 
+-- On MOD reduce production arg -> ALICE 
+-- On MKWIRE reduce production arg -> ALICE 
+-- On LPAREN reduce production arg -> ALICE 
+-- On LET reduce production arg -> ALICE 
+-- On LBRACE reduce production arg -> ALICE 
+-- On IN reduce production arg -> ALICE 
+-- On IDENT reduce production arg -> ALICE 
+-- On GT reduce production arg -> ALICE 
+-- On FUN reduce production arg -> ALICE 
+-- On EQ reduce production arg -> ALICE 
+-- On EOL reduce production arg -> ALICE 
+-- On EOF reduce production arg -> ALICE 
+-- On DIV reduce production arg -> ALICE 
+-- On BOB reduce production arg -> ALICE 
+-- On BEQ reduce production arg -> ALICE 
+-- On ASSEC reduce production arg -> ALICE 
+-- On ARROW reduce production arg -> ALICE 
+-- On ANY reduce production arg -> ALICE 
+-- On ALICE reduce production arg -> ALICE 
+-- On ADD reduce production arg -> ALICE 
+-- On # reduce production arg -> ALICE 
+
+State 54:
+expr -> listAppName nonempty_list(arg) . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production expr -> listAppName nonempty_list(arg) 
+-- On VAL reduce production expr -> listAppName nonempty_list(arg) 
+-- On UNION reduce production expr -> listAppName nonempty_list(arg) 
+-- On TYPE reduce production expr -> listAppName nonempty_list(arg) 
+-- On SUB reduce production expr -> listAppName nonempty_list(arg) 
+-- On STRING reduce production expr -> listAppName nonempty_list(arg) 
+-- On SINGLETON reduce production expr -> listAppName nonempty_list(arg) 
+-- On RPAREN reduce production expr -> listAppName nonempty_list(arg) 
+-- On RBRACE reduce production expr -> listAppName nonempty_list(arg) 
+-- On PROJWIRE reduce production expr -> listAppName nonempty_list(arg) 
+-- On OPEN reduce production expr -> listAppName nonempty_list(arg) 
+-- On MUL reduce production expr -> listAppName nonempty_list(arg) 
+-- On MOD reduce production expr -> listAppName nonempty_list(arg) 
+-- On MKWIRE reduce production expr -> listAppName nonempty_list(arg) 
+-- On LPAREN reduce production expr -> listAppName nonempty_list(arg) 
+-- On LET reduce production expr -> listAppName nonempty_list(arg) 
+-- On LBRACE reduce production expr -> listAppName nonempty_list(arg) 
+-- On IN reduce production expr -> listAppName nonempty_list(arg) 
+-- On IDENT reduce production expr -> listAppName nonempty_list(arg) 
+-- On GT reduce production expr -> listAppName nonempty_list(arg) 
+-- On FUN reduce production expr -> listAppName nonempty_list(arg) 
+-- On EQ reduce production expr -> listAppName nonempty_list(arg) 
+-- On EOL reduce production expr -> listAppName nonempty_list(arg) 
+-- On EOF reduce production expr -> listAppName nonempty_list(arg) 
+-- On DIV reduce production expr -> listAppName nonempty_list(arg) 
+-- On BOB reduce production expr -> listAppName nonempty_list(arg) 
+-- On BEQ reduce production expr -> listAppName nonempty_list(arg) 
+-- On ASSEC reduce production expr -> listAppName nonempty_list(arg) 
+-- On ARROW reduce production expr -> listAppName nonempty_list(arg) 
+-- On ANY reduce production expr -> listAppName nonempty_list(arg) 
+-- On ALICE reduce production expr -> listAppName nonempty_list(arg) 
+-- On ADD reduce production expr -> listAppName nonempty_list(arg) 
+-- On # reduce production expr -> listAppName nonempty_list(arg) 
+
+State 55:
+arg -> ident . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production arg -> ident 
+-- On VAL reduce production arg -> ident 
+-- On UNION reduce production arg -> ident 
+-- On TYPE reduce production arg -> ident 
+-- On SUB reduce production arg -> ident 
+-- On STRING reduce production arg -> ident 
+-- On SINGLETON reduce production arg -> ident 
+-- On RPAREN reduce production arg -> ident 
+-- On RBRACE reduce production arg -> ident 
+-- On PROJWIRE reduce production arg -> ident 
+-- On OPEN reduce production arg -> ident 
+-- On MUL reduce production arg -> ident 
+-- On MOD reduce production arg -> ident 
+-- On MKWIRE reduce production arg -> ident 
+-- On LPAREN reduce production arg -> ident 
+-- On LET reduce production arg -> ident 
+-- On LBRACE reduce production arg -> ident 
+-- On IN reduce production arg -> ident 
+-- On IDENT reduce production arg -> ident 
+-- On GT reduce production arg -> ident 
+-- On FUN reduce production arg -> ident 
+-- On EQ reduce production arg -> ident 
+-- On EOL reduce production arg -> ident 
+-- On EOF reduce production arg -> ident 
+-- On DIV reduce production arg -> ident 
+-- On BOB reduce production arg -> ident 
+-- On BEQ reduce production arg -> ident 
+-- On ASSEC reduce production arg -> ident 
+-- On ARROW reduce production arg -> ident 
+-- On ANY reduce production arg -> ident 
+-- On ALICE reduce production arg -> ident 
+-- On ADD reduce production arg -> ident 
+-- On # reduce production arg -> ident 
+
+State 56:
+nonempty_list(arg) -> arg . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+nonempty_list(arg) -> arg . nonempty_list(arg) [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On BOB shift to state 52
+-- On ALICE shift to state 53
+-- On nonempty_list(arg) shift to state 57
+-- On ident shift to state 55
+-- On arg shift to state 56
+-- On WIRE reduce production nonempty_list(arg) -> arg 
+-- On VAL reduce production nonempty_list(arg) -> arg 
+-- On UNION reduce production nonempty_list(arg) -> arg 
+-- On TYPE reduce production nonempty_list(arg) -> arg 
+-- On SUB reduce production nonempty_list(arg) -> arg 
+-- On STRING reduce production nonempty_list(arg) -> arg 
+-- On SINGLETON reduce production nonempty_list(arg) -> arg 
+-- On RPAREN reduce production nonempty_list(arg) -> arg 
+-- On RBRACE reduce production nonempty_list(arg) -> arg 
+-- On PROJWIRE reduce production nonempty_list(arg) -> arg 
+-- On OPEN reduce production nonempty_list(arg) -> arg 
+-- On MUL reduce production nonempty_list(arg) -> arg 
+-- On MOD reduce production nonempty_list(arg) -> arg 
+-- On MKWIRE reduce production nonempty_list(arg) -> arg 
+-- On LPAREN reduce production nonempty_list(arg) -> arg 
+-- On LET reduce production nonempty_list(arg) -> arg 
+-- On LBRACE reduce production nonempty_list(arg) -> arg 
+-- On IN reduce production nonempty_list(arg) -> arg 
+-- On IDENT reduce production nonempty_list(arg) -> arg 
+-- On GT reduce production nonempty_list(arg) -> arg 
+-- On FUN reduce production nonempty_list(arg) -> arg 
+-- On EQ reduce production nonempty_list(arg) -> arg 
+-- On EOL reduce production nonempty_list(arg) -> arg 
+-- On EOF reduce production nonempty_list(arg) -> arg 
+-- On DIV reduce production nonempty_list(arg) -> arg 
+-- On BOB reduce production nonempty_list(arg) -> arg 
+-- On BEQ reduce production nonempty_list(arg) -> arg 
+-- On ASSEC reduce production nonempty_list(arg) -> arg 
+-- On ARROW reduce production nonempty_list(arg) -> arg 
+-- On ANY reduce production nonempty_list(arg) -> arg 
+-- On ALICE reduce production nonempty_list(arg) -> arg 
+-- On ADD reduce production nonempty_list(arg) -> arg 
+-- On # reduce production nonempty_list(arg) -> arg 
+** Conflict on STRING IDENT BOB ALICE
+
+State 57:
+nonempty_list(arg) -> arg nonempty_list(arg) . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On VAL reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On UNION reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On TYPE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On SUB reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On STRING reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On SINGLETON reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On RPAREN reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On RBRACE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On PROJWIRE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On OPEN reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On MUL reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On MOD reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On MKWIRE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On LPAREN reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On LET reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On LBRACE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On IN reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On IDENT reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On GT reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On FUN reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On EQ reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On EOL reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On EOF reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On DIV reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On BOB reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On BEQ reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On ASSEC reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On ARROW reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On ANY reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On ALICE reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On ADD reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+-- On # reduce production nonempty_list(arg) -> arg nonempty_list(arg) 
+
+State 58:
+partExpr -> ident . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production partExpr -> ident 
+-- On VAL reduce production partExpr -> ident 
+-- On UNION reduce production partExpr -> ident 
+-- On TYPE reduce production partExpr -> ident 
+-- On SUB reduce production partExpr -> ident 
+-- On STRING reduce production partExpr -> ident 
+-- On SINGLETON reduce production partExpr -> ident 
+-- On RPAREN reduce production partExpr -> ident 
+-- On RBRACE reduce production partExpr -> ident 
+-- On PROJWIRE reduce production partExpr -> ident 
+-- On OPEN reduce production partExpr -> ident 
+-- On MUL reduce production partExpr -> ident 
+-- On MOD reduce production partExpr -> ident 
+-- On MKWIRE reduce production partExpr -> ident 
+-- On LPAREN reduce production partExpr -> ident 
+-- On LET reduce production partExpr -> ident 
+-- On LBRACE reduce production partExpr -> ident 
+-- On IN reduce production partExpr -> ident 
+-- On IDENT reduce production partExpr -> ident 
+-- On GT reduce production partExpr -> ident 
+-- On FUN reduce production partExpr -> ident 
+-- On EQ reduce production partExpr -> ident 
+-- On EOL reduce production partExpr -> ident 
+-- On EOF reduce production partExpr -> ident 
+-- On DIV reduce production partExpr -> ident 
+-- On BOB reduce production partExpr -> ident 
+-- On BEQ reduce production partExpr -> ident 
+-- On ASSEC reduce production partExpr -> ident 
+-- On ARROW reduce production partExpr -> ident 
+-- On ANY reduce production partExpr -> ident 
+-- On ALICE reduce production partExpr -> ident 
+-- On ADD reduce production partExpr -> ident 
+-- On # reduce production partExpr -> ident 
+
+State 59:
+expr -> FUN binder ARROW expr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production expr -> FUN binder ARROW expr 
+-- On VAL reduce production expr -> FUN binder ARROW expr 
+-- On UNION reduce production expr -> FUN binder ARROW expr 
+-- On TYPE reduce production expr -> FUN binder ARROW expr 
+-- On SUB reduce production expr -> FUN binder ARROW expr 
+-- On STRING reduce production expr -> FUN binder ARROW expr 
+-- On SINGLETON reduce production expr -> FUN binder ARROW expr 
+-- On RPAREN reduce production expr -> FUN binder ARROW expr 
+-- On RBRACE reduce production expr -> FUN binder ARROW expr 
+-- On PROJWIRE reduce production expr -> FUN binder ARROW expr 
+-- On OPEN reduce production expr -> FUN binder ARROW expr 
+-- On MUL reduce production expr -> FUN binder ARROW expr 
+-- On MOD reduce production expr -> FUN binder ARROW expr 
+-- On MKWIRE reduce production expr -> FUN binder ARROW expr 
+-- On LPAREN reduce production expr -> FUN binder ARROW expr 
+-- On LET reduce production expr -> FUN binder ARROW expr 
+-- On LBRACE reduce production expr -> FUN binder ARROW expr 
+-- On IN reduce production expr -> FUN binder ARROW expr 
+-- On IDENT reduce production expr -> FUN binder ARROW expr 
+-- On GT reduce production expr -> FUN binder ARROW expr 
+-- On FUN reduce production expr -> FUN binder ARROW expr 
+-- On EQ reduce production expr -> FUN binder ARROW expr 
+-- On EOL reduce production expr -> FUN binder ARROW expr 
+-- On EOF reduce production expr -> FUN binder ARROW expr 
+-- On DIV reduce production expr -> FUN binder ARROW expr 
+-- On BOB reduce production expr -> FUN binder ARROW expr 
+-- On BEQ reduce production expr -> FUN binder ARROW expr 
+-- On ASSEC reduce production expr -> FUN binder ARROW expr 
+-- On ARROW reduce production expr -> FUN binder ARROW expr 
+-- On ANY reduce production expr -> FUN binder ARROW expr 
+-- On ALICE reduce production expr -> FUN binder ARROW expr 
+-- On ADD reduce production expr -> FUN binder ARROW expr 
+-- On # reduce production expr -> FUN binder ARROW expr 
+** Conflict on SUB MUL MOD GT DIV BEQ ADD
+
+State 60:
+binop -> SUB . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> SUB 
+-- On UNION reduce production binop -> SUB 
+-- On STRING reduce production binop -> SUB 
+-- On SINGLETON reduce production binop -> SUB 
+-- On PROJWIRE reduce production binop -> SUB 
+-- On MKWIRE reduce production binop -> SUB 
+-- On LET reduce production binop -> SUB 
+-- On IDENT reduce production binop -> SUB 
+-- On FUN reduce production binop -> SUB 
+-- On BOB reduce production binop -> SUB 
+-- On ASSEC reduce production binop -> SUB 
+-- On ALICE reduce production binop -> SUB 
+
+State 61:
+binop -> MUL . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> MUL 
+-- On UNION reduce production binop -> MUL 
+-- On STRING reduce production binop -> MUL 
+-- On SINGLETON reduce production binop -> MUL 
+-- On PROJWIRE reduce production binop -> MUL 
+-- On MKWIRE reduce production binop -> MUL 
+-- On LET reduce production binop -> MUL 
+-- On IDENT reduce production binop -> MUL 
+-- On FUN reduce production binop -> MUL 
+-- On BOB reduce production binop -> MUL 
+-- On ASSEC reduce production binop -> MUL 
+-- On ALICE reduce production binop -> MUL 
+
+State 62:
+binop -> MOD . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> MOD 
+-- On UNION reduce production binop -> MOD 
+-- On STRING reduce production binop -> MOD 
+-- On SINGLETON reduce production binop -> MOD 
+-- On PROJWIRE reduce production binop -> MOD 
+-- On MKWIRE reduce production binop -> MOD 
+-- On LET reduce production binop -> MOD 
+-- On IDENT reduce production binop -> MOD 
+-- On FUN reduce production binop -> MOD 
+-- On BOB reduce production binop -> MOD 
+-- On ASSEC reduce production binop -> MOD 
+-- On ALICE reduce production binop -> MOD 
+
+State 63:
+binop -> GT . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> GT 
+-- On UNION reduce production binop -> GT 
+-- On STRING reduce production binop -> GT 
+-- On SINGLETON reduce production binop -> GT 
+-- On PROJWIRE reduce production binop -> GT 
+-- On MKWIRE reduce production binop -> GT 
+-- On LET reduce production binop -> GT 
+-- On IDENT reduce production binop -> GT 
+-- On FUN reduce production binop -> GT 
+-- On BOB reduce production binop -> GT 
+-- On ASSEC reduce production binop -> GT 
+-- On ALICE reduce production binop -> GT 
+
+State 64:
+binop -> DIV . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> DIV 
+-- On UNION reduce production binop -> DIV 
+-- On STRING reduce production binop -> DIV 
+-- On SINGLETON reduce production binop -> DIV 
+-- On PROJWIRE reduce production binop -> DIV 
+-- On MKWIRE reduce production binop -> DIV 
+-- On LET reduce production binop -> DIV 
+-- On IDENT reduce production binop -> DIV 
+-- On FUN reduce production binop -> DIV 
+-- On BOB reduce production binop -> DIV 
+-- On ASSEC reduce production binop -> DIV 
+-- On ALICE reduce production binop -> DIV 
+
+State 65:
+binop -> BEQ . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> BEQ 
+-- On UNION reduce production binop -> BEQ 
+-- On STRING reduce production binop -> BEQ 
+-- On SINGLETON reduce production binop -> BEQ 
+-- On PROJWIRE reduce production binop -> BEQ 
+-- On MKWIRE reduce production binop -> BEQ 
+-- On LET reduce production binop -> BEQ 
+-- On IDENT reduce production binop -> BEQ 
+-- On FUN reduce production binop -> BEQ 
+-- On BOB reduce production binop -> BEQ 
+-- On ASSEC reduce production binop -> BEQ 
+-- On ALICE reduce production binop -> BEQ 
+
+State 66:
+binop -> ADD . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LET IDENT FUN BOB ASSEC ALICE ]
+-- On WIRE reduce production binop -> ADD 
+-- On UNION reduce production binop -> ADD 
+-- On STRING reduce production binop -> ADD 
+-- On SINGLETON reduce production binop -> ADD 
+-- On PROJWIRE reduce production binop -> ADD 
+-- On MKWIRE reduce production binop -> ADD 
+-- On LET reduce production binop -> ADD 
+-- On IDENT reduce production binop -> ADD 
+-- On FUN reduce production binop -> ADD 
+-- On BOB reduce production binop -> ADD 
+-- On ASSEC reduce production binop -> ADD 
+-- On ALICE reduce production binop -> ADD 
+
+State 67:
+partExpr -> expr binop . expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 68
+-- On appName shift to state 69
+
+State 68:
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr binop expr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production partExpr -> expr binop expr 
+-- On VAL reduce production partExpr -> expr binop expr 
+-- On UNION reduce production partExpr -> expr binop expr 
+-- On TYPE reduce production partExpr -> expr binop expr 
+-- On SUB reduce production partExpr -> expr binop expr 
+-- On STRING reduce production partExpr -> expr binop expr 
+-- On SINGLETON reduce production partExpr -> expr binop expr 
+-- On RPAREN reduce production partExpr -> expr binop expr 
+-- On RBRACE reduce production partExpr -> expr binop expr 
+-- On PROJWIRE reduce production partExpr -> expr binop expr 
+-- On OPEN reduce production partExpr -> expr binop expr 
+-- On MUL reduce production partExpr -> expr binop expr 
+-- On MOD reduce production partExpr -> expr binop expr 
+-- On MKWIRE reduce production partExpr -> expr binop expr 
+-- On LPAREN reduce production partExpr -> expr binop expr 
+-- On LET reduce production partExpr -> expr binop expr 
+-- On LBRACE reduce production partExpr -> expr binop expr 
+-- On IN reduce production partExpr -> expr binop expr 
+-- On IDENT reduce production partExpr -> expr binop expr 
+-- On GT reduce production partExpr -> expr binop expr 
+-- On FUN reduce production partExpr -> expr binop expr 
+-- On EQ reduce production partExpr -> expr binop expr 
+-- On EOL reduce production partExpr -> expr binop expr 
+-- On EOF reduce production partExpr -> expr binop expr 
+-- On DIV reduce production partExpr -> expr binop expr 
+-- On BOB reduce production partExpr -> expr binop expr 
+-- On BEQ reduce production partExpr -> expr binop expr 
+-- On ASSEC reduce production partExpr -> expr binop expr 
+-- On ARROW reduce production partExpr -> expr binop expr 
+-- On ANY reduce production partExpr -> expr binop expr 
+-- On ALICE reduce production partExpr -> expr binop expr 
+-- On ADD reduce production partExpr -> expr binop expr 
+-- On # reduce production partExpr -> expr binop expr 
+** Conflict on SUB MUL MOD GT DIV BEQ ADD
+
+State 69:
+expr -> appName . nonempty_list(decoratePartExpr) [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> appName . LPAREN nonempty_list(decoratePartExpr) RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 70
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 79
+-- On nonempty_list(decoratePartExpr) shift to state 81
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 74
+-- On decoratePartExpr shift to state 78
+-- On appName shift to state 69
+
+State 70:
+decoratePartExpr -> LPAREN . partExpr RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> appName LPAREN . nonempty_list(decoratePartExpr) RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 71
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 75
+-- On nonempty_list(decoratePartExpr) shift to state 76
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 74
+-- On decoratePartExpr shift to state 78
+-- On appName shift to state 69
+
+State 71:
+decoratePartExpr -> LPAREN . partExpr RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 72
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 74
+-- On appName shift to state 69
+
+State 72:
+decoratePartExpr -> LPAREN partExpr . RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> partExpr . [ SUB MUL MOD GT DIV BEQ ADD ]
+-- On RPAREN shift to state 73
+-- On SUB reduce production expr -> partExpr 
+-- On MUL reduce production expr -> partExpr 
+-- On MOD reduce production expr -> partExpr 
+-- On GT reduce production expr -> partExpr 
+-- On DIV reduce production expr -> partExpr 
+-- On BEQ reduce production expr -> partExpr 
+-- On ADD reduce production expr -> partExpr 
+
+State 73:
+decoratePartExpr -> LPAREN partExpr RPAREN . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On VAL reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On UNION reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On TYPE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On SUB reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On STRING reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On SINGLETON reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On RPAREN reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On RBRACE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On PROJWIRE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On OPEN reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On MUL reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On MOD reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On MKWIRE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On LPAREN reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On LET reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On LBRACE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On IN reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On IDENT reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On GT reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On FUN reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On EQ reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On EOL reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On EOF reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On DIV reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On BOB reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On BEQ reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On ASSEC reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On ARROW reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On ANY reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On ALICE reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On ADD reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+-- On # reduce production decoratePartExpr -> LPAREN partExpr RPAREN 
+
+State 74:
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+
+State 75:
+decoratePartExpr -> partExpr . [ WIRE UNION STRING SINGLETON RPAREN PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+decoratePartExpr -> LPAREN partExpr . RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> partExpr . [ SUB MUL MOD GT DIV BEQ ADD ]
+-- On RPAREN shift to state 73
+-- On WIRE reduce production decoratePartExpr -> partExpr 
+-- On UNION reduce production decoratePartExpr -> partExpr 
+-- On SUB reduce production expr -> partExpr 
+-- On STRING reduce production decoratePartExpr -> partExpr 
+-- On SINGLETON reduce production decoratePartExpr -> partExpr 
+-- On RPAREN reduce production decoratePartExpr -> partExpr 
+-- On PROJWIRE reduce production decoratePartExpr -> partExpr 
+-- On MUL reduce production expr -> partExpr 
+-- On MOD reduce production expr -> partExpr 
+-- On MKWIRE reduce production decoratePartExpr -> partExpr 
+-- On LPAREN reduce production decoratePartExpr -> partExpr 
+-- On LET reduce production decoratePartExpr -> partExpr 
+-- On IDENT reduce production decoratePartExpr -> partExpr 
+-- On GT reduce production expr -> partExpr 
+-- On FUN reduce production decoratePartExpr -> partExpr 
+-- On DIV reduce production expr -> partExpr 
+-- On BOB reduce production decoratePartExpr -> partExpr 
+-- On BEQ reduce production expr -> partExpr 
+-- On ASSEC reduce production decoratePartExpr -> partExpr 
+-- On ALICE reduce production decoratePartExpr -> partExpr 
+-- On ADD reduce production expr -> partExpr 
+** Conflict on RPAREN
+
+State 76:
+expr -> appName LPAREN nonempty_list(decoratePartExpr) . RPAREN [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On RPAREN shift to state 77
+
+State 77:
+expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On VAL reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On UNION reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On TYPE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On SUB reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On STRING reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On SINGLETON reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On RPAREN reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On RBRACE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On PROJWIRE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On OPEN reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On MUL reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On MOD reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On MKWIRE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On LPAREN reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On LET reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On LBRACE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On IN reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On IDENT reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On GT reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On FUN reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On EQ reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On EOL reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On EOF reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On DIV reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On BOB reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On BEQ reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On ASSEC reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On ARROW reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On ANY reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On ALICE reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On ADD reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+-- On # reduce production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+
+State 78:
+nonempty_list(decoratePartExpr) -> decoratePartExpr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+nonempty_list(decoratePartExpr) -> decoratePartExpr . nonempty_list(decoratePartExpr) [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 71
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 79
+-- On nonempty_list(decoratePartExpr) shift to state 80
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 74
+-- On decoratePartExpr shift to state 78
+-- On appName shift to state 69
+-- On WIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On VAL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On UNION reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On TYPE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On SUB reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On STRING reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On SINGLETON reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On RPAREN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On RBRACE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On PROJWIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On OPEN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On MUL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On MOD reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On MKWIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On LPAREN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On LET reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On LBRACE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On IN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On IDENT reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On GT reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On FUN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On EQ reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On EOL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On EOF reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On DIV reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On BOB reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On BEQ reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On ASSEC reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On ARROW reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On ANY reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On ALICE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On ADD reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+-- On # reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+** Conflict on WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+
+State 79:
+decoratePartExpr -> partExpr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+expr -> partExpr . [ SUB MUL MOD GT DIV BEQ ADD ]
+-- On WIRE reduce production decoratePartExpr -> partExpr 
+-- On VAL reduce production decoratePartExpr -> partExpr 
+-- On UNION reduce production decoratePartExpr -> partExpr 
+-- On TYPE reduce production decoratePartExpr -> partExpr 
+-- On SUB reduce production decoratePartExpr -> partExpr 
+-- On SUB reduce production expr -> partExpr 
+-- On STRING reduce production decoratePartExpr -> partExpr 
+-- On SINGLETON reduce production decoratePartExpr -> partExpr 
+-- On RPAREN reduce production decoratePartExpr -> partExpr 
+-- On RBRACE reduce production decoratePartExpr -> partExpr 
+-- On PROJWIRE reduce production decoratePartExpr -> partExpr 
+-- On OPEN reduce production decoratePartExpr -> partExpr 
+-- On MUL reduce production decoratePartExpr -> partExpr 
+-- On MUL reduce production expr -> partExpr 
+-- On MOD reduce production decoratePartExpr -> partExpr 
+-- On MOD reduce production expr -> partExpr 
+-- On MKWIRE reduce production decoratePartExpr -> partExpr 
+-- On LPAREN reduce production decoratePartExpr -> partExpr 
+-- On LET reduce production decoratePartExpr -> partExpr 
+-- On LBRACE reduce production decoratePartExpr -> partExpr 
+-- On IN reduce production decoratePartExpr -> partExpr 
+-- On IDENT reduce production decoratePartExpr -> partExpr 
+-- On GT reduce production decoratePartExpr -> partExpr 
+-- On GT reduce production expr -> partExpr 
+-- On FUN reduce production decoratePartExpr -> partExpr 
+-- On EQ reduce production decoratePartExpr -> partExpr 
+-- On EOL reduce production decoratePartExpr -> partExpr 
+-- On EOF reduce production decoratePartExpr -> partExpr 
+-- On DIV reduce production decoratePartExpr -> partExpr 
+-- On DIV reduce production expr -> partExpr 
+-- On BOB reduce production decoratePartExpr -> partExpr 
+-- On BEQ reduce production decoratePartExpr -> partExpr 
+-- On BEQ reduce production expr -> partExpr 
+-- On ASSEC reduce production decoratePartExpr -> partExpr 
+-- On ARROW reduce production decoratePartExpr -> partExpr 
+-- On ANY reduce production decoratePartExpr -> partExpr 
+-- On ALICE reduce production decoratePartExpr -> partExpr 
+-- On ADD reduce production decoratePartExpr -> partExpr 
+-- On ADD reduce production expr -> partExpr 
+-- On # reduce production decoratePartExpr -> partExpr 
+** Conflict on SUB MUL MOD GT DIV BEQ ADD
+
+State 80:
+nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On VAL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On UNION reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On TYPE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On SUB reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On STRING reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On SINGLETON reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On RPAREN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On RBRACE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On PROJWIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On OPEN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On MUL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On MOD reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On MKWIRE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On LPAREN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On LET reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On LBRACE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On IN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On IDENT reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On GT reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On FUN reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On EQ reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On EOL reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On EOF reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On DIV reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On BOB reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On BEQ reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On ASSEC reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On ARROW reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On ANY reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On ALICE reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On ADD reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+-- On # reduce production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+
+State 81:
+expr -> appName nonempty_list(decoratePartExpr) . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On VAL reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On UNION reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On TYPE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On SUB reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On STRING reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On SINGLETON reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On RPAREN reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On RBRACE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On PROJWIRE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On OPEN reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On MUL reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On MOD reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On MKWIRE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On LPAREN reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On LET reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On LBRACE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On IN reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On IDENT reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On GT reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On FUN reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On EQ reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On EOL reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On EOF reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On DIV reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On BOB reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On BEQ reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On ASSEC reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On ARROW reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On ANY reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On ALICE reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On ADD reduce production expr -> appName nonempty_list(decoratePartExpr) 
+-- On # reduce production expr -> appName nonempty_list(decoratePartExpr) 
+
+State 82:
+expr -> LET typ EQ expr . IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr . binop expr [ SUB MUL MOD IN GT DIV BEQ ADD ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On IN shift to state 83
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+
+State 83:
+expr -> LET typ EQ expr IN . expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 84
+-- On appName shift to state 69
+
+State 84:
+expr -> LET typ EQ expr IN expr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production expr -> LET typ EQ expr IN expr 
+-- On VAL reduce production expr -> LET typ EQ expr IN expr 
+-- On UNION reduce production expr -> LET typ EQ expr IN expr 
+-- On TYPE reduce production expr -> LET typ EQ expr IN expr 
+-- On SUB reduce production expr -> LET typ EQ expr IN expr 
+-- On STRING reduce production expr -> LET typ EQ expr IN expr 
+-- On SINGLETON reduce production expr -> LET typ EQ expr IN expr 
+-- On RPAREN reduce production expr -> LET typ EQ expr IN expr 
+-- On RBRACE reduce production expr -> LET typ EQ expr IN expr 
+-- On PROJWIRE reduce production expr -> LET typ EQ expr IN expr 
+-- On OPEN reduce production expr -> LET typ EQ expr IN expr 
+-- On MUL reduce production expr -> LET typ EQ expr IN expr 
+-- On MOD reduce production expr -> LET typ EQ expr IN expr 
+-- On MKWIRE reduce production expr -> LET typ EQ expr IN expr 
+-- On LPAREN reduce production expr -> LET typ EQ expr IN expr 
+-- On LET reduce production expr -> LET typ EQ expr IN expr 
+-- On LBRACE reduce production expr -> LET typ EQ expr IN expr 
+-- On IN reduce production expr -> LET typ EQ expr IN expr 
+-- On IDENT reduce production expr -> LET typ EQ expr IN expr 
+-- On GT reduce production expr -> LET typ EQ expr IN expr 
+-- On FUN reduce production expr -> LET typ EQ expr IN expr 
+-- On EQ reduce production expr -> LET typ EQ expr IN expr 
+-- On EOL reduce production expr -> LET typ EQ expr IN expr 
+-- On EOF reduce production expr -> LET typ EQ expr IN expr 
+-- On DIV reduce production expr -> LET typ EQ expr IN expr 
+-- On BOB reduce production expr -> LET typ EQ expr IN expr 
+-- On BEQ reduce production expr -> LET typ EQ expr IN expr 
+-- On ASSEC reduce production expr -> LET typ EQ expr IN expr 
+-- On ARROW reduce production expr -> LET typ EQ expr IN expr 
+-- On ANY reduce production expr -> LET typ EQ expr IN expr 
+-- On ALICE reduce production expr -> LET typ EQ expr IN expr 
+-- On ADD reduce production expr -> LET typ EQ expr IN expr 
+-- On # reduce production expr -> LET typ EQ expr IN expr 
+** Conflict on SUB MUL MOD GT DIV BEQ ADD
+
+State 85:
+expr -> LET ident . EQ expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On EQ shift to state 86
+
+State 86:
+expr -> LET ident EQ . expr IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 87
+-- On appName shift to state 69
+
+State 87:
+expr -> LET ident EQ expr . IN expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr . binop expr [ SUB MUL MOD IN GT DIV BEQ ADD ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On IN shift to state 88
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+
+State 88:
+expr -> LET ident EQ expr IN . expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 89
+-- On appName shift to state 69
+
+State 89:
+expr -> LET ident EQ expr IN expr . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production expr -> LET ident EQ expr IN expr 
+-- On VAL reduce production expr -> LET ident EQ expr IN expr 
+-- On UNION reduce production expr -> LET ident EQ expr IN expr 
+-- On TYPE reduce production expr -> LET ident EQ expr IN expr 
+-- On SUB reduce production expr -> LET ident EQ expr IN expr 
+-- On STRING reduce production expr -> LET ident EQ expr IN expr 
+-- On SINGLETON reduce production expr -> LET ident EQ expr IN expr 
+-- On RPAREN reduce production expr -> LET ident EQ expr IN expr 
+-- On RBRACE reduce production expr -> LET ident EQ expr IN expr 
+-- On PROJWIRE reduce production expr -> LET ident EQ expr IN expr 
+-- On OPEN reduce production expr -> LET ident EQ expr IN expr 
+-- On MUL reduce production expr -> LET ident EQ expr IN expr 
+-- On MOD reduce production expr -> LET ident EQ expr IN expr 
+-- On MKWIRE reduce production expr -> LET ident EQ expr IN expr 
+-- On LPAREN reduce production expr -> LET ident EQ expr IN expr 
+-- On LET reduce production expr -> LET ident EQ expr IN expr 
+-- On LBRACE reduce production expr -> LET ident EQ expr IN expr 
+-- On IN reduce production expr -> LET ident EQ expr IN expr 
+-- On IDENT reduce production expr -> LET ident EQ expr IN expr 
+-- On GT reduce production expr -> LET ident EQ expr IN expr 
+-- On FUN reduce production expr -> LET ident EQ expr IN expr 
+-- On EQ reduce production expr -> LET ident EQ expr IN expr 
+-- On EOL reduce production expr -> LET ident EQ expr IN expr 
+-- On EOF reduce production expr -> LET ident EQ expr IN expr 
+-- On DIV reduce production expr -> LET ident EQ expr IN expr 
+-- On BOB reduce production expr -> LET ident EQ expr IN expr 
+-- On BEQ reduce production expr -> LET ident EQ expr IN expr 
+-- On ASSEC reduce production expr -> LET ident EQ expr IN expr 
+-- On ARROW reduce production expr -> LET ident EQ expr IN expr 
+-- On ANY reduce production expr -> LET ident EQ expr IN expr 
+-- On ALICE reduce production expr -> LET ident EQ expr IN expr 
+-- On ADD reduce production expr -> LET ident EQ expr IN expr 
+-- On # reduce production expr -> LET ident EQ expr IN expr 
+** Conflict on SUB MUL MOD GT DIV BEQ ADD
+
+State 90:
+typNormal -> appName . nonempty_list(idstr) [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On STRING shift to state 2
+-- On IDENT shift to state 3
+-- On nonempty_list(idstr) shift to state 91
+-- On idstr shift to state 92
+
+State 91:
+typNormal -> appName nonempty_list(idstr) . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On VAL reduce production typNormal -> appName nonempty_list(idstr) 
+-- On UNION reduce production typNormal -> appName nonempty_list(idstr) 
+-- On TYPE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On STRING reduce production typNormal -> appName nonempty_list(idstr) 
+-- On SINGLETON reduce production typNormal -> appName nonempty_list(idstr) 
+-- On RPAREN reduce production typNormal -> appName nonempty_list(idstr) 
+-- On PROJWIRE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On OPEN reduce production typNormal -> appName nonempty_list(idstr) 
+-- On MKWIRE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On LPAREN reduce production typNormal -> appName nonempty_list(idstr) 
+-- On LET reduce production typNormal -> appName nonempty_list(idstr) 
+-- On LBRACE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On IDENT reduce production typNormal -> appName nonempty_list(idstr) 
+-- On FUN reduce production typNormal -> appName nonempty_list(idstr) 
+-- On EQ reduce production typNormal -> appName nonempty_list(idstr) 
+-- On EOL reduce production typNormal -> appName nonempty_list(idstr) 
+-- On EOF reduce production typNormal -> appName nonempty_list(idstr) 
+-- On BOB reduce production typNormal -> appName nonempty_list(idstr) 
+-- On ASSEC reduce production typNormal -> appName nonempty_list(idstr) 
+-- On ARROW reduce production typNormal -> appName nonempty_list(idstr) 
+-- On ANY reduce production typNormal -> appName nonempty_list(idstr) 
+-- On ALICE reduce production typNormal -> appName nonempty_list(idstr) 
+-- On # reduce production typNormal -> appName nonempty_list(idstr) 
+
+State 92:
+nonempty_list(idstr) -> idstr . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+nonempty_list(idstr) -> idstr . nonempty_list(idstr) [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On STRING shift to state 2
+-- On IDENT shift to state 3
+-- On nonempty_list(idstr) shift to state 93
+-- On idstr shift to state 92
+-- On WIRE reduce production nonempty_list(idstr) -> idstr 
+-- On VAL reduce production nonempty_list(idstr) -> idstr 
+-- On UNION reduce production nonempty_list(idstr) -> idstr 
+-- On TYPE reduce production nonempty_list(idstr) -> idstr 
+-- On STRING reduce production nonempty_list(idstr) -> idstr 
+-- On SINGLETON reduce production nonempty_list(idstr) -> idstr 
+-- On RPAREN reduce production nonempty_list(idstr) -> idstr 
+-- On PROJWIRE reduce production nonempty_list(idstr) -> idstr 
+-- On OPEN reduce production nonempty_list(idstr) -> idstr 
+-- On MKWIRE reduce production nonempty_list(idstr) -> idstr 
+-- On LPAREN reduce production nonempty_list(idstr) -> idstr 
+-- On LET reduce production nonempty_list(idstr) -> idstr 
+-- On LBRACE reduce production nonempty_list(idstr) -> idstr 
+-- On IDENT reduce production nonempty_list(idstr) -> idstr 
+-- On FUN reduce production nonempty_list(idstr) -> idstr 
+-- On EQ reduce production nonempty_list(idstr) -> idstr 
+-- On EOL reduce production nonempty_list(idstr) -> idstr 
+-- On EOF reduce production nonempty_list(idstr) -> idstr 
+-- On BOB reduce production nonempty_list(idstr) -> idstr 
+-- On ASSEC reduce production nonempty_list(idstr) -> idstr 
+-- On ARROW reduce production nonempty_list(idstr) -> idstr 
+-- On ANY reduce production nonempty_list(idstr) -> idstr 
+-- On ALICE reduce production nonempty_list(idstr) -> idstr 
+-- On # reduce production nonempty_list(idstr) -> idstr 
+** Conflict on STRING IDENT
+
+State 93:
+nonempty_list(idstr) -> idstr nonempty_list(idstr) . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On VAL reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On UNION reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On TYPE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On STRING reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On SINGLETON reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On RPAREN reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On PROJWIRE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On OPEN reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On MKWIRE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On LPAREN reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On LET reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On LBRACE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On IDENT reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On FUN reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On EQ reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On EOL reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On EOF reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On BOB reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On ASSEC reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On ARROW reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On ANY reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On ALICE reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+-- On # reduce production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+
+State 94:
+appName -> IDENT . [ WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE ]
+formula -> IDENT . EQ IDENT [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+ident -> IDENT . [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On EQ shift to state 95
+-- On WIRE reduce production appName -> IDENT 
+-- On WIRE reduce production ident -> IDENT 
+-- On VAL reduce production ident -> IDENT 
+-- On UNION reduce production appName -> IDENT 
+-- On UNION reduce production ident -> IDENT 
+-- On TYPE reduce production ident -> IDENT 
+-- On SUB reduce production ident -> IDENT 
+-- On STRING reduce production appName -> IDENT 
+-- On STRING reduce production ident -> IDENT 
+-- On SINGLETON reduce production appName -> IDENT 
+-- On SINGLETON reduce production ident -> IDENT 
+-- On RPAREN reduce production ident -> IDENT 
+-- On RBRACE reduce production ident -> IDENT 
+-- On PROJWIRE reduce production appName -> IDENT 
+-- On PROJWIRE reduce production ident -> IDENT 
+-- On OPEN reduce production ident -> IDENT 
+-- On MUL reduce production ident -> IDENT 
+-- On MOD reduce production ident -> IDENT 
+-- On MKWIRE reduce production appName -> IDENT 
+-- On MKWIRE reduce production ident -> IDENT 
+-- On LPAREN reduce production appName -> IDENT 
+-- On LPAREN reduce production ident -> IDENT 
+-- On LET reduce production appName -> IDENT 
+-- On LET reduce production ident -> IDENT 
+-- On LBRACE reduce production ident -> IDENT 
+-- On IDENT reduce production appName -> IDENT 
+-- On IDENT reduce production ident -> IDENT 
+-- On GT reduce production ident -> IDENT 
+-- On FUN reduce production appName -> IDENT 
+-- On FUN reduce production ident -> IDENT 
+-- On EQ reduce production ident -> IDENT 
+-- On EOL reduce production ident -> IDENT 
+-- On EOF reduce production ident -> IDENT 
+-- On DIV reduce production ident -> IDENT 
+-- On BOB reduce production appName -> IDENT 
+-- On BOB reduce production ident -> IDENT 
+-- On BEQ reduce production ident -> IDENT 
+-- On ASSEC reduce production appName -> IDENT 
+-- On ASSEC reduce production ident -> IDENT 
+-- On ARROW reduce production ident -> IDENT 
+-- On ANY reduce production ident -> IDENT 
+-- On ALICE reduce production appName -> IDENT 
+-- On ALICE reduce production ident -> IDENT 
+-- On ADD reduce production ident -> IDENT 
+-- On # reduce production ident -> IDENT 
+** Conflict on WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN EQ BOB ASSEC ALICE
+
+State 95:
+formula -> IDENT EQ . IDENT [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On IDENT shift to state 96
+
+State 96:
+formula -> IDENT EQ IDENT . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production formula -> IDENT EQ IDENT 
+-- On VAL reduce production formula -> IDENT EQ IDENT 
+-- On UNION reduce production formula -> IDENT EQ IDENT 
+-- On TYPE reduce production formula -> IDENT EQ IDENT 
+-- On STRING reduce production formula -> IDENT EQ IDENT 
+-- On SINGLETON reduce production formula -> IDENT EQ IDENT 
+-- On RPAREN reduce production formula -> IDENT EQ IDENT 
+-- On RBRACE reduce production formula -> IDENT EQ IDENT 
+-- On PROJWIRE reduce production formula -> IDENT EQ IDENT 
+-- On OPEN reduce production formula -> IDENT EQ IDENT 
+-- On MKWIRE reduce production formula -> IDENT EQ IDENT 
+-- On LPAREN reduce production formula -> IDENT EQ IDENT 
+-- On LET reduce production formula -> IDENT EQ IDENT 
+-- On LBRACE reduce production formula -> IDENT EQ IDENT 
+-- On IDENT reduce production formula -> IDENT EQ IDENT 
+-- On FUN reduce production formula -> IDENT EQ IDENT 
+-- On EQ reduce production formula -> IDENT EQ IDENT 
+-- On EOL reduce production formula -> IDENT EQ IDENT 
+-- On EOF reduce production formula -> IDENT EQ IDENT 
+-- On BOB reduce production formula -> IDENT EQ IDENT 
+-- On ASSEC reduce production formula -> IDENT EQ IDENT 
+-- On ARROW reduce production formula -> IDENT EQ IDENT 
+-- On ANY reduce production formula -> IDENT EQ IDENT 
+-- On ALICE reduce production formula -> IDENT EQ IDENT 
+-- On # reduce production formula -> IDENT EQ IDENT 
+
+State 97:
+typNormal -> idstr COLON typ LBRACE formula . RBRACE [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON typ LBRACE formula . RBRACE ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On RBRACE shift to state 98
+
+State 98:
+typNormal -> idstr COLON typ LBRACE formula RBRACE . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+typNormal -> idstr COLON typ LBRACE formula RBRACE . ARROW typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On ARROW shift to state 99
+-- On WIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On VAL reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On UNION reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On TYPE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On STRING reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On SINGLETON reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On RPAREN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On PROJWIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On OPEN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On MKWIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On LPAREN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On LET reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On LBRACE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On IDENT reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On FUN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On EQ reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On EOL reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On EOF reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On BOB reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On ASSEC reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On ARROW reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On ANY reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On ALICE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+-- On # reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+** Conflict on ARROW
+
+State 99:
+typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW . typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 100
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 100:
+typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On VAL reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On UNION reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On TYPE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On STRING reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On SINGLETON reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On RPAREN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On PROJWIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On OPEN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On MKWIRE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On LPAREN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On LET reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On LBRACE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On IDENT reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On FUN reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On EQ reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On EOL reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On EOF reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On BOB reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On ASSEC reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On ARROW reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On ANY reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On ALICE reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+-- On # reduce production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+
+State 101:
+formula -> expr . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production formula -> expr 
+-- On VAL reduce production formula -> expr 
+-- On UNION reduce production formula -> expr 
+-- On TYPE reduce production formula -> expr 
+-- On STRING reduce production formula -> expr 
+-- On SINGLETON reduce production formula -> expr 
+-- On RPAREN reduce production formula -> expr 
+-- On RBRACE reduce production formula -> expr 
+-- On PROJWIRE reduce production formula -> expr 
+-- On OPEN reduce production formula -> expr 
+-- On MKWIRE reduce production formula -> expr 
+-- On LPAREN reduce production formula -> expr 
+-- On LET reduce production formula -> expr 
+-- On LBRACE reduce production formula -> expr 
+-- On IDENT reduce production formula -> expr 
+-- On FUN reduce production formula -> expr 
+-- On EQ reduce production formula -> expr 
+-- On EOL reduce production formula -> expr 
+-- On EOF reduce production formula -> expr 
+-- On BOB reduce production formula -> expr 
+-- On ASSEC reduce production formula -> expr 
+-- On ARROW reduce production formula -> expr 
+-- On ANY reduce production formula -> expr 
+-- On ALICE reduce production formula -> expr 
+-- On # reduce production formula -> expr 
+
+State 102:
+typNormal -> idstr COLON typ ARROW . typ [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 103
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 103:
+typNormal -> idstr COLON typ ARROW typ . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On VAL reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On UNION reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On TYPE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On STRING reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On SINGLETON reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On RPAREN reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On PROJWIRE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On OPEN reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On MKWIRE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On LPAREN reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On LET reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On LBRACE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On IDENT reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On FUN reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On EQ reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On EOL reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On EOF reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On BOB reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On ASSEC reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On ARROW reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On ANY reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On ALICE reduce production typNormal -> idstr COLON typ ARROW typ 
+-- On # reduce production typNormal -> idstr COLON typ ARROW typ 
+
+State 104:
+typFun -> FUN list(binder) . ARROW typNormal formula [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On ARROW shift to state 105
+
+State 105:
+typFun -> FUN list(binder) ARROW . typNormal formula [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 106
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 106:
+typFun -> FUN list(binder) ARROW typNormal . formula [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 29
+-- On LET shift to state 34
+-- On IDENT shift to state 94
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On formula shift to state 107
+-- On expr shift to state 101
+-- On appName shift to state 69
+-- On WIRE reduce production formula -> 
+-- On VAL reduce production formula -> 
+-- On UNION reduce production formula -> 
+-- On TYPE reduce production formula -> 
+-- On STRING reduce production formula -> 
+-- On SINGLETON reduce production formula -> 
+-- On RPAREN reduce production formula -> 
+-- On PROJWIRE reduce production formula -> 
+-- On OPEN reduce production formula -> 
+-- On MKWIRE reduce production formula -> 
+-- On LPAREN reduce production formula -> 
+-- On LET reduce production formula -> 
+-- On LBRACE reduce production formula -> 
+-- On IDENT reduce production formula -> 
+-- On FUN reduce production formula -> 
+-- On EQ reduce production formula -> 
+-- On EOL reduce production formula -> 
+-- On EOF reduce production formula -> 
+-- On BOB reduce production formula -> 
+-- On ASSEC reduce production formula -> 
+-- On ARROW reduce production formula -> 
+-- On ANY reduce production formula -> 
+-- On ALICE reduce production formula -> 
+-- On # reduce production formula -> 
+** Conflict on WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+
+State 107:
+typFun -> FUN list(binder) ARROW typNormal formula . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On VAL reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On UNION reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On TYPE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On STRING reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On SINGLETON reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On RPAREN reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On PROJWIRE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On OPEN reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On MKWIRE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On LPAREN reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On LET reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On LBRACE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On IDENT reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On FUN reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On EQ reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On EOL reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On EOF reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On BOB reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On ASSEC reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On ARROW reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On ANY reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On ALICE reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+-- On # reduce production typFun -> FUN list(binder) ARROW typNormal formula 
+
+State 108:
+list(binder) -> binder . list(binder) [ ARROW ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On singleBinder shift to state 42
+-- On list(binder) shift to state 109
+-- On idstr shift to state 43
+-- On binder shift to state 108
+-- On ARROW reduce production list(binder) -> 
+
+State 109:
+list(binder) -> binder list(binder) . [ ARROW ]
+-- On ARROW reduce production list(binder) -> binder list(binder) 
+
+State 110:
+typNormal -> STRING LPAREN typ . RPAREN pre_postcond pre_postcond [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On RPAREN shift to state 111
+
+State 111:
+typNormal -> STRING LPAREN typ RPAREN . pre_postcond pre_postcond [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 112
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On pre_postcond shift to state 115
+-- On partExpr shift to state 49
+-- On nondelimited_expr shift to state 117
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 118
+-- On appName shift to state 69
+
+State 112:
+nondelimited_expr -> LPAREN . expr RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 113
+-- On appName shift to state 69
+
+State 113:
+nondelimited_expr -> LPAREN expr . RPAREN [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+partExpr -> expr . binop expr [ SUB RPAREN MUL MOD GT DIV BEQ ADD ]
+-- On SUB shift to state 60
+-- On RPAREN shift to state 114
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+
+State 114:
+nondelimited_expr -> LPAREN expr RPAREN . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On VAL reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On UNION reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On TYPE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On STRING reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On SINGLETON reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On RPAREN reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On PROJWIRE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On OPEN reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On MKWIRE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On LPAREN reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On LET reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On LBRACE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On IDENT reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On FUN reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On EQ reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On EOL reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On EOF reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On BOB reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On ASSEC reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On ARROW reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On ANY reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On ALICE reduce production nondelimited_expr -> LPAREN expr RPAREN 
+-- On # reduce production nondelimited_expr -> LPAREN expr RPAREN 
+
+State 115:
+typNormal -> STRING LPAREN typ RPAREN pre_postcond . pre_postcond [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LPAREN shift to state 112
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On pre_postcond shift to state 116
+-- On partExpr shift to state 49
+-- On nondelimited_expr shift to state 117
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 118
+-- On appName shift to state 69
+
+State 116:
+typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On VAL reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On UNION reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On TYPE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On STRING reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On SINGLETON reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On RPAREN reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On PROJWIRE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On OPEN reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On MKWIRE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On LPAREN reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On LET reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On LBRACE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On IDENT reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On FUN reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On EQ reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On EOL reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On EOF reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On BOB reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On ASSEC reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On ARROW reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On ANY reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On ALICE reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+-- On # reduce production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+
+State 117:
+pre_postcond -> nondelimited_expr . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On WIRE reduce production pre_postcond -> nondelimited_expr 
+-- On VAL reduce production pre_postcond -> nondelimited_expr 
+-- On UNION reduce production pre_postcond -> nondelimited_expr 
+-- On TYPE reduce production pre_postcond -> nondelimited_expr 
+-- On STRING reduce production pre_postcond -> nondelimited_expr 
+-- On SINGLETON reduce production pre_postcond -> nondelimited_expr 
+-- On RPAREN reduce production pre_postcond -> nondelimited_expr 
+-- On PROJWIRE reduce production pre_postcond -> nondelimited_expr 
+-- On OPEN reduce production pre_postcond -> nondelimited_expr 
+-- On MKWIRE reduce production pre_postcond -> nondelimited_expr 
+-- On LPAREN reduce production pre_postcond -> nondelimited_expr 
+-- On LET reduce production pre_postcond -> nondelimited_expr 
+-- On LBRACE reduce production pre_postcond -> nondelimited_expr 
+-- On IDENT reduce production pre_postcond -> nondelimited_expr 
+-- On FUN reduce production pre_postcond -> nondelimited_expr 
+-- On EQ reduce production pre_postcond -> nondelimited_expr 
+-- On EOL reduce production pre_postcond -> nondelimited_expr 
+-- On EOF reduce production pre_postcond -> nondelimited_expr 
+-- On BOB reduce production pre_postcond -> nondelimited_expr 
+-- On ASSEC reduce production pre_postcond -> nondelimited_expr 
+-- On ARROW reduce production pre_postcond -> nondelimited_expr 
+-- On ANY reduce production pre_postcond -> nondelimited_expr 
+-- On ALICE reduce production pre_postcond -> nondelimited_expr 
+-- On # reduce production pre_postcond -> nondelimited_expr 
+
+State 118:
+partExpr -> expr . binop expr [ WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD # ]
+pre_postcond -> expr . [ WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On binop shift to state 67
+-- On WIRE reduce production pre_postcond -> expr 
+-- On VAL reduce production pre_postcond -> expr 
+-- On UNION reduce production pre_postcond -> expr 
+-- On TYPE reduce production pre_postcond -> expr 
+-- On STRING reduce production pre_postcond -> expr 
+-- On SINGLETON reduce production pre_postcond -> expr 
+-- On RPAREN reduce production pre_postcond -> expr 
+-- On PROJWIRE reduce production pre_postcond -> expr 
+-- On OPEN reduce production pre_postcond -> expr 
+-- On MKWIRE reduce production pre_postcond -> expr 
+-- On LPAREN reduce production pre_postcond -> expr 
+-- On LET reduce production pre_postcond -> expr 
+-- On LBRACE reduce production pre_postcond -> expr 
+-- On IDENT reduce production pre_postcond -> expr 
+-- On FUN reduce production pre_postcond -> expr 
+-- On EQ reduce production pre_postcond -> expr 
+-- On EOL reduce production pre_postcond -> expr 
+-- On EOF reduce production pre_postcond -> expr 
+-- On BOB reduce production pre_postcond -> expr 
+-- On ASSEC reduce production pre_postcond -> expr 
+-- On ARROW reduce production pre_postcond -> expr 
+-- On ANY reduce production pre_postcond -> expr 
+-- On ALICE reduce production pre_postcond -> expr 
+-- On # reduce production pre_postcond -> expr 
+
+State 119:
+rawDecl -> VAL idstr COLON typ . [ # ]
+-- On # reduce production rawDecl -> VAL idstr COLON typ 
+
+State 120:
+rawDecl -> TYPE . typeDecl ruleEnd [ # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On ASSEC shift to state 16
+-- On typedecl shift to state 121
+-- On typeDecl shift to state 127
+-- On typNormal shift to state 131
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 121:
+typeDecl -> typedecl . typars typeDef [ VAL TYPE OPEN LET EOL EOF # ]
+typeDecl -> typedecl . [ VAL TYPE OPEN LET EOL EOF # ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On typars shift to state 122
+-- On singleBinder shift to state 42
+-- On idstr shift to state 43
+-- On binder shift to state 126
+-- On VAL reduce production typars -> 
+-- On VAL reduce production typeDecl -> typedecl 
+-- On TYPE reduce production typars -> 
+-- On TYPE reduce production typeDecl -> typedecl 
+-- On OPEN reduce production typars -> 
+-- On OPEN reduce production typeDecl -> typedecl 
+-- On LET reduce production typars -> 
+-- On LET reduce production typeDecl -> typedecl 
+-- On EQ reduce production typars -> 
+-- On EOL reduce production typars -> 
+-- On EOL reduce production typeDecl -> typedecl 
+-- On EOF reduce production typars -> 
+-- On EOF reduce production typeDecl -> typedecl 
+-- On # reduce production typars -> 
+-- On # reduce production typeDecl -> typedecl 
+** Conflict on VAL TYPE OPEN LET EOL EOF #
+
+State 122:
+typeDecl -> typedecl typars . typeDef [ VAL TYPE OPEN LET EOL EOF # ]
+-- On EQ shift to state 123
+-- On typeDef shift to state 125
+-- On VAL reduce production typeDef -> 
+-- On TYPE reduce production typeDef -> 
+-- On OPEN reduce production typeDef -> 
+-- On LET reduce production typeDef -> 
+-- On EOL reduce production typeDef -> 
+-- On EOF reduce production typeDef -> 
+-- On # reduce production typeDef -> 
+
+State 123:
+typeDef -> EQ . typ [ VAL TYPE OPEN LET EOL EOF # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 124
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 124:
+typeDef -> EQ typ . [ VAL TYPE OPEN LET EOL EOF # ]
+-- On VAL reduce production typeDef -> EQ typ 
+-- On TYPE reduce production typeDef -> EQ typ 
+-- On OPEN reduce production typeDef -> EQ typ 
+-- On LET reduce production typeDef -> EQ typ 
+-- On EOL reduce production typeDef -> EQ typ 
+-- On EOF reduce production typeDef -> EQ typ 
+-- On # reduce production typeDef -> EQ typ 
+
+State 125:
+typeDecl -> typedecl typars typeDef . [ VAL TYPE OPEN LET EOL EOF # ]
+-- On VAL reduce production typeDecl -> typedecl typars typeDef 
+-- On TYPE reduce production typeDecl -> typedecl typars typeDef 
+-- On OPEN reduce production typeDecl -> typedecl typars typeDef 
+-- On LET reduce production typeDecl -> typedecl typars typeDef 
+-- On EOL reduce production typeDecl -> typedecl typars typeDef 
+-- On EOF reduce production typeDecl -> typedecl typars typeDef 
+-- On # reduce production typeDecl -> typedecl typars typeDef 
+
+State 126:
+typars -> binder . [ VAL TYPE OPEN LET EQ EOL EOF # ]
+-- On VAL reduce production typars -> binder 
+-- On TYPE reduce production typars -> binder 
+-- On OPEN reduce production typars -> binder 
+-- On LET reduce production typars -> binder 
+-- On EQ reduce production typars -> binder 
+-- On EOL reduce production typars -> binder 
+-- On EOF reduce production typars -> binder 
+-- On # reduce production typars -> binder 
+
+State 127:
+rawDecl -> TYPE typeDecl . ruleEnd [ # ]
+-- On EOL shift to state 128
+-- On EOF shift to state 129
+-- On ruleEnd shift to state 130
+-- On # reduce production ruleEnd -> 
+
+State 128:
+ruleEnd -> EOL . [ # ]
+-- On # reduce production ruleEnd -> EOL 
+
+State 129:
+ruleEnd -> EOF . [ # ]
+-- On # reduce production ruleEnd -> EOF 
+
+State 130:
+rawDecl -> TYPE typeDecl ruleEnd . [ # ]
+-- On # reduce production rawDecl -> TYPE typeDecl ruleEnd 
+
+State 131:
+typedecl -> typNormal . nonempty_list(binder) [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+typedecl -> typNormal . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On singleBinder shift to state 42
+-- On nonempty_list(binder) shift to state 132
+-- On idstr shift to state 43
+-- On binder shift to state 133
+-- On VAL reduce production typedecl -> typNormal 
+-- On TYPE reduce production typedecl -> typNormal 
+-- On STRING reduce production typedecl -> typNormal 
+-- On OPEN reduce production typedecl -> typNormal 
+-- On LPAREN reduce production typedecl -> typNormal 
+-- On LET reduce production typedecl -> typNormal 
+-- On IDENT reduce production typedecl -> typNormal 
+-- On EQ reduce production typedecl -> typNormal 
+-- On EOL reduce production typedecl -> typNormal 
+-- On EOF reduce production typedecl -> typNormal 
+-- On ANY reduce production typedecl -> typNormal 
+-- On # reduce production typedecl -> typNormal 
+** Conflict on STRING LPAREN IDENT ANY
+
+State 132:
+typedecl -> typNormal nonempty_list(binder) . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+-- On VAL reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On TYPE reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On STRING reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On OPEN reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On LPAREN reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On LET reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On IDENT reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On EQ reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On EOL reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On EOF reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On ANY reduce production typedecl -> typNormal nonempty_list(binder) 
+-- On # reduce production typedecl -> typNormal nonempty_list(binder) 
+
+State 133:
+nonempty_list(binder) -> binder . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+nonempty_list(binder) -> binder . nonempty_list(binder) [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+-- On STRING shift to state 2
+-- On LPAREN shift to state 13
+-- On IDENT shift to state 3
+-- On ANY shift to state 41
+-- On singleBinder shift to state 42
+-- On nonempty_list(binder) shift to state 134
+-- On idstr shift to state 43
+-- On binder shift to state 133
+-- On VAL reduce production nonempty_list(binder) -> binder 
+-- On TYPE reduce production nonempty_list(binder) -> binder 
+-- On STRING reduce production nonempty_list(binder) -> binder 
+-- On OPEN reduce production nonempty_list(binder) -> binder 
+-- On LPAREN reduce production nonempty_list(binder) -> binder 
+-- On LET reduce production nonempty_list(binder) -> binder 
+-- On IDENT reduce production nonempty_list(binder) -> binder 
+-- On EQ reduce production nonempty_list(binder) -> binder 
+-- On EOL reduce production nonempty_list(binder) -> binder 
+-- On EOF reduce production nonempty_list(binder) -> binder 
+-- On ANY reduce production nonempty_list(binder) -> binder 
+-- On # reduce production nonempty_list(binder) -> binder 
+** Conflict on STRING LPAREN IDENT ANY
+
+State 134:
+nonempty_list(binder) -> binder nonempty_list(binder) . [ VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY # ]
+-- On VAL reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On TYPE reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On STRING reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On OPEN reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On LPAREN reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On LET reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On IDENT reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On EQ reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On EOL reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On EOF reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On ANY reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+-- On # reduce production nonempty_list(binder) -> binder nonempty_list(binder) 
+
+State 135:
+rawDecl -> OPEN . pathid [ # ]
+-- On STRING shift to state 136
+-- On pathid shift to state 143
+
+State 136:
+pathid -> STRING . list(dotid) ruleEnd [ # ]
+-- On DOT shift to state 137
+-- On list(dotid) shift to state 139
+-- On dotid shift to state 141
+-- On EOL reduce production list(dotid) -> 
+-- On EOF reduce production list(dotid) -> 
+-- On # reduce production list(dotid) -> 
+
+State 137:
+dotid -> DOT . STRING [ VAL TYPE OPEN LET EOL EOF DOT # ]
+-- On STRING shift to state 138
+
+State 138:
+dotid -> DOT STRING . [ VAL TYPE OPEN LET EOL EOF DOT # ]
+-- On VAL reduce production dotid -> DOT STRING 
+-- On TYPE reduce production dotid -> DOT STRING 
+-- On OPEN reduce production dotid -> DOT STRING 
+-- On LET reduce production dotid -> DOT STRING 
+-- On EOL reduce production dotid -> DOT STRING 
+-- On EOF reduce production dotid -> DOT STRING 
+-- On DOT reduce production dotid -> DOT STRING 
+-- On # reduce production dotid -> DOT STRING 
+
+State 139:
+pathid -> STRING list(dotid) . ruleEnd [ # ]
+-- On EOL shift to state 128
+-- On EOF shift to state 129
+-- On ruleEnd shift to state 140
+-- On # reduce production ruleEnd -> 
+
+State 140:
+pathid -> STRING list(dotid) ruleEnd . [ # ]
+-- On # reduce production pathid -> STRING list(dotid) ruleEnd 
+
+State 141:
+list(dotid) -> dotid . list(dotid) [ VAL TYPE OPEN LET EOL EOF # ]
+-- On DOT shift to state 137
+-- On list(dotid) shift to state 142
+-- On dotid shift to state 141
+-- On VAL reduce production list(dotid) -> 
+-- On TYPE reduce production list(dotid) -> 
+-- On OPEN reduce production list(dotid) -> 
+-- On LET reduce production list(dotid) -> 
+-- On EOL reduce production list(dotid) -> 
+-- On EOF reduce production list(dotid) -> 
+-- On # reduce production list(dotid) -> 
+
+State 142:
+list(dotid) -> dotid list(dotid) . [ VAL TYPE OPEN LET EOL EOF # ]
+-- On VAL reduce production list(dotid) -> dotid list(dotid) 
+-- On TYPE reduce production list(dotid) -> dotid list(dotid) 
+-- On OPEN reduce production list(dotid) -> dotid list(dotid) 
+-- On LET reduce production list(dotid) -> dotid list(dotid) 
+-- On EOL reduce production list(dotid) -> dotid list(dotid) 
+-- On EOF reduce production list(dotid) -> dotid list(dotid) 
+-- On # reduce production list(dotid) -> dotid list(dotid) 
+
+State 143:
+rawDecl -> OPEN pathid . [ # ]
+-- On # reduce production rawDecl -> OPEN pathid 
+
+State 144:
+rawDecl -> LET . REC ident list(ident) EQ expr ruleEnd [ # ]
+rawDecl -> LET . ident list(ident) EQ expr ruleEnd [ # ]
+-- On STRING shift to state 27
+-- On REC shift to state 145
+-- On IDENT shift to state 51
+-- On ident shift to state 153
+
+State 145:
+rawDecl -> LET REC . ident list(ident) EQ expr ruleEnd [ # ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On ident shift to state 146
+
+State 146:
+rawDecl -> LET REC ident . list(ident) EQ expr ruleEnd [ # ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On list(ident) shift to state 147
+-- On ident shift to state 151
+-- On EQ reduce production list(ident) -> 
+
+State 147:
+rawDecl -> LET REC ident list(ident) . EQ expr ruleEnd [ # ]
+-- On EQ shift to state 148
+
+State 148:
+rawDecl -> LET REC ident list(ident) EQ . expr ruleEnd [ # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 149
+-- On appName shift to state 69
+
+State 149:
+partExpr -> expr . binop expr [ SUB MUL MOD GT EOL EOF DIV BEQ ADD # ]
+rawDecl -> LET REC ident list(ident) EQ expr . ruleEnd [ # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On EOL shift to state 128
+-- On EOF shift to state 129
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On ruleEnd shift to state 150
+-- On binop shift to state 67
+-- On # reduce production ruleEnd -> 
+
+State 150:
+rawDecl -> LET REC ident list(ident) EQ expr ruleEnd . [ # ]
+-- On # reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+
+State 151:
+list(ident) -> ident . list(ident) [ EQ ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On list(ident) shift to state 152
+-- On ident shift to state 151
+-- On EQ reduce production list(ident) -> 
+
+State 152:
+list(ident) -> ident list(ident) . [ EQ ]
+-- On EQ reduce production list(ident) -> ident list(ident) 
+
+State 153:
+rawDecl -> LET ident . list(ident) EQ expr ruleEnd [ # ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On list(ident) shift to state 154
+-- On ident shift to state 151
+-- On EQ reduce production list(ident) -> 
+
+State 154:
+rawDecl -> LET ident list(ident) . EQ expr ruleEnd [ # ]
+-- On EQ shift to state 155
+
+State 155:
+rawDecl -> LET ident list(ident) EQ . expr ruleEnd [ # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 156
+-- On appName shift to state 69
+
+State 156:
+partExpr -> expr . binop expr [ SUB MUL MOD GT EOL EOF DIV BEQ ADD # ]
+rawDecl -> LET ident list(ident) EQ expr . ruleEnd [ # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On EOL shift to state 128
+-- On EOF shift to state 129
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On ruleEnd shift to state 157
+-- On binop shift to state 67
+-- On # reduce production ruleEnd -> 
+
+State 157:
+rawDecl -> LET ident list(ident) EQ expr ruleEnd . [ # ]
+-- On # reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+
+State 158:
+decl -> rawDecl . [ # ]
+-- On # reduce production decl -> rawDecl 
+
+State 159:
+decl' -> decl . [ # ]
+-- On # accept decl
+
+State 160:
+prog' -> . prog [ # ]
+-- On MODULE shift to state 161
+-- On prog shift to state 194
+
+State 161:
+prog -> MODULE . STRING list(decl) EOF [ # ]
+-- On STRING shift to state 162
+
+State 162:
+prog -> MODULE STRING . list(decl) EOF [ # ]
+-- On VAL shift to state 163
+-- On TYPE shift to state 167
+-- On OPEN shift to state 172
+-- On LET shift to state 177
+-- On rawDecl shift to state 189
+-- On list(decl) shift to state 190
+-- On decl shift to state 192
+-- On EOF reduce production list(decl) -> 
+
+State 163:
+rawDecl -> VAL . idstr COLON typ [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 2
+-- On IDENT shift to state 3
+-- On idstr shift to state 164
+
+State 164:
+rawDecl -> VAL idstr . COLON typ [ VAL TYPE OPEN LET EOF ]
+-- On COLON shift to state 165
+
+State 165:
+rawDecl -> VAL idstr COLON . typ [ VAL TYPE OPEN LET EOF ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On FUN shift to state 12
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 22
+-- On typFun shift to state 23
+-- On typ shift to state 166
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 166:
+rawDecl -> VAL idstr COLON typ . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production rawDecl -> VAL idstr COLON typ 
+-- On TYPE reduce production rawDecl -> VAL idstr COLON typ 
+-- On OPEN reduce production rawDecl -> VAL idstr COLON typ 
+-- On LET reduce production rawDecl -> VAL idstr COLON typ 
+-- On EOF reduce production rawDecl -> VAL idstr COLON typ 
+
+State 167:
+rawDecl -> TYPE . typeDecl ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On ASSEC shift to state 16
+-- On typedecl shift to state 121
+-- On typeDecl shift to state 168
+-- On typNormal shift to state 131
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 168:
+rawDecl -> TYPE typeDecl . ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On EOL shift to state 169
+-- On EOF shift to state 170
+-- On ruleEnd shift to state 171
+-- On VAL reduce production ruleEnd -> 
+-- On TYPE reduce production ruleEnd -> 
+-- On OPEN reduce production ruleEnd -> 
+-- On LET reduce production ruleEnd -> 
+-- On EOF reduce production ruleEnd -> 
+** Conflict on EOF
+
+State 169:
+ruleEnd -> EOL . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production ruleEnd -> EOL 
+-- On TYPE reduce production ruleEnd -> EOL 
+-- On OPEN reduce production ruleEnd -> EOL 
+-- On LET reduce production ruleEnd -> EOL 
+-- On EOF reduce production ruleEnd -> EOL 
+
+State 170:
+ruleEnd -> EOF . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production ruleEnd -> EOF 
+-- On TYPE reduce production ruleEnd -> EOF 
+-- On OPEN reduce production ruleEnd -> EOF 
+-- On LET reduce production ruleEnd -> EOF 
+-- On EOF reduce production ruleEnd -> EOF 
+
+State 171:
+rawDecl -> TYPE typeDecl ruleEnd . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production rawDecl -> TYPE typeDecl ruleEnd 
+-- On TYPE reduce production rawDecl -> TYPE typeDecl ruleEnd 
+-- On OPEN reduce production rawDecl -> TYPE typeDecl ruleEnd 
+-- On LET reduce production rawDecl -> TYPE typeDecl ruleEnd 
+-- On EOF reduce production rawDecl -> TYPE typeDecl ruleEnd 
+
+State 172:
+rawDecl -> OPEN . pathid [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 173
+-- On pathid shift to state 176
+
+State 173:
+pathid -> STRING . list(dotid) ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On DOT shift to state 137
+-- On list(dotid) shift to state 174
+-- On dotid shift to state 141
+-- On VAL reduce production list(dotid) -> 
+-- On TYPE reduce production list(dotid) -> 
+-- On OPEN reduce production list(dotid) -> 
+-- On LET reduce production list(dotid) -> 
+-- On EOL reduce production list(dotid) -> 
+-- On EOF reduce production list(dotid) -> 
+
+State 174:
+pathid -> STRING list(dotid) . ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On EOL shift to state 169
+-- On EOF shift to state 170
+-- On ruleEnd shift to state 175
+-- On VAL reduce production ruleEnd -> 
+-- On TYPE reduce production ruleEnd -> 
+-- On OPEN reduce production ruleEnd -> 
+-- On LET reduce production ruleEnd -> 
+-- On EOF reduce production ruleEnd -> 
+** Conflict on EOF
+
+State 175:
+pathid -> STRING list(dotid) ruleEnd . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production pathid -> STRING list(dotid) ruleEnd 
+-- On TYPE reduce production pathid -> STRING list(dotid) ruleEnd 
+-- On OPEN reduce production pathid -> STRING list(dotid) ruleEnd 
+-- On LET reduce production pathid -> STRING list(dotid) ruleEnd 
+-- On EOF reduce production pathid -> STRING list(dotid) ruleEnd 
+
+State 176:
+rawDecl -> OPEN pathid . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production rawDecl -> OPEN pathid 
+-- On TYPE reduce production rawDecl -> OPEN pathid 
+-- On OPEN reduce production rawDecl -> OPEN pathid 
+-- On LET reduce production rawDecl -> OPEN pathid 
+-- On EOF reduce production rawDecl -> OPEN pathid 
+
+State 177:
+rawDecl -> LET . REC ident list(ident) EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+rawDecl -> LET . ident list(ident) EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 27
+-- On REC shift to state 178
+-- On IDENT shift to state 51
+-- On ident shift to state 184
+
+State 178:
+rawDecl -> LET REC . ident list(ident) EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On ident shift to state 179
+
+State 179:
+rawDecl -> LET REC ident . list(ident) EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On list(ident) shift to state 180
+-- On ident shift to state 151
+-- On EQ reduce production list(ident) -> 
+
+State 180:
+rawDecl -> LET REC ident list(ident) . EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On EQ shift to state 181
+
+State 181:
+rawDecl -> LET REC ident list(ident) EQ . expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 182
+-- On appName shift to state 69
+
+State 182:
+partExpr -> expr . binop expr [ VAL TYPE SUB OPEN MUL MOD LET GT EOL EOF DIV BEQ ADD ]
+rawDecl -> LET REC ident list(ident) EQ expr . ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On EOL shift to state 169
+-- On EOF shift to state 170
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On ruleEnd shift to state 183
+-- On binop shift to state 67
+-- On VAL reduce production ruleEnd -> 
+-- On TYPE reduce production ruleEnd -> 
+-- On OPEN reduce production ruleEnd -> 
+-- On LET reduce production ruleEnd -> 
+-- On EOF reduce production ruleEnd -> 
+** Conflict on EOF
+
+State 183:
+rawDecl -> LET REC ident list(ident) EQ expr ruleEnd . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+-- On TYPE reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+-- On OPEN reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+-- On LET reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+-- On EOF reduce production rawDecl -> LET REC ident list(ident) EQ expr ruleEnd 
+
+State 184:
+rawDecl -> LET ident . list(ident) EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On STRING shift to state 27
+-- On IDENT shift to state 51
+-- On list(ident) shift to state 185
+-- On ident shift to state 151
+-- On EQ reduce production list(ident) -> 
+
+State 185:
+rawDecl -> LET ident list(ident) . EQ expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On EQ shift to state 186
+
+State 186:
+rawDecl -> LET ident list(ident) EQ . expr ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 187
+-- On appName shift to state 69
+
+State 187:
+partExpr -> expr . binop expr [ VAL TYPE SUB OPEN MUL MOD LET GT EOL EOF DIV BEQ ADD ]
+rawDecl -> LET ident list(ident) EQ expr . ruleEnd [ VAL TYPE OPEN LET EOF ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On EOL shift to state 169
+-- On EOF shift to state 170
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On ruleEnd shift to state 188
+-- On binop shift to state 67
+-- On VAL reduce production ruleEnd -> 
+-- On TYPE reduce production ruleEnd -> 
+-- On OPEN reduce production ruleEnd -> 
+-- On LET reduce production ruleEnd -> 
+-- On EOF reduce production ruleEnd -> 
+** Conflict on EOF
+
+State 188:
+rawDecl -> LET ident list(ident) EQ expr ruleEnd . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+-- On TYPE reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+-- On OPEN reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+-- On LET reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+-- On EOF reduce production rawDecl -> LET ident list(ident) EQ expr ruleEnd 
+
+State 189:
+decl -> rawDecl . [ VAL TYPE OPEN LET EOF ]
+-- On VAL reduce production decl -> rawDecl 
+-- On TYPE reduce production decl -> rawDecl 
+-- On OPEN reduce production decl -> rawDecl 
+-- On LET reduce production decl -> rawDecl 
+-- On EOF reduce production decl -> rawDecl 
+
+State 190:
+prog -> MODULE STRING list(decl) . EOF [ # ]
+-- On EOF shift to state 191
+
+State 191:
+prog -> MODULE STRING list(decl) EOF . [ # ]
+-- On # reduce production prog -> MODULE STRING list(decl) EOF 
+
+State 192:
+list(decl) -> decl . list(decl) [ EOF ]
+-- On VAL shift to state 163
+-- On TYPE shift to state 167
+-- On OPEN shift to state 172
+-- On LET shift to state 177
+-- On rawDecl shift to state 189
+-- On list(decl) shift to state 193
+-- On decl shift to state 192
+-- On EOF reduce production list(decl) -> 
+
+State 193:
+list(decl) -> decl list(decl) . [ EOF ]
+-- On EOF reduce production list(decl) -> decl list(decl) 
+
+State 194:
+prog' -> prog . [ # ]
+-- On # accept prog
+
+State 195:
+rawExpr' -> . rawExpr [ # ]
+-- On WIRE shift to state 6
+-- On UNION shift to state 26
+-- On STRING shift to state 27
+-- On SINGLETON shift to state 28
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On LET shift to state 34
+-- On IDENT shift to state 39
+-- On FUN shift to state 40
+-- On BOB shift to state 46
+-- On ASSEC shift to state 16
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 48
+-- On rawExpr shift to state 196
+-- On partExpr shift to state 49
+-- On listAppName shift to state 50
+-- On ident shift to state 58
+-- On expr shift to state 197
+-- On appName shift to state 69
+
+State 196:
+rawExpr' -> rawExpr . [ # ]
+-- On # accept rawExpr
+
+State 197:
+partExpr -> expr . binop expr [ SUB MUL MOD GT EOL EOF DIV BEQ ADD # ]
+rawExpr -> expr . ruleEnd [ # ]
+-- On SUB shift to state 60
+-- On MUL shift to state 61
+-- On MOD shift to state 62
+-- On GT shift to state 63
+-- On EOL shift to state 128
+-- On EOF shift to state 129
+-- On DIV shift to state 64
+-- On BEQ shift to state 65
+-- On ADD shift to state 66
+-- On ruleEnd shift to state 198
+-- On binop shift to state 67
+-- On # reduce production ruleEnd -> 
+
+State 198:
+rawExpr -> expr ruleEnd . [ # ]
+-- On # reduce production rawExpr -> expr ruleEnd 
+
+State 199:
+typFun' -> . typFun [ # ]
+-- On FUN shift to state 12
+-- On typFun shift to state 200
+
+State 200:
+typFun' -> typFun . [ # ]
+-- On # accept typFun
+
+State 201:
+typNormal' -> . typNormal [ # ]
+-- On WIRE shift to state 6
+-- On STRING shift to state 7
+-- On PROJWIRE shift to state 9
+-- On MKWIRE shift to state 10
+-- On IDENT shift to state 11
+-- On ASSEC shift to state 16
+-- On typNormal shift to state 202
+-- On nonempty_list(idstr) shift to state 19
+-- On idstr shift to state 20
+-- On appName shift to state 90
+
+State 202:
+typNormal' -> typNormal . [ # ]
+-- On # accept typNormal
+
+State 203:
+wysPrin' -> . wysPrin [ # ]
+-- On BOB shift to state 46
+-- On ALICE shift to state 47
+-- On wysPrin shift to state 204
+
+State 204:
+wysPrin' -> wysPrin . [ # ]
+-- On # accept wysPrin
+

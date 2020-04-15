@@ -79,7 +79,18 @@
 %token BACKTICK UNIV_HASH
 %token BACKTICK_PERC
 
-%token EOF
+%token EOL EOF
+
+
+(*====Wys Token Start====*)
+%token ASSEC ASPAR
+%token MKWIRE PROJWIRE CONCATWIRE  WIRE
+%token BOX UNBOX
+%token SEAL "seal"
+%token REVEAL "reveal"
+%token FFI "ffi"
+%token ALICE BOB
+(*====Wys Token End====*)
 
 %nonassoc THEN
 %nonassoc ELSE
@@ -89,30 +100,22 @@
 %right AMP
 %left     BACKTICK
 %left     BACKTICK_AT BACKTICK_HASH
-%left     PIPE_RIGHT
+%left     PIPE_RIGHT 
 
 
 
-(*====Wys Token Start====*)
-%token ASSEC ASPAR
-%token MKWIRE PROJWIRE CONCATWIRE 
-%token BOX UNBOX
-%token SEAL "seal"
-%token REVEAL "reveal"
-%token FFI "ffi"
-%token ALICE BOB
-(*====Wys Token End====*)
 
-%start prog decl expr
+%start prog decl rawExpr 
+%start wysPrin typFun typNormal
 %type <Syntax.prog> prog 
 %type <Syntax.decl> decl 
-%type <Syntax.exprs> expr
+%type <Syntax.exprs> rawExpr
+%type <Syntax.values> wysPrin
+%type <Syntax.types> typFun
+%type <Syntax.types> typNormal
+
 (* Header  %{...}% *)
 %{ open Syntax %}
-
-//%start <Syntax.term> term
-
-
 
   
 %%
@@ -128,13 +131,13 @@ decl:
   /****** Top Level Decl ******/
 
 rawDecl:
-  | OPEN uid=quident
+  | OPEN uid=pathid
     {DOpen uid}
-  | LET REC x=ident list(ident) EQ e1=expr 
+  | LET REC x=ident list(ident) EQ e1=expr ruleEnd
     {DLet (true,  x, e1)}
-  | LET x=ident list(ident) EQ e1=expr 
+  | LET x=ident list(ident) EQ e1=expr ruleEnd
     {DLet (false,  x, e1)}
-  | TYPE x=typeDecl 
+  | TYPE x=typeDecl ruleEnd
     {DType x} 
   | VAL x=idstr COLON t=typ 
     {DVal (x, t)}
@@ -182,7 +185,9 @@ typNormal:
     {TDependentRefine (x, t, f, t2)}
   | x=nonempty_list(idstr)
     {TVar (List.hd x)}
-  | x=STRING LPAREN expr RPAREN pre_postcond pre_postcond 
+  | appName y=nonempty_list(idstr)
+    {TVar (List.hd y)}
+  | x=STRING LPAREN typ RPAREN pre_postcond pre_postcond 
     {TVar x}
 
 
@@ -197,7 +202,9 @@ pre_postcond:
 /****** formula ******/
 formula:
   | {Ignore}
-  | LPAREN expr RPAREN 
+  | IDENT EQ IDENT 
+    {Ignore}
+  | LPAREN IDENT EQ IDENT RPAREN 
     {Ignore}
   | expr 
     {Ignore}
@@ -224,9 +231,19 @@ decorateExpr:
   | LPAREN e=expr RPAREN
     {e}
 
+decoratePartExpr:
+  | e=partExpr
+    {e}
+  | LPAREN e=partExpr RPAREN
+    {e}
+
 nondelimited_expr:
   | x=delimited(LPAREN,expr,RPAREN)
     {x}
+
+rawExpr:
+  | e=expr ruleEnd 
+    {e}
 
 expr:
   | LET x=ident EQ e1=expr IN e2=expr 
@@ -235,23 +252,31 @@ expr:
     { let tname = name_of_types t in 
         let vt = VVar tname in 
           ELet (vt, e1, e2)}
-  | name=listAppName args=list(arg)
+
+  | name=listAppName args=nonempty_list(arg)
     {EApp (name, args)}
-  | app=appName args=list(decorateExpr)
+  | app=appName args=nonempty_list(decoratePartExpr)
     {EApp (app, args)}
-  | app=appName LPAREN args=list(expr) RPAREN
+  | app=appName LPAREN args=nonempty_list(decoratePartExpr) RPAREN
     {EApp (app, args)}
-  | x=binaryOperationExpr
-    {x}
   | FUN x=binder ARROW e=expr 
     {EFun (x, e)}
-  | ALICE 
-    {EVar (VVar "Alice")}
-  | BOB 
-    {EVar (VVar "Bob")}
+  | e=partExpr
+    {e}
+
+partExpr:
+  | x=partExpr b=binop y=partExpr 
+    {EBinop (x, b, y)}
+  | x=wysPrin
+    {EVar x}
   | x=ident 
     {EVar x} 
 
+wysPrin:
+  | ALICE 
+    {VVar "Alice"}
+  | BOB 
+    {VVar "Bob"}
 /****** Apply expr ******/
 listAppName:
   | SINGLETON 
@@ -268,6 +293,9 @@ appName:
     {CApp "mkwire"}
   | ASSEC 
     {CApp "as_sec"}
+
+  | WIRE 
+    {CApp "wire"}
   | IDENT   
     {CApp "app"}
 
@@ -280,9 +308,7 @@ arg:
     {EVar id}
 
 /****** Binary opertaion expr ******/
-binaryOperationExpr:
-  | x=expr b=binop y=expr
-    {EBinop (x, b, y)}
+
 
 binop:
   | ADD 
@@ -300,10 +326,6 @@ binop:
     {GT}
   | BEQ  
     {BEQ}
-  | EQ 
-    { EQ }
-
-
 
 
 /******************************************************************************/
@@ -315,28 +337,27 @@ idstr:
     {x}
   | x=STRING 
     {x}
-// qlident, quident, path use for module path
 
+// path use for module path
 
-qlident:
-  | ids=path(lident) { lid_of_ids ids }
+pathid:
+  | x=STRING y=list(dotid) ruleEnd 
+    { let i=String.concat "." y in 
+        let id = x^"."^i in id  }
 
-quident:
-  | ids=path(uident) { lid_of_ids ids }
+dotid:
+  | DOT y=STRING
+    {y} 
 
-path(Id):
-  | id=Id { [id] }
-  | uid=uident DOT p=path(Id) { uid::p }
+ruleEnd:
+  | {}
+  | EOF {}
+  | EOL {}
 
 ident:
-  | x=lident { (VVar x) }
-  | x=uident  { (VVar x) }
+  | x=IDENT { (VVar x) }
+  | x=STRING  { (VVar x) }
 
-lident:
-  | id=IDENT { mk_ident(id)}
-
-uident:
-  | id=STRING { mk_ident(id) }   
    (* -------------------------------------------------------------------------- *)
    
    (* [located(x)] recognizes the same input fragment as [x] and wraps its

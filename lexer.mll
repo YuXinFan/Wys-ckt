@@ -32,7 +32,6 @@ rule read = parse
 
 and token = parse   
     | whitespace    {token lexbuf}
-    | eof       {EOF}
     | integer as i      {INT (int_of_string i)}
   (*  | "(*"         { line_comment "" lexbuf } *)
 
@@ -62,6 +61,8 @@ and token = parse
     | "<="       { LE }
     | ">="       { GE }
 
+    | "."       {DOT}
+
     | "match"   { MATCH }
     | "with"    { WITH }
     | "|"       { BAR }
@@ -88,18 +89,20 @@ and token = parse
     | "as_par"  {ASPAR}
     | "box"     {BOX}
     | "mkwire_s" | "mkwire_p" {MKWIRE}
-    | "projwire_s" | "projwire_p"   {PROJWIRE}
+    | "projwire_s"  {PROJWIRE}
+    | "projwire_p"   {PROJWIRE}
     | "unbox_s" | "unbox_p"     {UNBOX}
     | "concat_wire" {CONCATWIRE}
+    | "wire"  {WIRE}
 
     | "singleton" {SINGLETON}
     | "union"  {UNION}
     | "Alice" {ALICE}
     | "Bob"   {BOB}
-    | "_"   {ANY}
     | identifier { IDENT (lexeme lexbuf) }
-    | bident    {STRING (lexeme lexbuf)}
+    | bident    { STRING (lexeme lexbuf)}
     | sharpid   { IDENT (lexeme lexbuf)}
+    | "_"   {ANY}
     | eof        { EOF }
     | _          { raise (Error (Printf.sprintf "At offset %d: unexpected character.\n" (Lexing.lexeme_start lexbuf)))}
 
