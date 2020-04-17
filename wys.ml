@@ -1,4 +1,6 @@
 open Syntax
+open Dsyntax
+open Dprint
 
 let string_of_option z = match z with 
 | Some c -> c
@@ -142,13 +144,19 @@ let process (line : string) =
     (* Run the parser on this line of input. *)
     (* Printf.printf "%d\n%!" (interpret (Parser.main Lexer.token linebuf)) *)
     let ast = Parser.prog Lexer.token linebuf in
-    
-      let wys =  match find_wys_of_prog ast with 
+       let ast_d = cons_of_dprog ast in  
+        let wys =  match find_wys_of_prog ast with 
         | Some e -> e 
         | None -> EVar (VVar "None") 
         in
         let str = string_of_expr wys in 
-          Printf.printf "%s" str
+          string_of_program ast;
+          Printf.printf "------------------------------------";
+          newline ();
+          Printf.printf "%s" str;
+          Printf.printf "------------------------------------";
+          newline ();
+          print_dprog (fst ast_d)
 
   with
   | Lexer.Error msg ->

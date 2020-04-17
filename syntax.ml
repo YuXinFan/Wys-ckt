@@ -95,13 +95,13 @@ and exprs =
 | EVar of values 
 | EApp of const * (exprs list)
 | ELet of values * exprs * exprs 
+| EBinop of exprs * op * exprs
+| EFun of binders * exprs
+
 | EMatch of exprs * branchs list 
 | EAssert of formulas 
 | EProj of exprs * lid 
 | EAssign of exprs * exprs 
-| EBinop of exprs * op * exprs
-| EFun of binders * exprs
-
 (*
 branches    br ::= BAR pat -> e         //Pattern matching branch
 *)
