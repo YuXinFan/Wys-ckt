@@ -303,7 +303,7 @@ arg:
   | ALICE 
     {EVar (VVar "Alice")} 
   | BOB 
-    {EVar (VVar "Alice")}
+    {EVar (VVar "Bob")}
   | id=ident 
     {EVar id}
 

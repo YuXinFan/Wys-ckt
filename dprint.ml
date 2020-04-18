@@ -19,6 +19,8 @@ let string_of_typeValue (i: typeValue) = match i with
 | ValDef -> "-Val"
 | Fun -> "-Fun"
 | Wire -> "-Wire"
+| IntWire -> "-IntWire"
+| BoolWire -> "-BoolWire"
 | Sec  -> "-Secure"
 | Module_d -> "-Module"
 
@@ -26,6 +28,8 @@ let string_of_typeValue (i: typeValue) = match i with
 | Proj -> "-Project"
 | Lambda -> "-Lambda"
 | Var (* unknown type *) -> "-Can'tknow"
+
+| Env -> "Env"
 
 let string_of_op (a: op) = match a with 
 | ADD -> "(+)"
@@ -38,9 +42,11 @@ let string_of_op (a: op) = match a with
 | BEQ -> "(=)"
 | EQ -> "="
 
-let print_dvalue (dv: dvalue) = print2 (string_of_typeValue dv.typ) dv.name 
+let rec print_dvalue ?(intend = "") (dv: dvalue) = match dv.typ with 
+| Env -> print_env !(dv.scope) intend 
+| _ -> print1 intend; print2 (string_of_typeValue dv.typ) dv.name
 
-let rec print_dprog (dg : dprog) = match dg with 
+and print_dprog (dg : dprog) = match dg with 
 | Module_d (str, dds) -> print2 "Module" str; print_ddecls dds 
 
 and print_ddecls (dds: ddecl list) = match dds with 
@@ -58,7 +64,7 @@ and print_ddecl (dd: ddecl) = match dd with
     print_dvalue dv;
     newline()
 | DLet_d (_, dv, de) -> 
-    print1 "Let "; print_dvalue dv; print_dexpr de ; newline()
+    print1 "Let "; print_dvalue dv; print1 "="; print_dexpr de ; newline()
 | DType_d dv -> 
     print1 "Type "; print_dvalue dv; newline()
 
@@ -93,4 +99,16 @@ and print_dexpr (de:dexpr) = match de with
     print_dexpr de 
 
 
-    
+and print_env (env: env) (intend: string) = 
+print1 intend;  print2 "name: " env.scope_name; newline();
+for i = 0 to List.length env.value_in_env do 
+    let vd_opt = (List.nth_opt (env.value_in_env) i) in
+        let intend = intend^"  " in 
+        match vd_opt with 
+        | None -> ()
+        | Some v -> print1 intend; print_dvalue ~intend v; newline();
+done;
+
+match env.env_out_env with 
+| None -> print1 env.scope_name;  print1 "in None";
+| Some e -> print1 env.scope_name; print1 ("in " ^ !e.scope_name);

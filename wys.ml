@@ -151,11 +151,12 @@ let process (line : string) =
         in
         let str = string_of_expr wys in 
           string_of_program ast;
-          Printf.printf "------------------------------------";
+          Printf.printf "------------------------------------\n";
           newline ();
           Printf.printf "%s" str;
-          Printf.printf "------------------------------------";
+          Printf.printf "------------------------------------\n";
           newline ();
+          print_env !(snd ast_d) "";
           print_dprog (fst ast_d)
 
   with

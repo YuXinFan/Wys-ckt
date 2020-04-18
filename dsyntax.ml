@@ -11,7 +11,9 @@ type typeValue =
 | TypeDef
 | ValDef
 | Fun 
-| Wire 
+| IntWire
+| BoolWire 
+| Wire
 | Sec  
 | Module_d 
 
@@ -20,11 +22,12 @@ type typeValue =
 | Lambda 
 | Var (* unknown type *)
 
+| Env 
 type env = {
     scope_name : string;
     value_in_env : dvalue list;
     env_in_env : env ref list;
-    env_out_env : env ref option; 
+    env_out_env : (env ref) option; 
 }
 
 and dvalue = {
@@ -67,11 +70,15 @@ let make_empty_env id = {
     env_out_env = None;
     }
 
+(* Remark: put_env_in_env and put_env_out_env must be done before construct sub expr *)
 let put_env_in_env (env1: env ref) (env2: env ref) =
-    env2 := {!env2 with  env_in_env = ((!env2).env_in_env @ [env1])};
-    env1 := {!env1 with env_out_env = Some env2}
+    env2 := {!env2 with env_in_env = ((!env2).env_in_env @ [env1])}
 
-let put_value_in_env (v: dvalue)(env:env ref) = env := {!env with value_in_env = !env.value_in_env @ [v]}
+let put_env_out_env (env1:env ref) (env2: env ref) =     
+    env2 := {!env2 with env_out_env = Some env1}
+
+let put_value_in_env (v: dvalue)(env:env ref) = 
+  env := {!env with value_in_env = !env.value_in_env @ [v]}
 
 (******* dvalue Help Function *******)
 let make_dvalue name (typ:typeValue) sc = { 
@@ -99,10 +106,15 @@ let rec find_value_in_value_list (name:string) (dl:dvalue list) = match dl with
 | hd::tl -> if hd.name = name then Some hd else (find_value_in_value_list name tl)
 
 
-let find_value_in_env (name:string) (env: env ref) = 
+let rec find_value_in_env (name:string) (env: env ref) = 
     let value_list = !env.value_in_env in 
-     find_value_in_value_list name value_list
-
+      let in_curr_level = find_value_in_value_list name value_list in 
+        match in_curr_level with 
+        | Some e -> Printf.printf "{Some %s in %s}" e.name !env.scope_name; Some e
+        | None -> let out = !env.env_out_env in 
+            (match out with 
+            | None -> Printf.printf "{None %s in %s}" name !env.scope_name;None 
+            | Some e -> find_value_in_env name e)
 
 (******* raw Syntax Help Function *******)
 let dcons_of_values v = match v with 
@@ -121,11 +133,13 @@ let dcons_of_binder b = match b with
 
 (******* typeValue Help Function *******)
 
-(* todo *)
+(* Match prims type value  *)
 let match_value_type (_:string) (name:string) = match name with 
 | "Alice" -> Prin 
 | "Bob" -> Prin 
-| _ -> Var
+| "int" -> Int 
+| "bool" -> Bool 
+| _ -> Var 
 
 let match_apply_name_type (name:string) = match name with 
 | "singleton" -> Set
@@ -147,12 +161,25 @@ let match_op_type (op:op) = match op with
 | BEQ -> Bool 
 | EQ -> Bool
 
-let rec type_of_dexpr (de:dexpr) = match de with 
+let rec match_wire_type (des:dexpr list) = match des with 
+| [] -> Wire 
+| [a] -> ( match type_of_dexpr a with
+  | Int -> IntWire 
+  | Bool -> BoolWire
+  | _ -> Wire 
+  )
+| hd::tl -> (match match_wire_type [hd] with 
+  | Wire -> match_wire_type tl 
+  | IntWire -> IntWire 
+  | BoolWire -> BoolWire 
+  | _ -> Wire 
+  )
+and type_of_dexpr (de:dexpr) = match de with 
 | EVar_d dv -> dv.typ
-| EApp_d (dv , _) -> let dv_typ = match_apply_name_type dv.name in 
+| EApp_d (dv , des) -> let dv_typ = match_apply_name_type dv.name in 
     (match dv_typ with 
     | Set -> PrinSet
-    | Wire -> Wire 
+    | Wire -> match_wire_type des 
     | Bool -> Bool 
     | Sec -> Sec
     | _ -> Var
@@ -160,7 +187,7 @@ let rec type_of_dexpr (de:dexpr) = match de with
 | ELet_d (_, de1, _) -> type_of_dexpr de1
 | EProj_d (_, dv2) -> dv2.typ  
 | EBinop_d (_, op, _) -> match_op_type op 
-| EFun_d (_, _) -> Lambda 
+| EFun_d (_, _) -> Fun 
 
 (*******  Dsyntax Constructor *******)
 let rec cons_of_dprog (ast : prog) = match ast with 
@@ -171,7 +198,9 @@ let rec cons_of_dprog (ast : prog) = match ast with
 and cons_of_ddecls (env:env ref) (dcls : decl list) = match dcls with 
 |[] -> []
 | [d] -> [cons_of_ddecl env d] 
-| hd::tl -> (cons_of_ddecl env hd) :: (cons_of_ddecls env tl)
+| hd::tl -> let hd_d = (cons_of_ddecl env hd) in 
+    let tl_d =  (cons_of_ddecls env tl) in 
+    [hd_d] @ tl_d 
 
 and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with 
 | DOpen id -> let id_v = make_dvalue id Module_d env in 
@@ -182,10 +211,10 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
     DVal_d id_v 
 | DLet (b, v, e) -> let v_name = snd (dcons_of_values v)  in
     let e_d = cons_of_dexpr env e in 
-        let v_kind = type_of_dexpr e_d in 
-            let v_v = make_dvalue v_name v_kind env in  
-                put_value_in_env v_v env ;
-                DLet_d (b, v_v, e_d)
+      let v_type = type_of_dexpr e_d in 
+        let v_v = make_dvalue v_name v_type env in  
+          put_value_in_env v_v env ;
+            DLet_d (b, v_v, e_d)
 | DType t -> let t_decl = ( match t with 
     | TTdef t -> t
     | TTabbr (t, _) -> t 
@@ -201,17 +230,26 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
 and cons_of_dexprs (env:env ref) (es:exprs list) = match es with 
 | [] -> []
 | [e] -> [cons_of_dexpr env e]
-| hd::tl -> (cons_of_dexpr env hd) :: (cons_of_dexprs env tl)
+| hd::tl -> let hd_d = (cons_of_dexpr env hd) in 
+    let  tl_d =  (cons_of_dexprs env tl) in 
+        [hd_d] @ tl_d 
 
 and cons_of_dexpr (env:env ref) (e: exprs) = match e with 
 | EVar v -> let v_type, v_name =  dcons_of_values v  in 
-    let v_value = find_value_in_env v_name env in 
+    (* Deal with "#int" "#ab", xxx_real = int or ab *)
+    let v_name_real = if v_name.[0] = '#' 
+        then String.sub v_name 1 (String.length v_name -1) 
+        else v_name 
+        in 
+    let v_value = find_value_in_env v_name_real env in 
         (match v_value with 
-        | None -> let v_typ = match_value_type v_type v_name in 
-            let v_d = make_dvalue v_name v_typ env in 
+        | None -> let v_typ = match_value_type v_type v_name_real in 
+            let v_d = make_dvalue v_name_real v_typ env in 
                 put_value_in_env v_d env ;
+                (* Printf.printf "D %s %s %d\n" !env.scope_name v_name (List.length !env.value_in_env);  *)
                 EVar_d v_d
-        | Some dv -> EVar_d dv 
+        | Some dv -> 
+            EVar_d dv 
         ) 
                 
 
@@ -220,22 +258,30 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
         let es_d = cons_of_dexprs env es in 
             EApp_d (c_v, es_d) 
 | ELet (v, e1, e2) -> let _, v_name = dcons_of_values v in 
-    let e1_d = cons_of_dexpr env e1 in
+      let e1_d = cons_of_dexpr env e1 in
         let e1_type = type_of_dexpr e1_d in 
-            let v_d = make_dvalue v_name e1_type env in 
-                put_value_in_env v_d env;
-                let env2 = ref (make_empty_env (env_init())) in 
-                    put_env_in_env env2 env;
-                    let e2_d = cons_of_dexpr env2 e2 in 
-                        ELet_d (v_d, e1_d, e2_d) 
+          let v_d = make_dvalue v_name e1_type env in 
+            put_value_in_env v_d env;
+              let env2 = ref (make_empty_env (env_init())) in 
+                let env2_dv = make_dvalue (!env2).scope_name Env env2 in
+                put_value_in_env env2_dv env;
+                put_env_in_env env2 env;
+                put_env_out_env env env2;
+                  let e2_d = cons_of_dexpr env2 e2 in 
+
+                      ELet_d (v_d, e1_d, e2_d) 
 
 | EBinop (e1, op, e2) -> let e1_d = cons_of_dexpr env e1 in 
     let e2_d = cons_of_dexpr env e2 in 
         EBinop_d (e1_d, op, e2_d)
 | EFun (b, e) -> let b_name = dcons_of_binder b in 
     let b_v = make_dvalue b_name Lambda env in 
-        let env2 = ref (make_empty_env (env_init())) in 
-            put_env_in_env env2 env;
-            let e_d = cons_of_dexpr env2 e in 
+    put_value_in_env b_v env ;
+      let env2 = ref (make_empty_env (env_init())) in 
+      put_env_out_env env env2;
+      put_env_in_env env2 env;
+        let e_d = cons_of_dexpr env2 e in 
+          let env2_dv = make_dvalue (!env2).scope_name Env env2 in 
+            put_value_in_env env2_dv env ;      
                 EFun_d (b_v, e_d)
 | _ -> EVar_d {name="none";typ=Var; scope=env}
