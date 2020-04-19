@@ -24,6 +24,8 @@ let string_of_typeValue (i: typeValue) = match i with
 | Sec  -> "-Secure"
 | Module_d -> "-Module"
 
+| Wys -> "-Wys"
+
 | App -> "-App"
 | Proj -> "-Project"
 | Lambda -> "-Lambda"
@@ -59,9 +61,16 @@ and print_ddecl (dd: ddecl) = match dd with
     print1 "Open ";
     print_dvalue dv;
     newline()
-| DVal_d (dv, _, tv) -> 
+| DVal_d (dv, tvs, tv) -> 
     print1 "Val ";
     print_dvalue dv;
+    print1 ":";
+    for i = 0 to List.length tvs do 
+        let nth_opt = List.nth_opt tvs i in
+            match nth_opt with 
+            | None -> ()
+            | Some e -> print1 (string_of_typeValue e); print1 "->" 
+    done; 
     print1 (string_of_typeValue tv);
     newline()
 | DLet_d (_, dv, de) -> 

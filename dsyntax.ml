@@ -20,6 +20,7 @@ type typeValue =
 | Wire
 | Sec  
 | Module_d 
+| Wys 
 
 | App 
 | Proj 
@@ -144,6 +145,8 @@ let match_value_type (_:string) (name:string) = match name with
 | "int" -> Int 
 | "bool" -> Bool 
 | "wire" -> Wire 
+| "prins" -> PrinSet
+| "Wys" -> Wys 
 | _ -> Var 
 
 let match_apply_name_type (name:string) = match name with 
