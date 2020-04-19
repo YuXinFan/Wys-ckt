@@ -59,9 +59,10 @@ and print_ddecl (dd: ddecl) = match dd with
     print1 "Open ";
     print_dvalue dv;
     newline()
-| DVal_d dv -> 
+| DVal_d (dv, _, tv) -> 
     print1 "Val ";
     print_dvalue dv;
+    print1 (string_of_typeValue tv);
     newline()
 | DLet_d (_, dv, de) -> 
     print1 "Let "; print_dvalue dv; print1 "="; print_dexpr de ; newline()

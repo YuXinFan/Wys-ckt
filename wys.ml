@@ -118,7 +118,8 @@ and string_of_expr (e : exprs) = match e with
 
 and string_of_decl d = match d with 
 | DOpen m -> Printf.sprintf "(Open %s)" m 
-| DVal (m, _) -> Printf.sprintf "(Val %s)" m
+| DVal (m, t) -> let t_str = string_of_type t in 
+    Printf.sprintf "(Val %s : %s)" m t_str 
 | DLet (b, v, e) -> let str_v = (string_of_value v) in 
     let str_e = (string_of_expr e) in 
       let str_rec = if b = true then "rec " else "" in 

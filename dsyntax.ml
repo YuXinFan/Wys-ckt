@@ -1,5 +1,9 @@
 open Syntax 
 
+(* General Helper *)
+let rec remove_at n = function
+    | [] -> []
+    | h :: t -> if n = 0 then t else h :: remove_at (n-1) t
 
 type typeValue = 
 | Int 
@@ -44,7 +48,7 @@ type dprog =
 
 and ddecl = 
 | DOpen_d of dvalue 
-| DVal_d of dvalue 
+| DVal_d of dvalue * typeValue list * typeValue
 | DLet_d of bool * dvalue * dexpr  
 | DType_d of dvalue 
 
@@ -139,6 +143,7 @@ let match_value_type (_:string) (name:string) = match name with
 | "Bob" -> Prin 
 | "int" -> Int 
 | "bool" -> Bool 
+| "wire" -> Wire 
 | _ -> Var 
 
 let match_apply_name_type (name:string) = match name with 
@@ -149,6 +154,14 @@ let match_apply_name_type (name:string) = match name with
 | "bool" -> Bool 
 | "as_sec" -> Sec 
 | _ -> Var 
+
+let rec match_types_type (t: types) = match t with 
+| TVar id -> [match_value_type "" id]
+| TConst id ->  [match_value_type "" id]
+| TDependent (_, t1, t2) -> match_types_type t1 @ match_types_type t2 
+| TDependentRefine (_, t1, _, t2) -> match_types_type t1 @ match_types_type t2 
+| TRefine (id, _, _) -> [match_value_type "" id]
+| TFun _ -> [Var]
 
 let match_op_type (op:op) = match op with 
 | ADD -> Int 
@@ -206,9 +219,13 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
 | DOpen id -> let id_v = make_dvalue id Module_d env in 
     put_value_in_env id_v env;
     DOpen_d id_v 
-| DVal (id, _) -> let id_v = make_dvalue id ValDef env in
+| DVal (id, t) -> let id_v = make_dvalue id ValDef env in
     put_value_in_env id_v env ;
-    DVal_d id_v 
+    let typeValue_list = match_types_type t in  
+      let len = List.length typeValue_list in
+      let result_type = List.nth typeValue_list (len-1) in 
+        let left_type = remove_at (len-1) typeValue_list in 
+    DVal_d (id_v, left_type, result_type) 
 | DLet (b, v, e) -> let v_name = snd (dcons_of_values v)  in
     let e_d = cons_of_dexpr env e in 
       let v_type = type_of_dexpr e_d in 

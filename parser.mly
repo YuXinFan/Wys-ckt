@@ -185,8 +185,10 @@ typNormal:
     {TDependentRefine (x, t, f, t2)}
   | x=nonempty_list(idstr)
     {TVar (List.hd x)}
-  | appName y=nonempty_list(idstr)
-    {TVar (List.hd y)}
+  | x=appName nonempty_list(idstr)
+    { let name = match x with 
+      | CApp id -> id 
+      | _ -> "no_app" in TVar name }
   | x=STRING LPAREN typ RPAREN pre_postcond pre_postcond 
     {TVar x}
 
