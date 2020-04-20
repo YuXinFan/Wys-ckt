@@ -39,6 +39,7 @@ and dvalue = {
     name : string;
     typ : typeValue;
     scope : env ref ;
+    args : (typeValue list) option;
 }
 
 
@@ -50,7 +51,7 @@ type dprog =
 and ddecl = 
 | DOpen_d of dvalue 
 | DVal_d of dvalue * typeValue list * typeValue
-| DLet_d of bool * dvalue * dexpr  
+| DLet_d of bool * dvalue list * dexpr  
 | DType_d of dvalue 
 
 and dexpr = 
@@ -66,6 +67,9 @@ let env_cnt = ref (-1)
 let env_init () = env_cnt := !env_cnt + 1 ;
     "internal"^"_"^string_of_int !env_cnt 
 
+let get a = match a with 
+| Some e -> e
+| None -> raise (Invalid_argument "Option.get no value")
 (******* Env Help Function *******)
 
 let make_empty_env id = {
@@ -86,10 +90,11 @@ let put_value_in_env (v: dvalue)(env:env ref) =
   env := {!env with value_in_env = !env.value_in_env @ [v]}
 
 (******* dvalue Help Function *******)
-let make_dvalue name (typ:typeValue) sc = { 
+let make_dvalue ?args name (typ:typeValue) sc = { 
     name = name ; 
     typ = typ ;
-    scope = sc } 
+    scope = sc;
+    args = args } 
 
 
 let dvalue_of_type (t:types) = let tmp = ref (make_empty_env "tmp") in
@@ -222,19 +227,43 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
 | DOpen id -> let id_v = make_dvalue id Module_d env in 
     put_value_in_env id_v env;
     DOpen_d id_v 
-| DVal (id, t) -> let id_v = make_dvalue id ValDef env in
-    put_value_in_env id_v env ;
+| DVal (id, t) -> 
     let typeValue_list = match_types_type t in  
       let len = List.length typeValue_list in
-      let result_type = List.nth typeValue_list (len-1) in 
-        let left_type = remove_at (len-1) typeValue_list in 
-    DVal_d (id_v, left_type, result_type) 
-| DLet (b, v, e) -> let v_name = snd (dcons_of_values v)  in
+        let result_type = List.nth typeValue_list (len-1) in 
+          let left_type = remove_at (len-1) typeValue_list in 
+            let id_v = make_dvalue ~args:left_type id ValDef env in
+              put_value_in_env id_v env ;
+              DVal_d (id_v, left_type, result_type) 
+| DLet (b, v, e) -> let hd, tl = List.hd v, List.tl v in 
+  let hd_name = snd (dcons_of_values hd) in
+    let is_exist = find_value_in_env hd_name env in 
+      (match is_exist with 
+      | Some vd -> if vd.typ = ValDef then 
+        let args = get(vd.args) in 
+        for i = 0 to (List.length tl)-1 do 
+          let tmp_name = snd (dcons_of_values (List.nth tl i)) in 
+          let tmp_typeValue = (List.nth args i) in 
+          let tmp = make_dvalue tmp_name tmp_typeValue  env in 
+            put_value_in_env tmp env 
+        done;
+      | None -> ()
+      );
+    (* let hd_valdef = find_value_in_env hd_name env in 
+
+    let match_and_make_values (names:string list) (tvs: typeValue list) = function -> 
+      match names with 
+      | [a] ->  (make_dvalue a (List.hd tvs) env) 
+      | hd::tl ->  make_dvalue hd (List,hd tvs) env ; match_and_make_values tl (List.tl tvs)
+      | _ -> make_dvalue "none" Var env 
+      in 
+    let args_dv = match_and_make_values tl hd_valdef.ast.second  *)
+
     let e_d = cons_of_dexpr env e in 
       let v_type = type_of_dexpr e_d in 
-        let v_v = make_dvalue v_name v_type env in  
+        let v_v = make_dvalue hd_name v_type env in  
           put_value_in_env v_v env ;
-            DLet_d (b, v_v, e_d)
+            DLet_d (b, [v_v], e_d)
 | DType t -> let t_decl = ( match t with 
     | TTdef t -> t
     | TTabbr (t, _) -> t 
@@ -261,6 +290,7 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
         then String.sub v_name 1 (String.length v_name -1) 
         else v_name 
         in 
+    (* find value from env by name *)
     let v_value = find_value_in_env v_name_real env in 
         (match v_value with 
         | None -> let v_typ = match_value_type v_type v_name_real in 
@@ -304,4 +334,4 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
           let env2_dv = make_dvalue (!env2).scope_name Env env2 in 
             put_value_in_env env2_dv env ;      
                 EFun_d (b_v, e_d)
-| _ -> EVar_d {name="none";typ=Var; scope=env}
+| _ -> EVar_d (make_dvalue "none" Var env)

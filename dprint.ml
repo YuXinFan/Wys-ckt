@@ -74,7 +74,7 @@ and print_ddecl (dd: ddecl) = match dd with
     print1 (string_of_typeValue tv);
     newline()
 | DLet_d (_, dv, de) -> 
-    print1 "Let "; print_dvalue dv; print1 "="; print_dexpr de ; newline()
+    print1 "Let "; print_dvalue (List.hd dv); print1 "="; print_dexpr de ; newline()
 | DType_d dv -> 
     print1 "Type "; print_dvalue dv; newline()
 

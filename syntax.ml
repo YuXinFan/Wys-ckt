@@ -151,7 +151,7 @@ Top level   tl ::= val x : t                            //value declaration
 and decl' = 
 | DOpen of lid 
 | DVal of ident * types
-| DLet of bool * values * exprs (* bool check if let with rec *) 
+| DLet of bool * values list* exprs (* bool check if let with rec *) 
 | DType of tdefs 
 
 (* this is the whole program file*)

@@ -133,9 +133,9 @@ decl:
 rawDecl:
   | OPEN uid=pathid
     {DOpen uid}
-  | LET REC x=ident list(ident) EQ e1=expr ruleEnd
+  | LET REC x=list(ident) EQ e1=expr ruleEnd
     {DLet (true,  x, e1)}
-  | LET x=ident list(ident) EQ e1=expr ruleEnd
+  | LET x=list(ident) EQ e1=expr ruleEnd
     {DLet (false,  x, e1)}
   | TYPE x=typeDecl ruleEnd
     {DType x} 
