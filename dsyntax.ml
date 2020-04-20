@@ -36,16 +36,25 @@ type env = {
 }
 
 and dvalue = {
+    (* the id name of a value with name = id in code*)
     name : string;
+    (* type of this value, or result type of this function   *)
     typ : typeValue;
+    (* the env this value in *)
     scope : env ref ;
+    (* when this value is a function, args is the types of its parameters in order *)
     args : (typeValue list) option;
+
+    (* when this value is made by a decl, astd is its ddecl AST *)
+    mutable astd : ddecl option;
+    (* when this value is made by a expr, aste is its dexpr AST *)
+    mutable aste : dexpr option; 
 }
 
 
 
 
-type dprog = 
+and dprog = 
 | Module_d of (string * ddecl list) 
 
 and ddecl = 
@@ -90,11 +99,14 @@ let put_value_in_env (v: dvalue)(env:env ref) =
   env := {!env with value_in_env = !env.value_in_env @ [v]}
 
 (******* dvalue Help Function *******)
-let make_dvalue ?args name (typ:typeValue) sc = { 
+let make_dvalue ?args ?astd ?aste name (typ:typeValue) sc = { 
     name = name ; 
     typ = typ ;
     scope = sc;
-    args = args } 
+    args = args;
+    
+    astd = astd;
+    aste = aste } 
 
 
 let dvalue_of_type (t:types) = let tmp = ref (make_empty_env "tmp") in
@@ -237,6 +249,7 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
               DVal_d (id_v, left_type, result_type) 
 | DLet (b, v, e) -> let hd, tl = List.hd v, List.tl v in 
   let hd_name = snd (dcons_of_values hd) in
+    (* if v is been valdef, find and put args into env  *)
     let is_exist = find_value_in_env hd_name env in 
       (match is_exist with 
       | Some vd -> if vd.typ = ValDef then 
@@ -249,21 +262,13 @@ and cons_of_ddecl (env:env ref) (dcl: decl) = match dcl with
         done;
       | None -> ()
       );
-    (* let hd_valdef = find_value_in_env hd_name env in 
-
-    let match_and_make_values (names:string list) (tvs: typeValue list) = function -> 
-      match names with 
-      | [a] ->  (make_dvalue a (List.hd tvs) env) 
-      | hd::tl ->  make_dvalue hd (List,hd tvs) env ; match_and_make_values tl (List.tl tvs)
-      | _ -> make_dvalue "none" Var env 
-      in 
-    let args_dv = match_and_make_values tl hd_valdef.ast.second  *)
-
     let e_d = cons_of_dexpr env e in 
       let v_type = type_of_dexpr e_d in 
         let v_v = make_dvalue hd_name v_type env in  
+          let result_ast = DLet_d (b, [v_v], e_d) in 
+          v_v.astd <- Some result_ast;  
           put_value_in_env v_v env ;
-            DLet_d (b, [v_v], e_d)
+          result_ast
 | DType t -> let t_decl = ( match t with 
     | TTdef t -> t
     | TTabbr (t, _) -> t 
@@ -318,8 +323,9 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
                 put_env_in_env env2 env;
                 put_env_out_env env env2;
                   let e2_d = cons_of_dexpr env2 e2 in 
-
-                      ELet_d (v_d, e1_d, e2_d) 
+                      let result_ast = ELet_d (v_d, e1_d, e2_d) in 
+                        v_d.aste <- Some result_ast ;
+                        result_ast 
 
 | EBinop (e1, op, e2) -> let e1_d = cons_of_dexpr env e1 in 
     let e2_d = cons_of_dexpr env e2 in 
@@ -332,6 +338,8 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
       put_env_in_env env2 env;
         let e_d = cons_of_dexpr env2 e in 
           let env2_dv = make_dvalue (!env2).scope_name Env env2 in 
-            put_value_in_env env2_dv env ;      
-                EFun_d (b_v, e_d)
+            put_value_in_env env2_dv env ;   
+            let result_ast = EFun_d (b_v, e_d) in 
+              b_v.aste <- Some result_ast;
+              result_ast
 | _ -> EVar_d (make_dvalue "none" Var env)

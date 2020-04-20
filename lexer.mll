@@ -4,8 +4,8 @@
     exception Error of string
 
     let next_line lexbuf =
-  let pos = lexbuf.lex_curr_p in
-  lexbuf.lex_curr_p <- {
+    let pos = lexbuf.lex_curr_p in
+    lexbuf.lex_curr_p <- {
     pos with pos_bol = lexbuf.lex_curr_pos;
              pos_lnum = pos.pos_lnum + 1
   }
@@ -17,7 +17,6 @@ let integer = '-'?['0'-'9']['0'-'9']*
 let identifier = ['a'-'z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let bident = ['A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let sharpid = '#'['a'-'z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
-
 
 
 rule read = parse 

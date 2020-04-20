@@ -48,6 +48,15 @@ let rec print_dvalue ?(intend = "") (dv: dvalue) = match dv.typ with
 | Env -> print_env !(dv.scope) intend 
 | _ -> print1 intend; print2 (string_of_typeValue dv.typ) dv.name
 
+and print_ast_of_dvalue (dv: dvalue) = 
+match dv.astd with 
+| Some dd -> print_ddecl dd 
+| None -> ()
+(* ;
+match dv.aste with 
+| Some de -> print_dexpr de 
+| None -> () *)
+
 and print_dprog (dg : dprog) = match dg with 
 | Module_d (str, dds) -> print2 "Module" str; print_ddecls dds 
 
@@ -116,7 +125,7 @@ for i = 0 to List.length env.value_in_env do
         let intend = intend^"  " in 
         match vd_opt with 
         | None -> ()
-        | Some v -> print1 intend; print_dvalue ~intend v; newline();
+        | Some v -> print1 intend; print_dvalue ~intend v; print_ast_of_dvalue v; newline();
 done;
 
 match env.env_out_env with 
