@@ -343,3 +343,71 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
               b_v.aste <- Some result_ast;
               result_ast
 | _ -> EVar_d (make_dvalue "none" Var env)
+
+
+(* find wys apply, "as_sec prin_set lambda_function" *)
+let rec find_as_sec_in_expr (e:dexpr) = match e with 
+  | ELet_d (_, _,e2) -> find_as_sec_in_expr e2 
+  | EApp_d (v, vs) -> if v.name = "as_sec" then Some vs else None
+  | EFun_d (_, e) -> find_as_sec_in_expr e
+  | _ -> None 
+
+let find_as_sec_in_decl (d: ddecl) = match d with 
+  | DLet_d (_, _, e) -> find_as_sec_in_expr e
+  | _ -> None 
+
+let find_decl_with_as_sec (dp: dprog) = match dp with 
+| Module_d (_, dcls) -> let find_result = List.map find_as_sec_in_decl dcls in 
+  let sec = List.find (fun a -> match a with Some _ -> true | None -> false) find_result in 
+    sec 
+
+let get_prins_and_fun_dvalue (des: dexpr list) = 
+
+let map_f (de:dexpr)= match de with 
+| EVar_d v -> v
+| _ -> let nothing =  (ref (make_empty_env "none_env")) in 
+  let nothing2 = make_dvalue "none" Var nothing in 
+    nothing2
+in 
+
+ let dvalue_list = List.map map_f des in
+  let prins = List.hd dvalue_list in 
+    let func = List.hd (List.tl dvalue_list)in 
+    (prins, func) 
+
+let rec find_as_sec_fun (dv:dvalue) (env: env) = 
+   let r = List.find_opt (fun a -> if a.name = dv.name then true else false) env.value_in_env in 
+    match r with 
+    | Some dv' -> (true, Some dv') 
+    | None -> ( match env.env_in_env with 
+      | [] -> raise (Invalid_argument "not find as_sec fun in env")
+      | [x] -> find_as_sec_fun dv !x 
+      | x -> find_as_sec_fun_in_envs dv x   
+    )
+
+and find_as_sec_fun_relax (dv:dvalue) (env: env) = 
+   let r = List.find_opt (fun a -> if a.name = dv.name then true else false) env.value_in_env in 
+    match r with 
+    | Some dv' -> (true, Some dv') 
+    | None -> ( match env.env_in_env with 
+      | [] -> (false, None)
+      | [x] -> find_as_sec_fun_relax dv !x 
+      | x -> find_as_sec_fun_in_envs dv x   
+    ) 
+
+and find_as_sec_fun_in_envs (dv:dvalue) (envs:env ref list) = 
+let is_find = ref false in 
+let envs_len = List.length envs in 
+let cnt = ref 0 in 
+let tmp = dv in 
+let result = ref tmp in 
+while (not !is_find)&&(envs_len > !cnt) do 
+
+  let nth = List.nth envs !cnt in 
+  cnt := !cnt+1;
+  let b, o = find_as_sec_fun_relax dv !nth in 
+  if b = true then 
+    result := get o;
+    is_find := true 
+done;
+(!is_find, Some !result) 

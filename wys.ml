@@ -1,6 +1,7 @@
 open Syntax
 open Dsyntax
 open Dprint
+open Verify 
 
 let string_of_option z = match z with 
 | Some c -> c
@@ -151,13 +152,20 @@ let process (line : string) =
         | None -> EVar (VVar "None") 
         in
         let str = string_of_expr wys in 
-          string_of_program ast;
+          (* string_of_program ast;
+          Printf.printf "------------------------------------\n"; *)
+          newline ();
+          Printf.printf "AST OF WYS: \n %s" str;
           Printf.printf "------------------------------------\n";
           newline ();
-          Printf.printf "%s" str;
-          Printf.printf "------------------------------------\n";
-          newline ();
-          print_env !(snd ast_d) "";
+          (* print_env !(snd ast_d) ""; *)
+        
+        let verify = verify_wys (fst ast_d) in 
+          let _ =  if verify = true then 
+            print1 "\nVerified!\n"
+          else 
+            print1 "\nVerifying failure???\n"
+          in 
           print_dprog (fst ast_d)
 
   with
