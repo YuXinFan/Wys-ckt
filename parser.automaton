@@ -3456,3 +3456,423 @@ State 204:
 wysPrin' -> wysPrin . [ # ]
 -- On # accept wysPrin
 
+State 2 has an end-of-stream conflict. There is a tension between
+(1) reducing production idstr -> STRING 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 3 has an end-of-stream conflict. There is a tension between
+(1) reducing production idstr -> IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 7 has an end-of-stream conflict. There is a tension between
+(1) reducing production idstr -> STRING 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 11 has an end-of-stream conflict. There is a tension between
+(1) reducing production idstr -> IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 18 has an end-of-stream conflict. There is a tension between
+(1) reducing production singleBinder -> LPAREN IDENT COLON typNormal RPAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY,
+which would require some other action.
+
+State 19 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> nonempty_list(idstr) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 20 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(idstr) -> idstr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF COLON BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 22 has an end-of-stream conflict. There is a tension between
+(1) reducing production typ -> typNormal 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 23 has an end-of-stream conflict. There is a tension between
+(1) reducing production typ -> typFun 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 27 has an end-of-stream conflict. There is a tension between
+(1) reducing production ident -> STRING 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 33 has an end-of-stream conflict. There is a tension between
+(1) reducing production formula -> LPAREN IDENT EQ IDENT RPAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 39 has an end-of-stream conflict. There is a tension between
+(1) reducing production ident -> IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 41 has an end-of-stream conflict. There is a tension between
+(1) reducing production singleBinder -> ANY 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY,
+which would require some other action.
+
+State 42 has an end-of-stream conflict. There is a tension between
+(1) reducing production binder -> singleBinder 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY,
+which would require some other action.
+
+State 43 has an end-of-stream conflict. There is a tension between
+(1) reducing production singleBinder -> idstr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ARROW ANY,
+which would require some other action.
+
+State 46 has an end-of-stream conflict. There is a tension between
+(1) reducing production wysPrin -> BOB 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 47 has an end-of-stream conflict. There is a tension between
+(1) reducing production wysPrin -> ALICE 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 48 has an end-of-stream conflict. There is a tension between
+(1) reducing production partExpr -> wysPrin 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 49 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> partExpr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 51 has an end-of-stream conflict. There is a tension between
+(1) reducing production ident -> IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 52 has an end-of-stream conflict. There is a tension between
+(1) reducing production arg -> BOB 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 53 has an end-of-stream conflict. There is a tension between
+(1) reducing production arg -> ALICE 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 54 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> listAppName nonempty_list(arg) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 55 has an end-of-stream conflict. There is a tension between
+(1) reducing production arg -> ident 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 56 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(arg) -> arg 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 57 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(arg) -> arg nonempty_list(arg) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 58 has an end-of-stream conflict. There is a tension between
+(1) reducing production partExpr -> ident 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 59 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> FUN binder ARROW expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 68 has an end-of-stream conflict. There is a tension between
+(1) reducing production partExpr -> expr binop expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 73 has an end-of-stream conflict. There is a tension between
+(1) reducing production decoratePartExpr -> LPAREN partExpr RPAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 77 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> appName LPAREN nonempty_list(decoratePartExpr) RPAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 78 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(decoratePartExpr) -> decoratePartExpr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 79 has an end-of-stream conflict. There is a tension between
+(1) reducing production decoratePartExpr -> partExpr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 80 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(decoratePartExpr) -> decoratePartExpr nonempty_list(decoratePartExpr) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 81 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> appName nonempty_list(decoratePartExpr) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 84 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> LET typ EQ expr IN expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 89 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> LET ident EQ expr IN expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IN IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 91 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> appName nonempty_list(idstr) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 92 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(idstr) -> idstr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 93 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(idstr) -> idstr nonempty_list(idstr) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 94 has an end-of-stream conflict. There is a tension between
+(1) reducing production ident -> IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 96 has an end-of-stream conflict. There is a tension between
+(1) reducing production formula -> IDENT EQ IDENT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 98 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> idstr COLON typ LBRACE formula RBRACE 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 100 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> idstr COLON typ LBRACE formula RBRACE ARROW typ 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 101 has an end-of-stream conflict. There is a tension between
+(1) reducing production formula -> expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN RBRACE PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 103 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> idstr COLON typ ARROW typ 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 106 has an end-of-stream conflict. There is a tension between
+(1) reducing production formula -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 107 has an end-of-stream conflict. There is a tension between
+(1) reducing production typFun -> FUN list(binder) ARROW typNormal formula 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 114 has an end-of-stream conflict. There is a tension between
+(1) reducing production nondelimited_expr -> LPAREN expr RPAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 116 has an end-of-stream conflict. There is a tension between
+(1) reducing production typNormal -> STRING LPAREN typ RPAREN pre_postcond pre_postcond 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 117 has an end-of-stream conflict. There is a tension between
+(1) reducing production pre_postcond -> nondelimited_expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE STRING SINGLETON RPAREN PROJWIRE OPEN MKWIRE LPAREN LET LBRACE IDENT FUN EQ EOL EOF BOB ASSEC ARROW ANY ALICE,
+which would require some other action.
+
+State 118 has an end-of-stream conflict. There is a tension between
+(1) reducing production pre_postcond -> expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of WIRE VAL UNION TYPE SUB STRING SINGLETON RPAREN PROJWIRE OPEN MUL MOD MKWIRE LPAREN LET LBRACE IDENT GT FUN EQ EOL EOF DIV BOB BEQ ASSEC ARROW ANY ALICE ADD,
+which would require some other action.
+
+State 121 has an end-of-stream conflict. There is a tension between
+(1) reducing production typeDecl -> typedecl 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY,
+which would require some other action.
+
+State 122 has an end-of-stream conflict. There is a tension between
+(1) reducing production typeDef -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EQ EOL EOF,
+which would require some other action.
+
+State 124 has an end-of-stream conflict. There is a tension between
+(1) reducing production typeDef -> EQ typ 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EOL EOF,
+which would require some other action.
+
+State 125 has an end-of-stream conflict. There is a tension between
+(1) reducing production typeDecl -> typedecl typars typeDef 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EOL EOF,
+which would require some other action.
+
+State 126 has an end-of-stream conflict. There is a tension between
+(1) reducing production typars -> binder 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EQ EOL EOF,
+which would require some other action.
+
+State 127 has an end-of-stream conflict. There is a tension between
+(1) reducing production ruleEnd -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of EOL EOF,
+which would require some other action.
+
+State 131 has an end-of-stream conflict. There is a tension between
+(1) reducing production typedecl -> typNormal 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY,
+which would require some other action.
+
+State 132 has an end-of-stream conflict. There is a tension between
+(1) reducing production typedecl -> typNormal nonempty_list(binder) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY,
+which would require some other action.
+
+State 133 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(binder) -> binder 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY,
+which would require some other action.
+
+State 134 has an end-of-stream conflict. There is a tension between
+(1) reducing production nonempty_list(binder) -> binder nonempty_list(binder) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE STRING OPEN LPAREN LET IDENT EQ EOL EOF ANY,
+which would require some other action.
+
+State 136 has an end-of-stream conflict. There is a tension between
+(1) reducing production list(dotid) -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of EOL EOF DOT,
+which would require some other action.
+
+State 138 has an end-of-stream conflict. There is a tension between
+(1) reducing production dotid -> DOT STRING 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EOL EOF DOT,
+which would require some other action.
+
+State 139 has an end-of-stream conflict. There is a tension between
+(1) reducing production ruleEnd -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of EOL EOF,
+which would require some other action.
+
+State 141 has an end-of-stream conflict. There is a tension between
+(1) reducing production list(dotid) -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EOL EOF DOT,
+which would require some other action.
+
+State 142 has an end-of-stream conflict. There is a tension between
+(1) reducing production list(dotid) -> dotid list(dotid) 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAL TYPE OPEN LET EOL EOF,
+which would require some other action.
+
+State 149 has an end-of-stream conflict. There is a tension between
+(1) reducing production ruleEnd -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of SUB MUL MOD GT EOL EOF DIV BEQ ADD,
+which would require some other action.
+
+State 156 has an end-of-stream conflict. There is a tension between
+(1) reducing production ruleEnd -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of SUB MUL MOD GT EOL EOF DIV BEQ ADD,
+which would require some other action.
+
+State 197 has an end-of-stream conflict. There is a tension between
+(1) reducing production ruleEnd -> 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of SUB MUL MOD GT EOL EOF DIV BEQ ADD,
+which would require some other action.
+

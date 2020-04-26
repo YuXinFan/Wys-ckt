@@ -1,5 +1,7 @@
 open Dsyntax 
 open Syntax
+
+
 let print2 (opt: string )(str:string) = Printf.printf " (%s %s) " opt str 
 
 let print1  (str:string) = Printf.printf " %s " str
@@ -116,6 +118,17 @@ and print_dexpr (de:dexpr) = match de with
     print_dvalue dv;
     print1 "=";
     print_dexpr de 
+| ECond_d (cond, de1, de2_opt) -> 
+    print1 "if ";
+    print_dexpr cond;
+    print1 "\nthen ";
+    print_dexpr de1;
+    if not (is_none de2_opt) then 
+        print1 "\nelse";
+        let de2 = get de2_opt in 
+            print_dexpr de2 
+        ;
+    print1 "\nendif"
 
 
 and print_env (env: env) (intend: string) = 

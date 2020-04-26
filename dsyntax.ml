@@ -5,6 +5,8 @@ let rec remove_at n = function
     | [] -> []
     | h :: t -> if n = 0 then t else h :: remove_at (n-1) t
 
+let is_none = function |None -> true |Some _ -> false
+
 type typeValue = 
 | Int 
 | Prin 
@@ -70,6 +72,7 @@ and dexpr =
 | EProj_d of dvalue * dvalue 
 | EBinop_d of dexpr * op * dexpr 
 | EFun_d of dvalue * dexpr 
+| ECond_d of dexpr * dexpr * (dexpr option) 
 
 (***  Global Value ***)
 let env_cnt = ref (-1) 
@@ -132,10 +135,10 @@ let rec find_value_in_env (name:string) (env: env ref) =
     let value_list = !env.value_in_env in 
       let in_curr_level = find_value_in_value_list name value_list in 
         match in_curr_level with 
-        | Some e -> Printf.printf "{Some %s in %s}" e.name !env.scope_name; Some e
+        | Some e -> Some e
         | None -> let out = !env.env_out_env in 
             (match out with 
-            | None -> Printf.printf "{None %s in %s}" name !env.scope_name;None 
+            | None -> None 
             | Some e -> find_value_in_env name e)
 
 (******* raw Syntax Help Function *******)
@@ -221,6 +224,7 @@ and type_of_dexpr (de:dexpr) = match de with
 | EProj_d (_, dv2) -> dv2.typ  
 | EBinop_d (_, op, _) -> match_op_type op 
 | EFun_d (_, _) -> Fun 
+| ECond_d (_, e, _) -> type_of_dexpr e
 
 (*******  Dsyntax Constructor *******)
 let rec cons_of_dprog (ast : prog) = match ast with 

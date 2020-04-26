@@ -8,12 +8,43 @@ let is_prin_set e =  match e with
     | PrinSet -> true 
     | _ -> false  
 
-let list_mem_ast2ast (_:dexpr) (_:dexpr) =  
-  raise (Invalid_argument "do not support list_mem now")
+let is_EVar de = match de with 
+| EVar_d _ -> true 
+| _ -> false 
 
-let list_intersect_ast2ast (_: dexpr) (_: dexpr) = 
-  raise (Invalid_argument "do not support list_intersect now")
+let is_Int dv = dv.typ = Int 
 
+let is_IntList dv = dv.typ = IntList 
+
+let get_EVar_dvalue de = match de with 
+| EVar_d x -> x 
+| _ -> raise (Invalid_argument "de is not a EVar_d type")
+
+(* list size is uncover *)
+let list_mem_verify (de1:dexpr) (de2:dexpr) =  
+  let evar1 = is_EVar de1 in 
+  let evar2 = is_EVar de2 in 
+  if evar1 && evar2 then 
+    let dv1 = get_EVar_dvalue de1 in 
+      let dv2 = get_EVar_dvalue de2 in 
+        let r1 = is_Int dv1 in 
+          let r2 = is_IntList dv2 in 
+            r1 && r2 
+  else
+    false
+
+(* list size is uncover *)
+let list_intersect_verify (de1: dexpr) (de2: dexpr) = 
+  let evar1 = is_EVar de1 in 
+  let evar2 = is_EVar de2 in 
+  if evar1 && evar2 then 
+    let dv1 = get_EVar_dvalue de1 in 
+    let dv2 = get_EVar_dvalue de2 in 
+      let r1 = is_IntList dv1 in 
+      let r2 = is_IntList dv2 in 
+        r1 && r2 
+  else 
+    false
 
 let rec match_ffi (v:dvalue) (des:dexpr list) = match v.name with 
 | "FFI.mk_nil" -> true
@@ -31,12 +62,12 @@ let rec match_ffi (v:dvalue) (des:dexpr list) = match v.name with
         ) in 
         r1 && r2
 | "FFI.list_mem" -> let a1, a2 = get_args2 des in 
-    let a2' = list_mem_ast2ast a1 a2 in 
+    let a2' = list_mem_verify a1 a2 in 
       let r1 = ( match a1 with 
       | EVar_d v' -> v'.typ = Int 
       | _ -> raise (Invalid_argument "FFI.list_mem must have a Int variable argument")
       ) in 
-        let r2 = match_ast_to_wys_ckt a2' in 
+        let r2 = a2' in 
           r1 && r2 
 | "FFI.list_intersect" -> let a1, a2 = get_args2 des in 
     let r1' = ( match a1 with 
@@ -48,8 +79,8 @@ let rec match_ffi (v:dvalue) (des:dexpr list) = match v.name with
     | _ -> raise (Invalid_argument "FFI.list_intersect must have a IntList argument at position 0")
     ) in 
       if r1'&&r2' then 
-        let a' = list_intersect_ast2ast a1 a2 in 
-          let r = match_ast_to_wys_ckt a' in 
+        let a' = list_intersect_verify a1 a2 in 
+          let r =  a' in 
             r 
       else false  
 
