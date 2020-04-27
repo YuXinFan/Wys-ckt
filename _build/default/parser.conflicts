@@ -1,0 +1,642 @@
+
+** Conflict (shift/reduce) in state 187.
+** Token involved: EOF
+** This state is reached from prog after reading:
+
+MODULE STRING LET ident list(ident) EQ expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 187, looking ahead at EOF, reducing production
+** ruleEnd -> 
+** is permitted because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF // lookahead token appears
+              decl list(decl) // lookahead token is inherited because list(decl) can vanish
+              rawDecl // lookahead token is inherited
+              LET ident list(ident) EQ expr ruleEnd // lookahead token is inherited
+                                            . 
+
+** In state 187, looking ahead at EOF, shifting is permitted
+** because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF 
+              decl list(decl) 
+              rawDecl 
+              LET ident list(ident) EQ expr ruleEnd 
+                                            . EOF 
+
+** Conflict (shift/reduce) in state 182.
+** Token involved: EOF
+** This state is reached from prog after reading:
+
+MODULE STRING LET REC ident list(ident) EQ expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 182, looking ahead at EOF, reducing production
+** ruleEnd -> 
+** is permitted because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF // lookahead token appears
+              decl list(decl) // lookahead token is inherited because list(decl) can vanish
+              rawDecl // lookahead token is inherited
+              LET REC ident list(ident) EQ expr ruleEnd // lookahead token is inherited
+                                                . 
+
+** In state 182, looking ahead at EOF, shifting is permitted
+** because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF 
+              decl list(decl) 
+              rawDecl 
+              LET REC ident list(ident) EQ expr ruleEnd 
+                                                . EOF 
+
+** Conflict (shift/reduce) in state 174.
+** Token involved: EOF
+** This state is reached from prog after reading:
+
+MODULE STRING OPEN STRING list(dotid) 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 174, looking ahead at EOF, reducing production
+** ruleEnd -> 
+** is permitted because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF // lookahead token appears
+              decl list(decl) // lookahead token is inherited because list(decl) can vanish
+              rawDecl // lookahead token is inherited
+              OPEN pathid // lookahead token is inherited
+                   STRING list(dotid) ruleEnd // lookahead token is inherited
+                                      . 
+
+** In state 174, looking ahead at EOF, shifting is permitted
+** because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF 
+              decl list(decl) 
+              rawDecl 
+              OPEN pathid 
+                   STRING list(dotid) ruleEnd 
+                                      . EOF 
+
+** Conflict (shift/reduce) in state 168.
+** Token involved: EOF
+** This state is reached from prog after reading:
+
+MODULE STRING TYPE typeDecl 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 168, looking ahead at EOF, reducing production
+** ruleEnd -> 
+** is permitted because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF // lookahead token appears
+              decl list(decl) // lookahead token is inherited because list(decl) can vanish
+              rawDecl // lookahead token is inherited
+              TYPE typeDecl ruleEnd // lookahead token is inherited
+                            . 
+
+** In state 168, looking ahead at EOF, shifting is permitted
+** because of the following sub-derivation:
+
+MODULE STRING list(decl) EOF 
+              decl list(decl) 
+              rawDecl 
+              TYPE typeDecl ruleEnd 
+                            . EOF 
+
+** Conflict (shift/reduce) in state 133.
+** Tokens involved: STRING LPAREN IDENT ANY
+** The following explanations concentrate on token STRING.
+** This state is reached from decl after reading:
+
+TYPE typNormal binder 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     (?)
+
+** In state 133, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+typedecl typars typeDef 
+typNormal nonempty_list(binder) 
+          binder nonempty_list(binder) 
+                 binder 
+                 singleBinder 
+                 idstr 
+                 . STRING 
+
+** In state 133, looking ahead at STRING, reducing production
+** nonempty_list(binder) -> binder 
+** is permitted because of the following sub-derivation:
+
+typedecl typars typeDef // lookahead token appears because typars can begin with STRING
+typNormal nonempty_list(binder) // lookahead token is inherited
+          binder . 
+
+** Conflict (shift/reduce) in state 131.
+** Tokens involved: STRING LPAREN IDENT ANY
+** The following explanations concentrate on token STRING.
+** This state is reached from decl after reading:
+
+TYPE typNormal 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     (?)
+
+** In state 131, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+typedecl typars typeDef 
+typNormal nonempty_list(binder) 
+          binder 
+          singleBinder 
+          idstr 
+          . STRING 
+
+** In state 131, looking ahead at STRING, reducing production
+** typedecl -> typNormal 
+** is permitted because of the following sub-derivation:
+
+typedecl typars typeDef // lookahead token appears because typars can begin with STRING
+typNormal . 
+
+** Conflict (unexplainable) in state 121.
+** Tokens involved: VAL TYPE OPEN LET EOL EOF #
+** Please send your grammar to Menhir's developers.
+
+** Conflict (shift/reduce) in state 106.
+** Tokens involved: WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+** The following explanations concentrate on token STRING.
+** This state is reached from decl after reading:
+
+TYPE idstr COLON typ ARROW FUN list(binder) ARROW typNormal 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     typedecl typars typeDef 
+     (?)
+
+** In state 106, looking ahead at STRING, reducing production
+** formula -> 
+** is permitted because of the following sub-derivation:
+
+typNormal nonempty_list(binder) // lookahead token appears because nonempty_list(binder) can begin with STRING
+idstr COLON typ ARROW typ // lookahead token is inherited
+                      typFun // lookahead token is inherited
+                      FUN list(binder) ARROW typNormal formula // lookahead token is inherited
+                                                       . 
+
+** In state 106, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+typNormal nonempty_list(binder) 
+idstr COLON typ ARROW typ 
+                      typFun 
+                      FUN list(binder) ARROW typNormal formula 
+                                                       expr 
+                                                       partExpr 
+                                                       ident 
+                                                       . STRING 
+
+** Conflict (shift/reduce) in state 98.
+** Token involved: ARROW
+** This state is reached from typNormal after reading:
+
+idstr COLON idstr COLON typ LBRACE formula RBRACE 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+typNormal 
+(?)
+
+** In state 98, looking ahead at ARROW, reducing production
+** typNormal -> idstr COLON typ LBRACE formula RBRACE 
+** is permitted because of the following sub-derivation:
+
+idstr COLON typ ARROW typ // lookahead token appears
+            typNormal // lookahead token is inherited
+            idstr COLON typ LBRACE formula RBRACE . 
+
+** In state 98, looking ahead at ARROW, shifting is permitted
+** because of the following sub-derivation:
+
+idstr COLON typ LBRACE formula RBRACE 
+            typNormal 
+            idstr COLON typ LBRACE formula RBRACE . ARROW typ 
+
+** Conflict (shift/reduce) in state 94.
+** Tokens involved: WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN EQ BOB ASSEC ALICE
+** The following explanations concentrate on token EQ.
+** This state is reached from rawExpr after reading:
+
+LET FUN list(binder) ARROW typNormal IDENT 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+(?)
+
+** In state 94, looking ahead at EQ, shifting is permitted
+** because of the following sub-derivation:
+
+LET typ EQ expr IN expr 
+    typFun 
+    FUN list(binder) ARROW typNormal formula 
+                                     IDENT . EQ IDENT 
+
+** In state 94, looking ahead at EQ, reducing production
+** ident -> IDENT 
+** is permitted because of the following sub-derivation:
+
+LET typ EQ expr IN expr // lookahead token appears
+    typFun // lookahead token is inherited
+    FUN list(binder) ARROW typNormal formula // lookahead token is inherited
+                                     expr // lookahead token is inherited
+                                     partExpr // lookahead token is inherited
+                                     ident // lookahead token is inherited
+                                     IDENT . 
+
+** Conflict (shift/reduce) in state 92.
+** Tokens involved: STRING IDENT
+** The following explanations concentrate on token STRING.
+** This state is reached from decl after reading:
+
+TYPE idstr idstr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     typedecl typars typeDef 
+     (?)
+
+** In state 92, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+typNormal nonempty_list(binder) 
+nonempty_list(idstr) 
+idstr nonempty_list(idstr) 
+      idstr nonempty_list(idstr) 
+            idstr 
+            . STRING 
+
+** In state 92, looking ahead at STRING, reducing production
+** nonempty_list(idstr) -> idstr 
+** is permitted because of the following sub-derivation:
+
+typNormal nonempty_list(binder) // lookahead token appears because nonempty_list(binder) can begin with STRING
+nonempty_list(idstr) // lookahead token is inherited
+idstr nonempty_list(idstr) // lookahead token is inherited
+      idstr . 
+
+** Conflict (shift/reduce) in state 89.
+** Tokens involved: SUB MUL MOD GT DIV BEQ ADD
+** The following explanations concentrate on token SUB.
+** This state is reached from rawExpr after reading:
+
+LET ident EQ expr IN expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+(?)
+
+** In state 89, looking ahead at SUB, shifting is permitted
+** because of the following sub-derivation:
+
+LET ident EQ expr IN expr 
+                     partExpr 
+                     expr binop expr 
+                          . SUB 
+
+** In state 89, looking ahead at SUB, reducing production
+** expr -> LET ident EQ expr IN expr 
+** is permitted because of the following sub-derivation:
+
+partExpr 
+expr binop expr // lookahead token appears because binop can begin with SUB
+LET ident EQ expr IN expr . 
+
+** Conflict (shift/reduce) in state 84.
+** Tokens involved: SUB MUL MOD GT DIV BEQ ADD
+** The following explanations concentrate on token SUB.
+** This state is reached from rawExpr after reading:
+
+LET typ EQ expr IN expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+(?)
+
+** In state 84, looking ahead at SUB, shifting is permitted
+** because of the following sub-derivation:
+
+LET typ EQ expr IN expr 
+                   partExpr 
+                   expr binop expr 
+                        . SUB 
+
+** In state 84, looking ahead at SUB, reducing production
+** expr -> LET typ EQ expr IN expr 
+** is permitted because of the following sub-derivation:
+
+partExpr 
+expr binop expr // lookahead token appears because binop can begin with SUB
+LET typ EQ expr IN expr . 
+
+** Conflict (unexplainable) in state 79.
+** Tokens involved: SUB MUL MOD GT DIV BEQ ADD
+** Please send your grammar to Menhir's developers.
+
+** Conflict (shift/reduce) in state 78.
+** Tokens involved: WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+** The following explanations concentrate on token WIRE.
+** This state is reached from rawExpr after reading:
+
+appName expr binop appName decoratePartExpr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+appName nonempty_list(decoratePartExpr) 
+        (?)
+
+** In state 78, looking ahead at WIRE, shifting is permitted
+** because of the following sub-derivation:
+
+decoratePartExpr 
+partExpr 
+expr binop expr 
+           appName nonempty_list(decoratePartExpr) 
+                   decoratePartExpr nonempty_list(decoratePartExpr) 
+                                    decoratePartExpr 
+                                    partExpr 
+                                    expr binop expr 
+                                    appName nonempty_list(decoratePartExpr) 
+                                    . WIRE 
+
+** In state 78, looking ahead at WIRE, reducing production
+** nonempty_list(decoratePartExpr) -> decoratePartExpr 
+** is permitted because of the following sub-derivation:
+
+decoratePartExpr nonempty_list(decoratePartExpr) // lookahead token appears because nonempty_list(decoratePartExpr) can begin with WIRE
+partExpr // lookahead token is inherited
+expr binop expr // lookahead token is inherited
+           appName nonempty_list(decoratePartExpr) // lookahead token is inherited
+                   decoratePartExpr . 
+
+** Conflict (shift/reduce) in state 75.
+** Token involved: RPAREN
+** This state is reached from rawExpr after reading:
+
+appName LPAREN partExpr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+(?)
+
+** In state 75, looking ahead at RPAREN, reducing production
+** decoratePartExpr -> partExpr 
+** is permitted because of the following sub-derivation:
+
+appName LPAREN nonempty_list(decoratePartExpr) RPAREN // lookahead token appears
+               decoratePartExpr // lookahead token is inherited
+               partExpr . 
+
+** In state 75, looking ahead at RPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+appName nonempty_list(decoratePartExpr) 
+        decoratePartExpr 
+        LPAREN partExpr . RPAREN 
+
+** Conflict (shift/reduce) in state 68.
+** Tokens involved: SUB MUL MOD GT DIV BEQ ADD
+** The following explanations concentrate on token SUB.
+** This state is reached from rawExpr after reading:
+
+expr binop expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+partExpr 
+(?)
+
+** In state 68, looking ahead at SUB, shifting is permitted
+** because of the following sub-derivation:
+
+expr binop expr 
+           partExpr 
+           expr binop expr 
+                . SUB 
+
+** In state 68, looking ahead at SUB, reducing production
+** partExpr -> expr binop expr 
+** is permitted because of the following sub-derivation:
+
+expr binop expr // lookahead token appears because binop can begin with SUB
+partExpr // lookahead token is inherited
+expr binop expr . 
+
+** Conflict (shift/reduce) in state 59.
+** Tokens involved: SUB MUL MOD GT DIV BEQ ADD
+** The following explanations concentrate on token SUB.
+** This state is reached from rawExpr after reading:
+
+FUN binder ARROW expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+(?)
+
+** In state 59, looking ahead at SUB, shifting is permitted
+** because of the following sub-derivation:
+
+FUN binder ARROW expr 
+                 partExpr 
+                 expr binop expr 
+                      . SUB 
+
+** In state 59, looking ahead at SUB, reducing production
+** expr -> FUN binder ARROW expr 
+** is permitted because of the following sub-derivation:
+
+partExpr 
+expr binop expr // lookahead token appears because binop can begin with SUB
+FUN binder ARROW expr . 
+
+** Conflict (shift/reduce) in state 56.
+** Tokens involved: STRING IDENT BOB ALICE
+** The following explanations concentrate on token STRING.
+** This state is reached from rawExpr after reading:
+
+appName expr binop listAppName arg 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+rawExpr 
+expr ruleEnd 
+appName nonempty_list(decoratePartExpr) 
+        (?)
+
+** In state 56, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+decoratePartExpr 
+partExpr 
+expr binop expr 
+           listAppName nonempty_list(arg) 
+                       arg nonempty_list(arg) 
+                           arg 
+                           ident 
+                           . STRING 
+
+** In state 56, looking ahead at STRING, reducing production
+** nonempty_list(arg) -> arg 
+** is permitted because of the following sub-derivation:
+
+decoratePartExpr nonempty_list(decoratePartExpr) // lookahead token appears because nonempty_list(decoratePartExpr) can begin with STRING
+partExpr // lookahead token is inherited
+expr binop expr // lookahead token is inherited
+           listAppName nonempty_list(arg) // lookahead token is inherited
+                       arg . 
+
+** Conflict (unexplainable) in state 39.
+** Tokens involved: WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+** Please send your grammar to Menhir's developers.
+
+** Conflict (unexplainable) in state 36.
+** Tokens involved: STRING IDENT EQ
+** Please send your grammar to Menhir's developers.
+
+** Conflict (unexplainable) in state 35.
+** Token involved: EQ
+** Please send your grammar to Menhir's developers.
+
+** Conflict (shift/reduce) in state 20.
+** Tokens involved: STRING IDENT
+** The following explanations concentrate on token STRING.
+** This state is reached from decl after reading:
+
+TYPE idstr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     typedecl typars typeDef 
+     (?)
+
+** In state 20, looking ahead at STRING, shifting is permitted
+** because of the following sub-derivation:
+
+typNormal nonempty_list(binder) 
+nonempty_list(idstr) 
+idstr nonempty_list(idstr) 
+      idstr 
+      . STRING 
+
+** In state 20, looking ahead at STRING, reducing production
+** nonempty_list(idstr) -> idstr 
+** is permitted because of the following sub-derivation:
+
+typNormal nonempty_list(binder) // lookahead token appears because nonempty_list(binder) can begin with STRING
+nonempty_list(idstr) // lookahead token is inherited
+idstr . 
+
+** Conflict (unexplainable) in state 16.
+** Tokens involved: WIRE UNION STRING SINGLETON PROJWIRE MKWIRE LPAREN LET IDENT FUN BOB ASSEC ALICE
+** Please send your grammar to Menhir's developers.
+
+** Conflict (unexplainable) in state 11.
+** Tokens involved: STRING IDENT
+** Please send your grammar to Menhir's developers.
+
+** Conflict (shift/reduce) in state 7.
+** Token involved: LPAREN
+** This state is reached from decl after reading:
+
+TYPE STRING 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+decl 
+rawDecl 
+TYPE typeDecl ruleEnd 
+     typedecl typars typeDef 
+     (?)
+
+** In state 7, looking ahead at LPAREN, reducing production
+** idstr -> STRING 
+** is permitted because of the following sub-derivation:
+
+typNormal nonempty_list(binder) // lookahead token appears because nonempty_list(binder) can begin with LPAREN
+nonempty_list(idstr) // lookahead token is inherited
+idstr // lookahead token is inherited
+STRING . 
+
+** In state 7, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+typNormal nonempty_list(binder) 
+STRING . LPAREN typ RPAREN pre_postcond pre_postcond 

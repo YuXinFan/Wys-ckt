@@ -1,0 +1,51 @@
+module SMC
+
+open Prins
+open FFI
+open Wysteria
+
+let alice_s = singleton Alice
+let bob_s = singleton Bob
+let ab = union alice_s bob_s
+
+type pre  (m:mode)  = fun m0 -> b2t (m0 = m)
+type post (#a:Type) = fun (m:mode) (x:a) (t:trace) -> True
+
+type distinct (x1:int) (x2:int) (y1:int) (y2:int) 
+
+type eq_one (n:int) (x1:int) (x2:int) (x3:int) (x4:int)
+
+type median_pre (x1:int) (x2:int) (y1:int) (y2:int)
+
+val mono_median_h:
+  x1:Box int alice_s -> x1:Box int alice_s -> y1:Box int bob_s ->y2:Box int bob_s
+  -> Wys int 
+let mono_median_h x1 x2 y1 y2 =
+  let g:unit -> Wys int 
+    =
+    fun _ -> 
+    let x_1 = unbox_s x1 in
+    let y_1 = unbox_s y1 in
+    let x_2 = unbox_s x2 in 
+    let y_2 = unbox_s y2 in 
+    let a = x_1 > y_1 in
+    let x_3 = if a then x_1 else x_2 in
+    let y_3 = if a then y_2 else y_1 in
+    let d = x_3 > y_3 in
+    (if d then y_3 else x_3)
+  in
+  
+  as_sec ab g
+
+val mono_median: ps:prins{ps = ab} -> w:Wire int ps -> Wys (Wire int ab) (pre (Mode Par ab)) post
+let mono_median ps w =
+  let t1 = as_par alice_s (projwire_p alice w) in
+  let t2 = as_par alice_s (projwire_p alice w) in
+  let t3 = as_par bob_s (projwire_p bob w) in
+  let t4 = as_par bob_s (projwire_p bob w) in
+  let x = mono_median_h t1 t2 t3 t4 in
+  let trivial: unit -> Wys (int) (pre (Mode Par ab)) post =
+    fun _ -> x
+  in mkwire_p ab (as_par ab trivial)
+
+  

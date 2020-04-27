@@ -1,0 +1,211 @@
+type token =
+    WITH
+  | WIRE
+  | WHEN
+  | VAL
+  | UNOPTEQUALITY
+  | UNIV_HASH
+  | UNION
+  | UNFOLDABLE
+  | UNFOLD
+  | UNDERSCORE
+  | UNBOX
+  | UINT8 of string
+  | UINT64 of string
+  | UINT32 of string
+  | UINT16 of string
+  | TYP_APP_LESS
+  | TYP_APP_GREATER
+  | TYPE
+  | TVAR of string
+  | TRUE of bool
+  | TOTAL
+  | TILDE of string
+  | THEN
+  | SYNTH
+  | SUB_EFFECT
+  | SUBTYPE
+  | SUBKIND
+  | SUB
+  | STRING of string
+  | SQUIGGLY_RARROW
+  | SPLICE
+  | SINGLETON
+  | SET_RANGE_OF
+  | SEMICOLON_SEMICOLON
+  | SEMICOLON
+  | SEAL
+  | RPAREN
+  | REVEAL
+  | REQUIRES
+  | REIFY
+  | REIFIABLE
+  | REFLECTABLE
+  | REC
+  | REAL of string
+  | RBRACK
+  | RBRACE
+  | RARROW
+  | RANGE_OF
+  | RANGE of string
+  | QUOTE
+  | QMARK_DOT
+  | QMARK
+  | PROJWIRE
+  | PRIVATE
+  | PRAGMA_SET_OPTIONS
+  | PRAGMA_RESTART_SOLVER
+  | PRAGMA_RESET_OPTIONS
+  | PRAGMA_PUSH_OPTIONS
+  | PRAGMA_POP_OPTIONS
+  | PRAGMALIGHT
+  | POLYMONADIC_BIND
+  | PIPE_RIGHT
+  | PERCENT_LBRACK
+  | OR
+  | OPEN
+  | OPAQUE
+  | OF
+  | NOTEQUAL
+  | NOEXTRACT
+  | NOEQUALITY
+  | NEW_EFFECT
+  | NE
+  | NAME of string
+  | MUL
+  | MODULE
+  | MOD
+  | MKWIRE
+  | MINUS
+  | MATCH
+  | LT
+  | LPAREN_RPAREN
+  | LPAREN
+  | LONG_LEFT_ARROW
+  | LET
+  | LENS_PAREN_RIGHT
+  | LENS_PAREN_LEFT
+  | LE
+  | LBRACK_BAR
+  | LBRACK_AT
+  | LBRACK
+  | LBRACE_COLON_PATTERN
+  | LBRACE
+  | LAYERED_EFFECT
+  | LARROW
+  | IRREDUCIBLE
+  | INT8 of (string * bool)
+  | INT64 of (string * bool)
+  | INT32 of (string * bool)
+  | INT16 of (string * bool)
+  | INT of int
+  | INSTANCE
+  | INLINE_FOR_EXTRACTION
+  | INLINE
+  | INCLUDE
+  | IN
+  | IMPLIES
+  | IFF
+  | IF
+  | IEEE64 of float
+  | IDENT of string
+  | HASH
+  | GT
+  | GE
+  | FUNCTION
+  | FUN
+  | FRIENDTRY
+  | FLOAT of float
+  | FFI
+  | FALSE of bool
+  | EXCEPTION
+  | EQUALS
+  | EQ
+  | EOL
+  | EOF
+  | ENSURES
+  | END
+  | ELSE
+  | EFFECT
+  | DOT_LPAREN
+  | DOT_LENS_PAREN_LEFT
+  | DOT_LBRACK_BAR
+  | DOT_LBRACK
+  | DOT
+  | DOLLAR
+  | DIV
+  | DISJUNCTION
+  | DEFAULT
+  | DBLEQUAL
+  | CONJUNCTION
+  | CONCATWIRE
+  | COMMA
+  | COLON_EQUALS
+  | COLON_COLON
+  | COLON
+  | CLASS
+  | CHAR of char
+  | CALC
+  | BYTEARRAY of string
+  | BY
+  | BOX
+  | BOB
+  | BEQ
+  | BEGIN
+  | BAR_RBRACK
+  | BAR
+  | BANG_LBRACE
+  | BACKTICK_PERC
+  | BACKTICK_HASH
+  | BACKTICK_AT
+  | BACKTICK
+  | ASSERT
+  | ASSEC
+  | ASPAR
+  | ARROW
+  | ANY
+  | AND
+  | AMP
+  | ALICE
+  | ADD
+  | ABSTRACT
+val menhir_begin_marker : int
+val xv_wysPrin : Syntax.values
+val xv_typedecl : Syntax.tdecls
+val xv_typeDef : Syntax.types
+val xv_typeDecl : Syntax.tdefs
+val xv_typars : unit
+val xv_typNormal : Syntax.types
+val xv_typFun : Syntax.types
+val xv_typ : Syntax.types
+val xv_singleBinder : Syntax.binders
+val xv_ruleEnd : unit
+val xv_rawExpr : Syntax.exprs
+val xv_rawDecl : Syntax.decl'
+val xv_prog : Syntax.prog
+val xv_pre_postcond : Syntax.formulas
+val xv_pathid : string
+val xv_partExpr : Syntax.exprs
+val xv_nonempty_list_idstr_ : string list
+val xv_nonempty_list_decoratePartExpr_ : Syntax.exprs list
+val xv_nonempty_list_binder_ : Syntax.binders list
+val xv_nonempty_list_arg_ : Syntax.exprs list
+val xv_nondelimited_expr : Syntax.exprs
+val xv_listAppName : Syntax.const
+val xv_list_ident_ : Syntax.values list
+val xv_list_dotid_ : string list
+val xv_list_decl_ : Syntax.decl' list
+val xv_list_binder_ : Syntax.binders list
+val xv_idstr : string
+val xv_ident : Syntax.values
+val xv_formula : Syntax.formulas
+val xv_expr : Syntax.exprs
+val xv_dotid : string
+val xv_delimited_LPAREN_expr_RPAREN_ : Syntax.exprs
+val xv_decoratePartExpr : Syntax.exprs
+val xv_decl : Syntax.decl'
+val xv_binop : Syntax.op
+val xv_binder : Syntax.binders
+val xv_arg : Syntax.exprs
+val xv_appName : Syntax.const
+val menhir_end_marker : int

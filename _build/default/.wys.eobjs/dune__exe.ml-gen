@@ -1,0 +1,20 @@
+(** @canonical Dune__exe.Dprint *)
+module Dprint = Dune__exe__Dprint
+
+(** @canonical Dune__exe.Dsyntax *)
+module Dsyntax = Dune__exe__Dsyntax
+
+(** @canonical Dune__exe.Lexer *)
+module Lexer = Dune__exe__Lexer
+
+(** @canonical Dune__exe.Parser *)
+module Parser = Dune__exe__Parser
+
+(** @canonical Dune__exe.Syntax *)
+module Syntax = Dune__exe__Syntax
+
+(** @canonical Dune__exe.Verify *)
+module Verify = Dune__exe__Verify
+
+(** @canonical Dune__exe.Wys *)
+module Wys = Dune__exe__Wys

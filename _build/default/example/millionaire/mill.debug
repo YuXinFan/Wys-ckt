@@ -1,0 +1,28 @@
+
+val mill: ps : prins { ps = ab } -> w : wire int ps -> Wys ( wire bool ps ) ( pre ( Mode Par ab ) ) post
+
+decl: VAL IDENT COLON IDENT COLON IDENT LBRACE IDENT EQ IDENT RBRACE ARROW IDENT COLON IDENT IDENT IDENT ARROW STRING LPAREN IDENT IDENT IDENT RPAREN LPAREN IDENT LPAREN STRING STRING IDENT RPAREN RPAREN IDENT 
+
+  let g:unit -> Wys (wire bool ps) (pre (Mode Sec ps)) post =
+    fun _ ->
+    let x = projwire_s #int #ab Alice w in
+    	let y = projwire_s #int #ab Bob w in
+    		mkwire_s ab ( x > y )
+  in
+  as_sec ab g
+
+rawExpr: LET IDENT COLON IDENT ARROW STRING LPAREN IDENT IDENT IDENT RPAREN LPAREN IDENT LPAREN STRING STRING IDENT RPAREN RPAREN IDENT EQ FUN ANY ARROW LET IDENT EQ PROJWIRE IDENT IDENT ALICE IDENT IN LET IDENT EQ PROJWIRE IDENT IDENT BOB IDENT IN MKWIRE IDENT LPAREN IDENT GT IDENT RPAREN IN ASSEC IDENT IDENT
+
+
+let mill ps w =
+
+  let g:unit -> Wys (wire bool ps) (pre (Mode Sec ps)) post =
+    fun _ ->
+    let x = projwire_s #int #ab Alice w in
+    	let y = projwire_s #int #ab Bob w in
+    		mkwire_s ab ( x > y )
+  in
+  as_sec ab g
+
+
+decl: LET IDENT IDENT IDENT EQ LET IDENT COLON IDENT ARROW STRING LPAREN IDENT IDENT IDENT RPAREN LPAREN IDENT LPAREN STRING STRING IDENT RPAREN RPAREN IDENT EQ FUN ANY ARROW LET IDENT EQ PROJWIRE IDENT IDENT ALICE IDENT IN LET IDENT EQ PROJWIRE IDENT IDENT BOB IDENT IN MKWIRE IDENT LPAREN IDENT GT IDENT RPAREN IN ASSEC IDENT IDENT

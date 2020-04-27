@@ -1,0 +1,26 @@
+Read File:
+  module Wys  open Fstar let alice_s = singleton Alice let bob_s = singleton Bob let ab = union alice_s bob_s  type pre  ( m : mode )  = fun m0 -> b2t ( m0 = m ) type post ( #a : Type ) = fun ( m : mode ) ( x : a ) ( t : trace ) -> True  val mill: ps : prins { ps = ab } -> w : wire int ps -> Wys ( wire bool ps ) ( pre ( Mode Par ab ) ) post  let mill ps w =    let g:unit -> Wys (wire bool ps) (pre (Mode Sec ps)) post =     fun _ ->     let x = projwire_s #int #ab Alice w in     	let y = projwire_s #int #ab Bob w in     		mkwire_s ab ( x > y )   in   as_sec ab g  
+AST:
+
+AST OF WYS: 
+ (let (&Value g) =  (&Fun _ -> (let (&Value x) =  (&App projwire  (&Value #int) * (&Value #ab) * (&Value Alice) * (&Value w) )  in (let (&Value y) =  (&App projwire  (&Value #int) * (&Value #ab) * (&Value Bob) * (&Value w) )  in  (&App mkwire  (&Value ab) * ( (&Value x)  >  (&Value y) ) ) )) )  in  (&App as_sec  (&Value ab) * (&Value g) ) )------------------------------------
+
+Typed AST OF as_sec:
+Let (-Fun g) = {
+    Lambda (-Lambda _)= {
+      Let (-IntWire x) = {
+        (-App projwire) (-Int int)(-PrinSet ab)(-Prin Alice)(-Wire w)
+      } in {
+        Let (-IntWire y) = {
+          (-App projwire) (-Int int)(-PrinSet ab)(-Prin Bob)(-Wire w)
+        } in {
+          (-App mkwire) (-PrinSet ab)(-IntWire x)(>)(-IntWire y)
+        }
+      }
+  } in {
+    (-App as_sec) (-PrinSet ab)(-Fun g)
+  }
+
+Verification Result:
+
+Verified!

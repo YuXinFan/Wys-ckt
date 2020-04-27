@@ -1,0 +1,22 @@
+module Wys
+
+open Fstar
+let alice_s = singleton Alice
+let bob_s = singleton Bob
+let ab = union alice_s bob_s
+
+type pre  ( m : mode )  = fun m0 -> b2t ( m0 = m )
+type post ( #a : Type ) = fun ( m : mode ) ( x : a ) ( t : trace ) -> True
+
+val mill: ps : prins { ps = ab } -> w : wire int ps -> Wys ( wire bool ps ) ( pre ( Mode Par ab ) ) post
+
+let mill ps w =
+
+  let g:unit -> Wys (wire bool ps) (pre (Mode Sec ps)) post =
+    fun _ ->
+    let x = projwire_s #int #ab Alice w in
+    	let y = projwire_s #int #ab Bob w in
+    		mkwire_s ab ( x > y )
+  in
+  as_sec ab g
+
