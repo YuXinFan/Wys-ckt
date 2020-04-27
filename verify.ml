@@ -1,4 +1,5 @@
 open Dsyntax 
+open Dprint
 
 let get_args2 (l:'a list) = let a1 = List.hd l in 
   let a2 = List.hd (List.tl l) in 
@@ -84,10 +85,11 @@ let rec match_ffi (v:dvalue) (des:dexpr list) = match v.name with
             r 
       else false  
 
-(* if then else, mksh, combsh  are todo HERE *)
+(*  mksh, combsh  are todo HERE *)
 | "as_sec" -> true 
 | _ -> let warn_str = Printf.sprintf "not support FFI application: %s" v.name in 
     raise (Invalid_argument warn_str)
+
 
 and match_ast_to_wys_ckt (f: dexpr) = match f with 
 | ELet_d (_, e1, e2) -> 
@@ -103,6 +105,8 @@ and match_ast_to_wys_ckt (f: dexpr) = match f with
     | IntWire -> true 
     | Prin -> true 
     | BoolWire -> true 
+    | BoxBool -> true 
+    | BoxInt -> true 
     | _ -> raise (Invalid_argument "EVar variable has a not a support type")
     )
 | EApp_d (v, des) -> (match v.name with 
@@ -127,6 +131,12 @@ and match_ast_to_wys_ckt (f: dexpr) = match f with
         | BEQ -> true 
         | _ -> false
         )
+      | Int -> (match op with 
+        | ADD -> true 
+        | SUB -> true 
+        | GT -> true 
+        | BEQ -> true 
+        | _ -> false)
       | _ -> false 
       )
       in 
@@ -134,6 +144,10 @@ and match_ast_to_wys_ckt (f: dexpr) = match f with
     else 
       raise (Invalid_argument "different type operator of ffi binary operation");
 | EFun_d (_, e) -> match_ast_to_wys_ckt e 
+| ECond_d (c, e1, e2) -> let r0 = match_ast_to_wys_ckt c in 
+  let r1 = match_ast_to_wys_ckt e1 in 
+  let r2 = match_ast_to_wys_ckt e2 in 
+    r1&&r2&&r0
 | _ ->  raise(Invalid_argument "not supported dexpr type" )
 
 let verify_as_sec (prins:dvalue) (func:dvalue) = 
@@ -148,5 +162,10 @@ let verify_as_sec (prins:dvalue) (func:dvalue) =
 let verify_wys (dp:dprog) = 
   let decl_with_as_sec = get (find_decl_with_as_sec dp) in 
     let p_g = get_prins_and_fun_dvalue decl_with_as_sec in 
+      let func = snd p_g in 
+      print1 "Typed AST OF as_sec:\n";
+      print_dexpr (get func.aste);
+      print1 "\n\n";
+      print1 "Verification Result:\n";
       let result = verify_as_sec (fst p_g) (snd p_g) in 
         result

@@ -184,7 +184,12 @@ typNormal:
   | x=idstr COLON t=typ LBRACE f=formula RBRACE ARROW t2=typ 
     {TDependentRefine (x, t, f, t2)}
   | x=nonempty_list(idstr)
-    {TVar (List.hd x)}
+    { let len = List.length x in 
+      if len = 1 then 
+        TVar (List.hd x)
+      else 
+        TApp (List.hd x, List.tl x)
+      }
   | x=appName nonempty_list(idstr)
     { let name = match x with 
       | CApp id -> id 
@@ -261,8 +266,14 @@ expr:
     {EApp (app, args)}
   | app=appName LPAREN args=nonempty_list(decoratePartExpr) RPAREN
     {EApp (app, args)}
+  | app=appName x=partExpr LPAREN y=expr RPAREN
+    {EApp (app, [x;y])}
   | FUN x=binder ARROW e=expr 
     {EFun (x, e)}
+  | IF x=expr THEN y=expr ELSE z=expr 
+    {ECond (x,y,z)}
+  | LPAREN IF x=expr THEN y=expr ELSE z=expr RPAREN
+    {ECond (x,y,z)}
   | e=partExpr
     {e}
 
@@ -293,13 +304,16 @@ appName:
     {CApp "projwire"}
   | MKWIRE 
     {CApp "mkwire"}
-  | ASSEC 
-    {CApp "as_sec"}
+  | ASPAR 
+    {CApp "as_par"}
 
   | WIRE 
     {CApp "wire"}
+  | UNBOX 
+    {CApp "unbox"}
+
   | IDENT   
-    {CApp "app"}
+    {CApp "unknow-app"}
 
 arg:
   | ALICE 

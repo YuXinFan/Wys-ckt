@@ -2,36 +2,53 @@ open Dsyntax
 open Syntax
 
 
-let print2 (opt: string )(str:string) = Printf.printf " (%s %s) " opt str 
+let print2 (opt: string )(str:string) = Printf.printf "(%s %s)" opt str 
 
-let print1  (str:string) = Printf.printf " %s " str
+let print1  (str:string) = Printf.printf "%s" str
 
 let newline () = Printf.printf "\n"
 
 let space () = Printf.printf " "
 
 let string_of_typeValue (i: typeValue) = match i with 
+| Module_d -> "-Module"
+
 | Int -> "-Int"
 | Prin -> "-Prin"
 | Bool -> "-Bool"
+
+
 | Set -> "-Set"
 | PrinSet -> "-PrinSet"
 | IntList -> "-IntList"
+
 | TypeDef -> "-Type"
 | ValDef -> "-Val"
 | Fun -> "-Fun"
-| Wire -> "-Wire"
-| IntWire -> "-IntWire"
-| BoolWire -> "-BoolWire"
-| Sec  -> "-Secure"
-| Module_d -> "-Module"
-
-| Wys -> "-Wys"
 
 | App -> "-App"
 | Proj -> "-Project"
 | Lambda -> "-Lambda"
+
+| Wire -> "-Wire"
+| IntWire -> "-IntWire"
+| BoolWire -> "-BoolWire"
+
+| BoxBool -> "-BoxBool"
+| BoxInt -> "-BoxInt"
+| BoxUnknow -> "-BoxUnknow"
+
+| Wys -> "-Wys"
+| WysInt -> "-WysInt"
+| WysBool -> "-WysBool"
+| WysUnknow -> "-WysUnknow"
+
+
+| Unbox -> "-Unbox"
+
 | Var (* unknown type *) -> "-Can'tknow"
+
+| Sec  -> "-Secure"
 
 | Env -> "Env"
 
@@ -94,17 +111,24 @@ and print_dexprs (des:dexpr list) = match des with
 | [x] -> print_dexpr x 
 | hd::tl -> print_dexpr hd; print_dexprs tl
 
-and print_dexpr (de:dexpr) = match de with 
+and print_dexpr ?(intend= "  ") (de:dexpr) = match de with 
 | EVar_d dv -> print_dvalue dv 
 | EApp_d (dv, eds) -> 
     print_dvalue dv; space(); print_dexprs eds 
 | ELet_d (dv, de1, de2) -> 
     print1 "Let ";
     print_dvalue dv;
-    print1 " = "; 
-    print_dexpr de1;
-    print1 " in ";
-    print_dexpr de2 
+    print1 " = {\n";
+    print1 (intend^"  "); 
+    print_dexpr de1 ~intend:(intend^"  ");
+    newline();
+    print1 intend;
+    print1 "} in {\n";
+    print1 (intend^"  ");
+    print_dexpr de2 ~intend:(intend^"  ");
+    newline();
+    print1 intend;
+    print1 "}"
 | EProj_d (dv1, dv2) -> 
     print_dvalue dv1;
     print1 ".";
@@ -116,19 +140,21 @@ and print_dexpr (de:dexpr) = match de with
 | EFun_d (dv, de)->
     print1 "Lambda ";
     print_dvalue dv;
-    print1 "=";
-    print_dexpr de 
-| ECond_d (cond, de1, de2_opt) -> 
+    print1 "= {\n";
+    print1 (intend^"  ");
+    print_dexpr de ~intend:(intend^"  ") 
+| ECond_d (cond, de1, de2) -> 
     print1 "if ";
     print_dexpr cond;
-    print1 "\nthen ";
+    newline();
+    print1 (intend);
+    print1 "then {";
     print_dexpr de1;
-    if not (is_none de2_opt) then 
-        print1 "\nelse";
-        let de2 = get de2_opt in 
-            print_dexpr de2 
-        ;
-    print1 "\nendif"
+    print1 "}\n";
+    print1 (intend);
+    print1 "else {";
+    print_dexpr de2 ;
+    print1 "}"
 
 
 and print_env (env: env) (intend: string) = 

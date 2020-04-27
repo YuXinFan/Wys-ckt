@@ -52,6 +52,7 @@ and types =
 | TDependentRefine of lid * types * formulas * types 
 | TRefine of lid * types * formulas 
 | TFun of binders list * types 
+| TApp of lid * lid list 
 
 (*formulas is used to do property verification *)
 and formulas = 
@@ -97,6 +98,7 @@ and exprs =
 | ELet of values * exprs * exprs 
 | EBinop of exprs * op * exprs
 | EFun of binders * exprs
+| ECond of exprs * exprs * exprs 
 
 | EMatch of exprs * branchs list 
 | EAssert of formulas 
@@ -184,6 +186,7 @@ let name_of_types (t:types) = match t with
 | TDependentRefine (id, _, _, _) -> id
 | TRefine (id, _, _) -> id 
 | TFun _ -> "Fun"
+| TApp (id, ids) -> id ^ (String.concat " " ids)
 
 
 let name_of_const (c:const) = match c with 

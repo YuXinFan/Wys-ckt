@@ -1,3 +1,4 @@
+
 (ocamllex
   (modules lexer)
 )
@@ -9,11 +10,19 @@
 
 (executable
   (name wys)
+  (modes byte exe)
 )
+
+(env
+  (dev  
+    (flags (:standard -g)))
+)
+
+
 
 (rule
   (with-stdout-to wys.out
-  (with-stdin-from ./example/median/wys.in
+  (with-stdin-from ./example/millionaire/wys.in
     (run ./wys.exe)
   ))
 )

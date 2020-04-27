@@ -8,25 +8,40 @@ let rec remove_at n = function
 let is_none = function |None -> true |Some _ -> false
 
 type typeValue = 
+| Module_d 
+
 | Int 
 | Prin 
 | Bool
+
 | Set 
 | PrinSet 
 | IntList 
+
 | TypeDef
 | ValDef
 | Fun 
+
 | IntWire
 | BoolWire 
-| Wire
+
 | Sec  
-| Module_d 
+| BoxInt
+| BoxBool
+
 | Wys 
+| WysInt 
+| WysBool
 
 | App 
+| Unbox
+| Wire
+
 | Proj 
 | Lambda 
+
+| BoxUnknow
+| WysUnknow
 | Var (* unknown type *)
 
 | Env 
@@ -51,6 +66,8 @@ and dvalue = {
     mutable astd : ddecl option;
     (* when this value is made by a expr, aste is its dexpr AST *)
     mutable aste : dexpr option; 
+    (* if this value is a box value *)
+    is_box: bool;
 }
 
 
@@ -72,7 +89,7 @@ and dexpr =
 | EProj_d of dvalue * dvalue 
 | EBinop_d of dexpr * op * dexpr 
 | EFun_d of dvalue * dexpr 
-| ECond_d of dexpr * dexpr * (dexpr option) 
+| ECond_d of dexpr * dexpr * dexpr 
 
 (***  Global Value ***)
 let env_cnt = ref (-1) 
@@ -102,27 +119,32 @@ let put_value_in_env (v: dvalue)(env:env ref) =
   env := {!env with value_in_env = !env.value_in_env @ [v]}
 
 (******* dvalue Help Function *******)
-let make_dvalue ?args ?astd ?aste name (typ:typeValue) sc = { 
+let make_dvalue ?args ?astd ?aste ?(box=false) name (typ:typeValue) sc = { 
     name = name ; 
     typ = typ ;
     scope = sc;
     args = args;
     
     astd = astd;
-    aste = aste } 
+    aste = aste;
+    is_box = box } 
 
 
 let dvalue_of_type (t:types) = let tmp = ref (make_empty_env "tmp") in
-    let id = (
+    let id, box = (
     match t with 
-    | TVar id -> id 
-    | TConst id -> id 
-    | TDependent (id, _, _) -> id 
-    | TDependentRefine (id, _, _,_) -> id 
-    | TRefine (id, _, _) -> id 
-    | TFun (_, _) ->  "Fun in Type" 
-    ) in 
-        make_dvalue id TypeDef tmp  
+    | TVar id -> id, false 
+    | TConst id -> id, false 
+    | TDependent (id, _, _) -> id, false 
+    | TDependentRefine (id, _, _,_) -> id, false 
+    | TRefine (id, _, _) -> id, false 
+    | TFun (_, _) ->  "Fun in Type", false 
+    | TApp (app, ids) -> ( match app with
+      | "app" -> List.hd ids, true
+      | _ -> app, false
+    )
+     ) in 
+        make_dvalue id TypeDef tmp ~box:box 
 
 
 let rec find_value_in_value_list (name:string) (dl:dvalue list) = match dl with 
@@ -159,15 +181,24 @@ let dcons_of_binder b = match b with
 (******* typeValue Help Function *******)
 
 (* Match prims type value  *)
-let match_value_type (_:string) (name:string) = match name with 
-| "Alice" -> Prin 
-| "Bob" -> Prin 
-| "int" -> Int 
-| "bool" -> Bool 
-| "wire" -> Wire 
-| "prins" -> PrinSet
-| "Wys" -> Wys 
-| _ -> Var 
+let match_value_type (act:string) (name:string) = match act with 
+| "Box" -> (  match name with 
+  | "int" -> BoxInt 
+  | "bool" -> BoxBool
+  | _ -> BoxUnknow  )
+| "Wys" -> (match name with 
+  | "int" -> WysInt
+  | "bool" -> WysBool
+  | _ -> WysUnknow)
+| _ -> (  match name with 
+  | "Alice" -> Prin 
+  | "Bob" -> Prin 
+  | "int" -> Int 
+  | "bool" -> Bool 
+  | "wire" -> Wire 
+  | "prins" -> PrinSet
+  | "Wys" -> Wys 
+  | _ -> Var )
 
 let match_apply_name_type (name:string) = match name with 
 | "singleton" -> Set
@@ -176,6 +207,7 @@ let match_apply_name_type (name:string) = match name with
 | "mkwire" -> Wire 
 | "bool" -> Bool 
 | "as_sec" -> Sec 
+| "unbox" -> Unbox
 | _ -> Var 
 
 let rec match_types_type (t: types) = match t with 
@@ -185,6 +217,7 @@ let rec match_types_type (t: types) = match t with
 | TDependentRefine (_, t1, _, t2) -> match_types_type t1 @ match_types_type t2 
 | TRefine (id, _, _) -> [match_value_type "" id]
 | TFun _ -> [Var]
+| TApp (app, ids) -> [match_value_type app (List.hd ids)]
 
 let match_op_type (op:op) = match op with 
 | ADD -> Int 
@@ -210,6 +243,13 @@ let rec match_wire_type (des:dexpr list) = match des with
   | BoolWire -> BoolWire 
   | _ -> Wire 
   )
+
+and match_unbox_type (des: dexpr list) = let hd = List.hd des in 
+  match type_of_dexpr hd with 
+  | BoxInt -> Int 
+  | BoxBool -> Bool 
+  | _ -> Var 
+    
 and type_of_dexpr (de:dexpr) = match de with 
 | EVar_d dv -> dv.typ
 | EApp_d (dv , des) -> let dv_typ = match_apply_name_type dv.name in 
@@ -218,6 +258,7 @@ and type_of_dexpr (de:dexpr) = match de with
     | Wire -> match_wire_type des 
     | Bool -> Bool 
     | Sec -> Sec
+    | Unbox -> match_unbox_type des 
     | _ -> Var
     )
 | ELet_d (_, de1, _) -> type_of_dexpr de1
@@ -346,6 +387,10 @@ and cons_of_dexpr (env:env ref) (e: exprs) = match e with
             let result_ast = EFun_d (b_v, e_d) in 
               b_v.aste <- Some result_ast;
               result_ast
+| ECond (cond, e1, e2) -> let cond_d = cons_of_dexpr env cond in 
+  let e1_d = cons_of_dexpr env e1 in 
+  let e2_d = cons_of_dexpr env e2 in 
+    ECond_d (cond_d, e1_d, e2_d)
 | _ -> EVar_d (make_dvalue "none" Var env)
 
 

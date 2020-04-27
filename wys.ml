@@ -46,6 +46,8 @@ and string_of_type (t : types ) = match t with
 | TFun (b, t) -> let str_b = string_of_binders b in 
     let str_t = string_of_type t in 
       Printf.sprintf "(Fun %s -> %s)" str_b str_t 
+| TApp (app, ids) -> let str = app ^" "^ (String.concat " " ids) in 
+  Printf.sprintf "(App %s)" str
 
 and string_of_formula  = fun _ -> ""
 
@@ -116,6 +118,10 @@ and string_of_expr (e : exprs) = match e with
 | EFun (bin, e) -> let str_b = string_of_binder bin in 
     let str_e = string_of_expr e in 
       Printf.sprintf " (&Fun %s -> %s ) " str_b str_e  
+| ECond (cond, e1, e2) -> let str_cond = string_of_expr cond in 
+    let str_e1 = string_of_expr e1 in 
+      let str_e2 = string_of_expr e2 in 
+         Printf.sprintf "(if %s then %s else %s)" str_cond str_e1 str_e2
 
 and string_of_decl d = match d with 
 | DOpen m -> Printf.sprintf "(Open %s)" m 
@@ -165,8 +171,8 @@ let process (line : string) =
             print1 "\nVerified!\n"
           else 
             print1 "\nVerifying failure???\n"
-          in 
-          print_dprog (fst ast_d)
+          in
+          ()
 
   with
   | Lexer.Error msg ->
